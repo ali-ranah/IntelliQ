@@ -1,0 +1,929 @@
+[
+  {
+    "Question": "7 � �9 � �5 � �11� � � � � � � � � �4� �15 � 12� �7� � � � � � � � � � � � �13 �8 � �11� �?",
+    "Category": "Which number logically follows this series?",
+    "Correct": 2,
+    "option1": "8",
+    "option2": "10",
+    "option3": "11",
+    "option4": "13"
+  },
+  {
+    "Question": "2 � 5 � 7� � � � � � �4 � 7 � 5� � � � � �3 � 6� �?",
+    "Category": "Which number logically follows this series?",
+    "Correct": 2,
+    "option1": "4",
+    "option2": "6",
+    "option3": "8",
+    "option4": "10"
+  },
+  {
+    "Question": "2, 5,� 8,� 11, ?",
+    "Category": "Which number logically follows this series?",
+    "Correct": 3,
+    "option1": "8",
+    "option2": "12",
+    "option3": "14",
+    "option4": "16"
+  },
+  {
+    "Question": "121, 144, 169, 196, ?",
+    "Category": "Which number logically follows this series?",
+    "Correct": 1,
+    "option1": "225",
+    "option2": "230",
+    "option3": "275",
+    "option4": "221"
+  },
+  {
+    "Question": "4, 6,� 9,� 6, 14,� 6,� ?",
+    "Category": "Which number logically follows this series?",
+    "Correct": 4,
+    "option1": "14",
+    "option2": "9",
+    "option3": "16",
+    "option4": "19"
+  },
+  {
+    "Question": "2, 3, 5, 9, 17, 33, 65, ?",
+    "Category": "Which number logically follows this series?",
+    "Correct": 2,
+    "option1": "104",
+    "option2": "129",
+    "option3": "97",
+    "option4": "135"
+  },
+  {
+    "Question": "1, 3, 12, 52, 265, ?",
+    "Category": "Which number logically follows this series?",
+    "Correct": 4,
+    "option1": "1188�",
+    "option2": "1390",
+    "option3": "1489",
+    "option4": "1596"
+  },
+  {
+    "Question": "2, 8, 26, 62, 122, 212,?",
+    "Category": "Which number logically follows this series?",
+    "Correct": 1,
+    "option1": "338�",
+    "option2": "339",
+    "option3": "340",
+    "option4": "341"
+  },
+  {
+    "Question": "13, 17, 19, 23, 29,?",
+    "Category": "Which number logically follows this series?",
+    "Correct": 2,
+    "option1": "30",
+    "option2": "31",
+    "option3": "33",
+    "option4": "34"
+  },
+  {
+    "Question": "2, 3, 6, 11, 18, 27, ?",
+    "Category": "Which number logically follows this series?",
+    "Correct": 3,
+    "option1": "21",
+    "option2": "28",
+    "option3": "38",
+    "option4": "41"
+  },
+  {
+    "Question": "2, 2, 4, 12, 48, 240, ?",
+    "Category": "Which number logically follows this series?",
+    "Correct": 4,
+    "option1": "347�",
+    "option2": "567",
+    "option3": "1009",
+    "option4": "1440"
+  },
+  {
+    "Question": "3 2 2 5 5 5 7 8 8 9 11 11 ?",
+    "Category": "Which number logically follows this series?",
+    "Correct": 1,
+    "option1": "11",
+    "option2": "12",
+    "option3": "13",
+    "option4": "15"
+  },
+  {
+    "Question": "�1 3 2 6 3 11 4 18 5 ?",
+    "Category": "Which number logically follows this series?",
+    "Correct": 3,
+    "option1": "20",
+    "option2": "25",
+    "option3": "27",
+    "option4": "29"
+  },
+  {
+    "Question": "13 17 23 29 31 37 ?",
+    "Category": "Which number logically follows this series?",
+    "Correct": 2,
+    "option1": "39",
+    "option2": "41",
+    "option3": "49",
+    "option4": "55"
+  },
+  {
+    "Question": "17 16 14 12 11 8 8 ?",
+    "Category": "Which number logically follows this series?",
+    "Correct": 4,
+    "option1": "none of the above",
+    "option2": "11",
+    "option3": "3",
+    "option4": "4"
+  },
+  {
+    "Question": "9 11 13 ?",
+    "Category": "Which number logically follows this series?",
+    "Correct": 1,
+    "option1": "none of the above",
+    "option2": "14",
+    "option3": "16",
+    "option4": "17"
+  },
+  {
+    "Question": "5, 6, 9, 14, 21, ?",
+    "Category": "Which number logically follows this series?",
+    "Correct": 2,
+    "option1": "none of the above",
+    "option2": "30",
+    "option3": "31",
+    "option4": "36"
+  },
+  {
+    "Question": "40, 30, 22, 16, ?",
+    "Category": "Which number logically follows this series?",
+    "Correct": 1,
+    "option1": "12",
+    "option2": "10",
+    "option3": "14",
+    "option4": "30"
+  },
+  {
+    "Question": "1, 3, 6, 11, 18, ?",
+    "Category": "Which number logically follows this series?",
+    "Correct": 4,
+    "option1": "20",
+    "option2": "24",
+    "option3": "25",
+    "option4": "29"
+  },
+  {
+    "Question": "32, 19, 8, ?",
+    "Category": "Which number logically follows this series?",
+    "Correct": 1,
+    "option1": "1",
+    "option2": "3",
+    "option3": "5",
+    "option4": "10"
+  },
+  {
+    "Question": "1, 3, 9, 27, 81, ?",
+    "Category": "Which number logically follows this series?",
+    "Correct": 2,
+    "option1": "216",
+    "option2": "243",
+    "option3": "250",
+    "option4": "none of the above"
+  },
+  {
+    "Question": "1, 2, 6, 15, 31, ?",
+    "Category": "Which number logically follows this series?",
+    "Correct": 2,
+    "option1": "44",
+    "option2": "56",
+    "option3": "60",
+    "option4": "none of the above"
+  },
+  {
+    "Question": "71, 55, 46, 42, ?",
+    "Category": "Which number logically follows this series?",
+    "Correct": 1,
+    "option1": "41",
+    "option2": "40",
+    "option3": "39",
+    "option4": "60"
+  },
+  {
+    "Question": "1, 2, 10, 37, 101, ?",
+    "Category": "Which number logically follows this series?",
+    "Correct": 3,
+    "option1": "402",
+    "option2": "206",
+    "option3": "226",
+    "option4": "178"
+  },
+  {
+    "Question": "225, 100, 36, 9, 1, ?",
+    "Category": "Which number logically follows this series?",
+    "Correct": 4,
+    "option1": "11",
+    "option2": "-5",
+    "option3": "6",
+    "option4": "0"
+  },
+  {
+    "Question": "13, 25, 51, 101, 203, ?",
+    "Category": "Which number logically follows this series?",
+    "Correct": 3,
+    "option1": "306",
+    "option2": "344",
+    "option3": "405",
+    "option4": "406"
+  },
+  {
+    "Question": "5, 11, 23, 47, 95, ?",
+    "Category": "Which number logically follows this series?",
+    "Correct": 3,
+    "option1": "176�",
+    "option2": "191",
+    "option3": "199",
+    "option4": "207"
+  },
+  {
+    "Question": "1, 2, 2, 4, 3, 8, 7, 10, ?",
+    "Category": "Which number logically follows this series?",
+    "Correct": 4,
+    "option1": "9",
+    "option2": "8",
+    "option3": "13",
+    "option4": "11"
+  },
+  {
+    "Question": "831, 842, 853, 864, 875, ?",
+    "Category": "Which number logically follows this series?",
+    "Correct": 2,
+    "option1": "880",
+    "option2": "886",
+    "option3": "890",
+    "option4": "892"
+  },
+  {
+    "Question": "74, 83, 92, 101, 110",
+    "Category": "Which number logically follows this series?",
+    "Correct": 2,
+    "option1": "118",
+    "option2": "119",
+    "option3": "120",
+    "option4": "122"
+  },
+  {
+    "Question": "8 �10 �14 �18 �?� 34 �50 �66",
+    "Category": "Which number is missing?",
+    "Correct": 2,
+    "option1": "20",
+    "option2": "26",
+    "option3": "28",
+    "option4": "30"
+  },
+  {
+    "Question": "�16 (31) 47\n\n�21 (?) 48",
+    "Category": "Which number is missing?",
+    "Correct": 4,
+    "option1": "37",
+    "option2": "21",
+    "option3": "15",
+    "option4": "27"
+  },
+  {
+    "Question": "7 9 8 6 10 9 5 11 10 ? 12",
+    "Category": "Which number is missing?",
+    "Correct": 1,
+    "option1": "4",
+    "option2": "15",
+    "option3": "11",
+    "option4": "29"
+  },
+  {
+    "Question": "?� 9� 27� 81",
+    "Category": "Which number is missing?",
+    "Correct": 3,
+    "option1": "0",
+    "option2": "1",
+    "option3": "3",
+    "option4": "5"
+  },
+  {
+    "Question": "144,� ?,� 206,� 240",
+    "Category": "Which number is missing?",
+    "Correct": 4,
+    "option1": "155",
+    "option2": "167",
+    "option3": "170",
+    "option4": "174"
+  },
+  {
+    "Question": "16, 64, ?, 1024, 4096",
+    "Category": "Which number is missing?",
+    "Correct": 3,
+    "option1": "98",
+    "option2": "156",
+    "option3": "256",
+    "option4": "298"
+  },
+  {
+    "Question": "56, 75, 94, ? , 132",
+    "Category": "Which number is missing?",
+    "Correct": 1,
+    "option1": "113",
+    "option2": "128",
+    "option3": "130",
+    "option4": "131"
+  },
+  {
+    "Question": "19, 57, ?, 513",
+    "Category": "Which number is missing?",
+    "Correct": 2,
+    "option1": "88",
+    "option2": "171",
+    "option3": "333",
+    "option4": "467"
+  },
+  {
+    "Question": "2448, 408, 68, ?�",
+    "Category": "Which number is missing?",
+    "Correct": 3,
+    "option1": "9",
+    "option2": "11",
+    "option3": "17",
+    "option4": "29"
+  },
+  {
+    "Question": "68, ?, 86, 95, 104",
+    "Category": "Which number is missing?",
+    "Correct": 1,
+    "option1": "77",
+    "option2": "11",
+    "option3": "17",
+    "option4": "29"
+  },
+  {
+    "Question": "(-9) (-6) (-3) (?) (3)",
+    "Category": "Which number is missing?",
+    "Correct": 4,
+    "option1": "3",
+    "option2": "4",
+    "option3": "5",
+    "option4": "0"
+  },
+  {
+    "Question": "498� � � � � 668� � � � � ?� � � � � �974\n\n�(249)� � �(334)� � �(448)� � �(486)",
+    "Category": "Which number is missing?",
+    "Correct": 3,
+    "option1": "699",
+    "option2": "966",
+    "option3": "896",
+    "option4": "716"
+  },
+  {
+    "Question": "64, ?, 1024, 4096",
+    "Category": "Which number is missing?",
+    "Correct": 4,
+    "option1": "98",
+    "option2": "167",
+    "option3": "199",
+    "option4": "256"
+  },
+  {
+    "Question": "169, ?, 225, 256, 289",
+    "Category": "Which number is missing?",
+    "Correct": 2,
+    "option1": "176",
+    "option2": "196",
+    "option3": "199",
+    "option4": "200"
+  },
+  {
+    "Question": "278, 179, ?, -19, -118",
+    "Category": "Which number is missing?",
+    "Correct": 2,
+    "option1": "0",
+    "option2": "80",
+    "option3": "-7",
+    "option4": "66"
+  },
+  {
+    "Question": "2754, ?,� 306,� 102,� 34",
+    "Category": "Which number is missing?",
+    "Correct": 1,
+    "option1": "918",
+    "option2": "1345",
+    "option3": "1266",
+    "option4": "1456"
+  },
+  {
+    "Question": "288� � � 594� � � � � ?� � � � �738\n\n�(48)� � �(99)� � �(98)� � �(123)",
+    "Category": "Which number is missing?",
+    "Correct": 3,
+    "option1": "677",
+    "option2": "413",
+    "option3": "588",
+    "option4": "698"
+  },
+  {
+    "Question": "83, ?, 332, 664",
+    "Category": "Which number is missing?",
+    "Correct": 1,
+    "option1": "166",
+    "option2": "178",
+    "option3": "266",
+    "option4": "567"
+  },
+  {
+    "Question": "92, ?, 5888, 47 104",
+    "Category": "Which number is missing?",
+    "Correct": 4,
+    "option1": "109",
+    "option2": "167",
+    "option3": "677",
+    "option4": "736"
+  },
+  {
+    "Question": "78, 184, ?, 396, 502",
+    "Category": "Which number is missing?",
+    "Correct": 1,
+    "option1": "290",
+    "option2": "1345�",
+    "option3": "1266",
+    "option4": "1456"
+  },
+  {
+    "Question": "Mary is 16 years old. She is 4 times older than her brother. How old will Mary be when she is twice his age?",
+    "Category": "Find the right answer to this question.",
+    "Correct": 3,
+    "option1": "That's impossible�",
+    "option2": "20",
+    "option3": "24",
+    "option4": "28"
+  },
+  {
+    "Question": "Which fraction is the biggest?",
+    "Category": "Find the right answer to this question.",
+    "Correct": 2,
+    "option1": " 3/5",
+    "option2": " 5/8",
+    "option3": " 5/9",
+    "option4": " 4/7"
+  },
+  {
+    "Question": "The store reduces the price of one product by 20 percent. How many percent do you need to raise to the percentage to get the original price?",
+    "Category": "Find the right answer to this question.",
+    "Correct": 1,
+    "option1": "25",
+    "option2": "27",
+    "option3": "30",
+    "option4": "35"
+  },
+  {
+    "Question": "There are 5 machines that make 5 parts in 5 minutes. How long does it take to make 100 parts on 100 machines?",
+    "Category": "Find the right answer to this question.",
+    "Correct": 1,
+    "option1": "5",
+    "option2": "10",
+    "option3": "13",
+    "option4": "30"
+  },
+  {
+    "Question": "There is a lake on the surface of which water lilies float. The number of lilies doubles daily. If it takes 48 days to completely occupy the entire area of the lake, how many days will it take to occupy the floor of the lake?",
+    "Category": "Find the right answer to this question.",
+    "Correct": 1,
+    "option1": "47",
+    "option2": "46",
+    "option3": "96",
+    "option4": "108"
+  },
+  {
+    "Question": "A car travels at a speed of 40 mph over a certain distance and then returns over the same distance at a speed of 60 mph. What is the average speed for the total journey?",
+    "Category": "Find the right answer to this question.",
+    "Correct": 4,
+    "option1": "30 mph",
+    "option2": "40 mph",
+    "option3": "60 mph",
+    "option4": "48 mph"
+  },
+  {
+    "Question": "SUNDAY\nMONDAY\nTUESDAY\nWEDNESDAY\nTHURSDAY\nFRIDAY\nSATURDAY\nSUNDAY\n\nWhich day is three days before the day immediately following the day two days before the day three days after the day immediately before Friday?",
+    "Category": "Find the right answer to this question.",
+    "Correct": 2,
+    "option1": "Tuesday",
+    "option2": "Wednesday",
+    "option3": "Thursday",
+    "option4": "Sunday"
+  },
+  {
+    "Question": "What is always associated with DOLMEN?�",
+    "Category": "Find the right answer to this question.",
+    "Correct": 4,
+    "option1": "cloths",
+    "option2": "statue",
+    "option3": "tribe",
+    "option4": "stone"
+  },
+  {
+    "Question": "What is the name given to a group of HORSES?",
+    "Category": "Find the right answer to this question.",
+    "Correct": 2,
+    "option1": "husk�",
+    "option2": "harras",
+    "option3": "mute",
+    "option4": "rush"
+  },
+  {
+    "Question": "You have accidentally left the plug out of the bath and are attempting to fill the bath with both taps full on. The hot tap takes three minutes to fill the bath and the cold tap two minutes, and the water empties through the plughole in six minutes. In how many minutes will the bath be filled?",
+    "Category": "Find the right answer to this question.",
+    "Correct": 3,
+    "option1": "1",
+    "option2": "3",
+    "option3": "1.5",
+    "option4": "5"
+  },
+  {
+    "Question": "Which word in brackets is opposite in meaning to the word in capitals? FREQUENT",
+    "Category": "Find the right answer to this question.",
+    "Correct": 3,
+    "option1": "glow",
+    "option2": "restrain",
+    "option3": "avoid",
+    "option4": "discard"
+  },
+  {
+    "Question": "What is the name given to a group of FINCHES?�",
+    "Category": "Find the right answer to this question.",
+    "Correct": 1,
+    "option1": "a charm",
+    "option2": "a cluster",
+    "option3": "a nest",
+    "option4": "a place"
+  },
+  {
+    "Question": "What is a GOOGOL?",
+    "Category": "Find the right answer to this question.",
+    "Correct": 4,
+    "option1": "a folk dance",
+    "option2": "a carrion crow�",
+    "option3": "an albatross",
+    "option4": "a mathematical term"
+  },
+  {
+    "Question": "Which is the odd one out? CLAVICHORD, HARPSICHORD, CLARION, ACCORDION",
+    "Category": "Find the right answer to this question.",
+    "Correct": 3,
+    "option1": "clavichord",
+    "option2": "harpsichord�",
+    "option3": "clarion",
+    "option4": "accordion"
+  },
+  {
+    "Question": "LATTICE : WINDOW Which two words below have the same relationship as the two words above?",
+    "Category": "Find the right answer to this question.",
+    "Correct": 2,
+    "option1": "portal: gable",
+    "option2": "mansard: roof",
+    "option3": "parapet: door�",
+    "option4": "fascia: floor"
+  },
+  {
+    "Question": "Which word in brackets means the same as the word in capitals? INDISCRETION",
+    "Category": "Find the right answer to this question.",
+    "Correct": 1,
+    "option1": "folly",
+    "option2": "sloth",
+    "option3": "aversion�",
+    "option4": "vacillation"
+  },
+  {
+    "Question": "Which is the odd one out?",
+    "Category": "Find the right answer to this question.",
+    "Correct": 2,
+    "option1": "SALIFEROUS �",
+    "option2": "EVACUATION",
+    "option3": "EXHAUSTION",
+    "option4": "INOCULATED"
+  },
+  {
+    "Question": "What is an ORRERY?",
+    "Category": "Find the right answer to this question.",
+    "Correct": 3,
+    "option1": "a museum",
+    "option2": "a dungeon� �",
+    "option3": "a clockwork model�",
+    "option4": "a golden ornament"
+  },
+  {
+    "Question": "Which one of these is not an animal?",
+    "Category": "Find the right answer to this question.",
+    "Correct": 4,
+    "option1": "macyan",
+    "option2": "lawsee",
+    "option3": "rougac",
+    "option4": "dihras"
+  },
+  {
+    "Question": "MUSIC: COMPOSE\n\nDEVICE: ?",
+    "Category": "Find the right answer to this question.",
+    "Correct": 4,
+    "option1": "use",
+    "option2": "create",
+    "option3": "construct",
+    "option4": "invent"
+  },
+  {
+    "Question": "Which one of these is not a vegetable?",
+    "Category": "Find the right answer to this question.",
+    "Correct": 2,
+    "option1": "rocart�",
+    "option2": "xestte",
+    "option3": "romraw�",
+    "option4": "eyeclr"
+  },
+  {
+    "Question": "What is the name given to a group of BUTLERS?",
+    "Category": "Find the right answer to this question.",
+    "Correct": 3,
+    "option1": "blast�",
+    "option2": "host",
+    "option3": "draught�",
+    "option4": "stuff"
+  },
+  {
+    "Question": "What is a CURRICLE?",
+    "Category": "Find the right answer to this question.",
+    "Correct": 1,
+    "option1": "a vehicle",
+    "option2": "a boat",
+    "option3": "a curtain",
+    "option4": "a vegetable"
+  },
+  {
+    "Question": "Which word means the same as NEGATORY?",
+    "Category": "Find the right answer to this question.",
+    "Correct": 3,
+    "option1": "fallacious",
+    "option2": "prodigious",
+    "option3": "trifling",
+    "option4": "restraining"
+  },
+  {
+    "Question": "What is always associated with FAIENCE?",
+    "Category": "Find the right answer to this question.",
+    "Correct": 1,
+    "option1": "pottery�",
+    "option2": "fairies",
+    "option3": "zink",
+    "option4": "ghosts"
+  },
+  {
+    "Question": "Which of the following is not an anagram of an animal?",
+    "Category": "Find the right answer to this question.",
+    "Correct": 4,
+    "option1": "BRISK PONG",
+    "option2": "PUNCH KIM",
+    "option3": "RED OPAL",
+    "option4": "MOMS HOUR"
+  },
+  {
+    "Question": "Which word in brackets means the same as the word in capitals? PROGENY",
+    "Category": "Find the right answer to this question.",
+    "Correct": 2,
+    "option1": "skill",
+    "option2": "lineage",
+    "option3": "movement",
+    "option4": "vocation"
+  },
+  {
+    "Question": "PERIGEE : APOGEE\n\nPERIHELION: ?",
+    "Category": "Find the right answer to this question.",
+    "Correct": 1,
+    "option1": "aphelion",
+    "option2": "eliptic",
+    "option3": "orrery",
+    "option4": "nadir"
+  },
+  {
+    "Question": "What is a FERRULE?",
+    "Category": "Find the right answer to this question.",
+    "Correct": 1,
+    "option1": "a metal band",
+    "option2": "a circus wheel �",
+    "option3": "a window",
+    "option4": "a funeral"
+  },
+  {
+    "Question": "What is the name given to a group of KITTENS?",
+    "Category": "Find the right answer to this question.",
+    "Correct": 3,
+    "option1": "clutch",
+    "option2": "labour",
+    "option3": "kindle",
+    "option4": "swarm"
+  },
+  {
+    "Question": "What is always associated with GENOA?",
+    "Category": "Find the right answer to this question.",
+    "Correct": 3,
+    "option1": "a bustle",
+    "option2": "haberdashery�",
+    "option3": "a sail",
+    "option4": "an eyeglass"
+  },
+  {
+    "Question": "Which one of these is not a flower?",
+    "Category": "Find the right answer to this question.",
+    "Correct": 4,
+    "option1": "ALEZAA",
+    "option2": "SUCROC",
+    "option3": "TEVOIL",
+    "option4": "TRYLUS"
+  },
+  {
+    "Question": "Which of the following is not an anagram of ?intelligence test??",
+    "Category": "Find the right answer to this question.",
+    "Correct": 4,
+    "option1": "TESTING ELECT LINE",
+    "option2": "TESTING CLIENTELE",
+    "option3": "TIES GENTLE CLIENT",
+    "option4": "LET TESTING CLIENT"
+  },
+  {
+    "Question": "Which word in brackets is opposite in meaning to the word in capitals? GRUESOME",
+    "Category": "Find the right answer to this question.",
+    "Correct": 2,
+    "option1": "enjoyable",
+    "option2": "appealing�",
+    "option3": "wholesome�",
+    "option4": "young"
+  },
+  {
+    "Question": "SUNDAY, MONDAY, WEDNESDAY, SATURDAY, WEDNESDAY\nWhich day comes next?",
+    "Category": "Find the right answer to this question.",
+    "Correct": 2,
+    "option1": "SUNDAY",
+    "option2": "MONDAY",
+    "option3": "WEDNESDAY�",
+    "option4": "SATURDAY"
+  },
+  {
+    "Question": "Which word means the same as ESOTERIC?",
+    "Category": "Find the right answer to this question.",
+    "Correct": 4,
+    "option1": "pristine",
+    "option2": "misshapen",
+    "option3": "gibbous",
+    "option4": "secret"
+  },
+  {
+    "Question": "What is a GIGOT?",
+    "Category": "Find the right answer to this question.",
+    "Correct": 2,
+    "option1": "a dancer",
+    "option2": "a leg of mutton",
+    "option3": "a measure",
+    "option4": "a rogue"
+  },
+  {
+    "Question": "What is the name given to a group of LARKS?",
+    "Category": "Find the right answer to this question.",
+    "Correct": 1,
+    "option1": "exaltation",
+    "option2": "badelynge",
+    "option3": "flock",
+    "option4": "pitying"
+  },
+  {
+    "Question": "Which one of these is not a musical instrument?",
+    "Category": "Find the right answer to this question.",
+    "Correct": 2,
+    "option1": "NILOIV",
+    "option2": "MATBAN",
+    "option3": "THIZRE",
+    "option4": "LAMYCB"
+  },
+  {
+    "Question": "Only one set of letters below can be arranged into a five-letter word. Can you find the word?",
+    "Category": "Find the right answer to this question.",
+    "Correct": 3,
+    "option1": "KIRCE",
+    "option2": "ONTDI",
+    "option3": "EMRUD",
+    "option4": "ENCID"
+  },
+  {
+    "Question": "Which word in brackets is opposite in meaning to the word in capitals?� SURREPTITIOUS",
+    "Category": "Find the right answer to this question.",
+    "Correct": 4,
+    "option1": "servile",
+    "option2": "trusty",
+    "option3": "scarce",
+    "option4": "overt"
+  },
+  {
+    "Question": "Which is the odd one out?",
+    "Category": "Find the right answer to this question.",
+    "Correct": 1,
+    "option1": "MOGUL",
+    "option2": "SHANG",
+    "option3": "TANG",
+    "option4": "MING"
+  },
+  {
+    "Question": "GENEALOGY : ANCESTRY\n\nETYMOLOGY : ?",
+    "Category": "Find the right answer to this question.",
+    "Correct": 4,
+    "option1": "knowledge",
+    "option2": "fossils",
+    "option3": "inscriptions",
+    "option4": "words"
+  },
+  {
+    "Question": "What is STOCCADO?",
+    "Category": "Find the right answer to this question.",
+    "Correct": 3,
+    "option1": "a stockade",
+    "option2": "fast-talking",
+    "option3": "a fencing stroke",
+    "option4": "illness"
+  },
+  {
+    "Question": "What is the name given to a group of PEACOCKS?",
+    "Category": "Find the right answer to this question.",
+    "Correct": 2,
+    "option1": "bevy",
+    "option2": "ostentation�",
+    "option3": "lepe",
+    "option4": "richesse"
+  },
+  {
+    "Question": "What is always associated with INCARNADINE?",
+    "Category": "Find the right answer to this question.",
+    "Correct": 3,
+    "option1": "�imprisonment",
+    "option2": "body language",
+    "option3": "flesh coloured�",
+    "option4": "quarries"
+  },
+  {
+    "Question": "Which one of these is not a weather term?",
+    "Category": "Find the right answer to this question.",
+    "Correct": 3,
+    "option1": "YLILHC",
+    "option2": "YTOSMR",
+    "option3": "SUMPOS",
+    "option4": "WEROHS"
+  },
+  {
+    "Question": "Which word in brackets means the same as the word in capitals. METAPHYSICAL�",
+    "Category": "Find the right answer to this question.",
+    "Correct": 2,
+    "option1": "transient",
+    "option2": "esoteric",
+    "option3": "symbolic",
+    "option4": "fastidious"
+  },
+  {
+    "Question": "Only one set of letters below can be arranged into a fiveletter word. Can you find the word?�",
+    "Category": "Find the right answer to this question.",
+    "Correct": 4,
+    "option1": "KIRCE",
+    "option2": "ENCID",
+    "option3": "ONTDI",
+    "option4": "EMRUD"
+  },
+  {
+    "Question": "Which word means the same as ESPALIER?",
+    "Category": "Find the right answer to this question.",
+    "Correct": 1,
+    "option1": "wooden trellis �",
+    "option2": "spectre",
+    "option3": "advocate",
+    "option4": "ligament"
+  },
+  {
+    "Question": "Which word in brackets is most opposite in meaning to the word in capitals? EXPEDITE",
+    "Category": "Find the right answer to this question.",
+    "Correct": 3,
+    "option1": "dispatch",
+    "option2": "dismiss�",
+    "option3": "curb",
+    "option4": "conclude"
+  },
+  {
+    "Question": "How many minutes is it before noon if 29 minutes ago it was six times as many minutes past 10 am?",
+    "Category": "Find the right answer to this question.",
+    "Correct": 1,
+    "option1": "13 minutes",
+    "option2": "15 minutes",
+    "option3": "10 minutes",
+    "option4": "16 minutes"
+  },
+  {
+    "Question": "Which is the odd one out?",
+    "Category": "Find the right answer to this question.",
+    "Correct": 4,
+    "option1": "dilate�",
+    "option2": "elaborate",
+    "option3": "expatiate",
+    "option4": "interpret"
+  }
+]
