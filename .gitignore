@@ -11,6 +11,9 @@ frontend/node_modules/
 frontend/android/
 frontend/.gradle/
 frontend/.expo/
+frontend/gradlew
+frontend/gradlew.bat
+
 frontend/eas.json
 backend/node_modules/
 backend/uploads/
