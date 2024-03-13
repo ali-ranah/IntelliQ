@@ -24,10 +24,6 @@ const ProfileScreen = () => {
         fetchData();
     }, [route.params]);
 
-    useEffect(() => {
-        // Automatically update profile picture when it changes
-        fetchProfilePicture();
-    }, [profilePicture]);
 
     const handleUpdateName = () => {
         navigation.navigate('UpdateName', { email, currentName, isGoogleSignedIn });
