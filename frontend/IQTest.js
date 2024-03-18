@@ -10,11 +10,13 @@ import { styles } from "./theme";
 const Test = ({ route }) => {
     const navigation = useNavigation();
     const email = route.params ? route.params.email : 'No email provided';
+    const isGoogleSignedIn = route.params ? route.params.isGoogleSignedIn : 'Not Signed In';
+
     console.log('Email in Test screen:', email);
 
 
     const handleIQTest = () => {
-        navigation.navigate('Mcqs')
+        navigation.navigate('Category',{ email,isGoogleSignedIn })
     }
 
 
@@ -43,7 +45,7 @@ const Test = ({ route }) => {
             </KeyboardAvoidingView>
             <View style={styles.container}>
 
-                <Text style={styles.app_title}>IQ Test</Text>
+                <Text style={styles.screen_title}>IQ Test</Text>
                 <TouchableOpacity style={styles.btn} onPress={handleIQTest}>
                     <Text style={styles.btn_text}>Start IQ Test</Text>
                 </TouchableOpacity>

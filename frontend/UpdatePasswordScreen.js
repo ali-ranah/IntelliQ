@@ -55,16 +55,17 @@ const UpdatePassword = () => {
 
     return (
         <>
+            <View style={styles.container}>
             <KeyboardAvoidingView
                 behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
                 style={{
                     position: 'absolute',
-                    top: '10%',
+                    top: '2%',
                     left: 0,
                     right: 0,
                     bottom: '50%',
                     zIndex: 1,
-                    marginBottom: '10%'
+                    marginBottom: '30%'
                 }}
             >
                 <LottieView
@@ -75,8 +76,7 @@ const UpdatePassword = () => {
                 />
 
             </KeyboardAvoidingView>
-            <View style={styles.container}>
-                <Text style={styles.title}>Update Password</Text>
+                <Text style={styles.screen_title}>Update Password</Text>
                 <View style={styles.inputView}>
                     <TextInput
                         style={styles.inputText}

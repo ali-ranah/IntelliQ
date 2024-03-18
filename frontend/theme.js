@@ -12,7 +12,6 @@ const styles = StyleSheet.create({
         position: 'absolute',
         flexDirection: 'row',
         zIndex: 1,
-
     },
     l_scontainer: {
         flex: 1,
@@ -25,6 +24,7 @@ const styles = StyleSheet.create({
         bottom: 90,
     },
     content: {
+        backgroundColor: 'white',
         justifyContent: 'center',
         alignItems: 'center',
     },
@@ -71,6 +71,26 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         padding: 20,
     },
+    card: {
+        width: '46%',
+        height: 100,
+        backgroundColor: '#fb5b5a',
+        borderRadius: 10,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 20,
+        marginBottom: 20,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 10,
+      },
+      cardText: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        color:'white'
+      },
     drawerHeaderText: {
         fontWeight: "bold",
         textAlign: 'center',
@@ -180,6 +200,11 @@ const styles = StyleSheet.create({
         shadowRadius: 3.84,
         elevation: 10,
     },
+    cardView:{
+            display: 'flex',
+            alignItems: 'start',
+            justifyContent: 'center',
+    },
     updateButton: {
         backgroundColor: '#fb5b5a',
         padding: 10,
@@ -244,6 +269,17 @@ const styles = StyleSheet.create({
         marginTop: 40,
         marginBottom: 10,
     },
+    timerContainer: {
+        flexDirection: 'row',
+        justifyContent:'center',
+        alignItems: 'center',
+        marginBottom: 20,
+    },
+    timerText: {
+        marginLeft: 5,
+        fontSize: 18,
+        fontWeight: 'bold',
+    },
     text: {
         fontWeight: "500",
         fontSize: 15,
@@ -256,6 +292,27 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
+    resultContainer: {
+        width: '80%',
+        height: 70,
+        backgroundColor: '#fb5b5a',
+        borderRadius: 16,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 20,
+        marginBottom: 20,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 10,
+},
+resultText: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color:'white'
+},
+
     googlebtn: {
         width: "80%",
         borderRadius: 25,
@@ -318,6 +375,11 @@ const styles = StyleSheet.create({
         color: "black",
         marginBottom: 40,
     },
+    row:{
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    },
     scrollContainer: {
         flexGrow: 1,
         padding: 0,
@@ -328,6 +390,16 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
+    },
+    screen_title: {
+        fontWeight: "bold",
+        fontSize: 40,
+        justifyContent: 'center',
+        alignContent: 'center',
+        color: "#fb5b5a",
+        marginBottom: 10,
+        marginTop: '10%',
+
     },
 });
 

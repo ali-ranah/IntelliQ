@@ -17,7 +17,7 @@ const app = express();
 app.use(bodyParser.json());
 
 const corsOptions = {
-    origin: '*', // Replace with your actual Expo client address
+    origin: '*', 
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
     optionsSuccessStatus: 204,
@@ -37,12 +37,19 @@ const initializeDatabase = () => {
         );
 
         db.run(
-            'CREATE TABLE IF NOT EXISTS registered_accounts_with_google (email TEXT PRIMARY KEY, name TEXT, profile_picture BLOB);'
+            'CREATE TABLE IF NOT EXISTS registered_accounts_with_google (id INTEGER PRIMARY KEY AUTOINCREMENT,email TEXT, name TEXT, profile_picture BLOB);'
         );
 
         db.run(
             'CREATE TABLE IF NOT EXISTS registered_accounts_reset (email TEXT, verification_code TEXT);'
         );
+        db.run(
+            'CREATE TABLE IF NOT EXISTS scores (id INTEGER PRIMARY KEY AUTOINCREMENT, user_id INTEGER, score INTEGER, FOREIGN KEY(user_id) REFERENCES registered_accounts(id));'
+        );
+        db.run(
+            'CREATE TABLE IF NOT EXISTS google_scores (id INTEGER PRIMARY KEY AUTOINCREMENT, user_id INTEGER, score INTEGER, FOREIGN KEY(user_id) REFERENCES registered_accounts_with_google(id));'
+        );
+        
 
         db.exec(sqlStatements, (err) => {
             if (err) {
@@ -532,6 +539,298 @@ app.get('/get_profile_picture_google/:email', async (req, res) => {
     }
 });
 
+app.post('/scores/:email', async (req, res) => {
+    const { email } = req.params;
+    const { score } = req.body;
+
+    // Get the user's ID from the registered_accounts table
+    db.get('SELECT id FROM registered_accounts WHERE email = ?', [email], (err, row) => {
+        if (err) {
+            console.error('Error fetching user ID:', err);
+            res.status(500).json({ error: 'Failed to fetch user ID' });
+            return;
+        }
+
+        if (!row) {
+            res.status(404).json({ error: 'User not found' });
+            return;
+        }
+
+        const userId = row.id;
+
+        // Insert the new score into the scores table
+        db.run(
+            'INSERT INTO scores (user_id, score) VALUES (?, ?)',
+            [userId, score],
+            (err) => {
+                if (err) {
+                    console.error('Error inserting score:', err);
+                    res.status(500).json({ error: 'Failed to insert score' });
+                } else {
+                    res.status(200).json({ message: 'Score added successfully' });
+                }
+            }
+        );
+    });
+});
+
+app.post('/google-scores/:email', async (req, res) => {
+    const { email } = req.params;
+    const { score } = req.body;
+
+    // Get the user's ID from the registered_accounts table
+    db.get('SELECT id FROM registered_accounts_with_google WHERE email = ?', [email], (err, row) => {
+        if (err) {
+            console.error('Error fetching user ID:', err);
+            res.status(500).json({ error: 'Failed to fetch user ID' });
+            return;
+        }
+
+        if (!row) {
+            res.status(404).json({ error: 'User not found' });
+            return;
+        }
+
+        const userId = row.id;
+
+        // Insert the new score into the scores table
+        db.run(
+            'INSERT INTO google_scores (user_id, score) VALUES (?, ?)',
+            [userId, score],
+            (err) => {
+                if (err) {
+                    console.error('Error inserting score:', err);
+                    res.status(500).json({ error: 'Failed to insert score' });
+                } else {
+                    res.status(200).json({ message: 'Score added successfully' });
+                }
+            }
+        );
+    });
+});
+// app.get('/top-scores/:email', async (req, res) => {
+//     const { email } = req.params;
+
+//     try {
+//         const row = await new Promise((resolve, reject) => {
+//             db.get('SELECT id FROM registered_accounts WHERE email = ?', [email], (err, row) => {
+//                 if (err) {
+//                     reject(err);
+//                 } else {
+//                     resolve(row);
+//                 }
+//             });
+//         });
+
+//         if (!row) {
+//             res.status(404).json({ error: 'User not found' });
+//             return;
+//         }
+
+//         const userId = row.id;
+
+//         // Fetch top 5 scores for the user from the scores table
+//         const topScores = await new Promise((resolve, reject) => {
+//             db.all('SELECT * FROM scores WHERE user_id = ? ORDER BY score DESC LIMIT 5', userId, (err, rows) => {
+//                 if (err) {
+//                     reject(err);
+//                 } else {
+//                     resolve(rows);
+//                 }
+//             });
+//         });
+
+//         res.json({ topScores });
+//         console.log('User ID:', userId);
+//         console.log('Top Scores:', topScores);
+//     } catch (error) {
+//         console.error('Error fetching top scores:', error);
+//         res.status(500).json({ message: 'Internal server error' });
+//     }
+// });
+
+app.get('/top-scores/:email', async (req, res) => {
+    const { email } = req.params;
+
+    try {
+        const userData = await new Promise((resolve, reject) => {
+            db.get('SELECT id, name FROM registered_accounts WHERE email = ?', [email], (err, row) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(row);
+                }
+            });
+        });
+
+        if (!userData) {
+            res.status(404).json({ error: 'User not found' });
+            return;
+        }
+
+        const userId = userData.id;
+        const userName = userData.name;
+
+        // Fetch top 5 scores for the user from the scores table
+        const topScores = await new Promise((resolve, reject) => {
+            db.all('SELECT * FROM scores WHERE user_id = ? ORDER BY score DESC LIMIT 5', userId, (err, rows) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(rows);
+                }
+            });
+        });
+        const Scoresdata = topScores.map(score => ({ ...score, userName }));
+
+        res.json(Scoresdata);
+        console.log('User ID:', userId);
+        console.log('User Name:', userName);
+        console.log('Top Scores:', Scoresdata);
+    } catch (error) {
+        console.error('Error fetching top scores:', error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+});
+
+app.get('/top-scores-google/:email', async (req, res) => {
+    const { email } = req.params;
+
+    try {
+        const userData = await new Promise((resolve, reject) => {
+            db.get('SELECT id, name FROM registered_accounts_with_google WHERE email = ?', [email], (err, row) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(row);
+                }
+            });
+        });
+
+        if (!userData) {
+            res.status(404).json({ error: 'User not found' });
+            return;
+        }
+
+        const userId = userData.id;
+        const userName = userData.name;
+
+        // Fetch top 5 scores for the user from the scores table
+        const topScores = await new Promise((resolve, reject) => {
+            db.all('SELECT * FROM google_scores WHERE user_id = ? ORDER BY score DESC LIMIT 5', userId, (err, rows) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(rows);
+                }
+            });
+        });
+        const Scoresdata = topScores.map(score => ({ ...score, userName }));
+
+        res.json(Scoresdata);
+        console.log('User ID:', userId);
+        console.log('User Name:', userName);
+        console.log('Top Scores:', Scoresdata);
+    } catch (error) {
+        console.error('Error fetching top scores:', error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+});
+app.get('/recent-score/:email', async (req, res) => {
+    const { email } = req.params;
+
+    try {
+        const userData = await new Promise((resolve, reject) => {
+            db.get('SELECT id, name FROM registered_accounts WHERE email = ?', [email], (err, row) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(row);
+                }
+            });
+        });
+
+        if (!userData) {
+            res.status(404).json({ error: 'User not found' });
+            return;
+        }
+
+        const userId = userData.id;
+        const userName = userData.name;
+
+        // Fetch the most recent score for the user from the scores table
+        const recentScore = await new Promise((resolve, reject) => {
+            db.get('SELECT * FROM scores WHERE user_id = ? ORDER BY id DESC LIMIT 1', userId, (err, row) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(row);
+                }
+            });
+        });
+
+        if (!recentScore) {
+            res.status(404).json({ error: 'Scores not found' });;
+        } else {
+            res.json({ userName, score: recentScore.score });
+        }
+
+        console.log('User ID:', userId);
+        console.log('User Name:', userName);
+        console.log('Recent Score:', recentScore);
+    } catch (error) {
+        console.error('Error fetching recent score:', error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+});
+
+app.get('/recent-score-google/:email', async (req, res) => {
+    const { email } = req.params;
+
+    try {
+        const userData = await new Promise((resolve, reject) => {
+            db.get('SELECT id, name FROM registered_accounts_with_google WHERE email = ?', [email], (err, row) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(row);
+                }
+            });
+        });
+
+        if (!userData) {
+            res.status(404).json({ error: 'User not found' });
+            return;
+        }
+
+        const userId = userData.id;
+        const userName = userData.name;
+
+        // Fetch the most recent score for the user from the scores table
+        const recentScore = await new Promise((resolve, reject) => {
+            db.get('SELECT * FROM google_scores WHERE user_id = ? ORDER BY id DESC LIMIT 1', userId, (err, row) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(row);
+                }
+            });
+        });
+
+        if (!recentScore) {
+            res.status(404).json({ error: 'Scores not found' });;
+        } else {
+            res.json({ userName, score: recentScore.score });
+        }
+
+        console.log('User ID:', userId);
+        console.log('User Name:', userName);
+        console.log('Recent Score:', recentScore);
+    } catch (error) {
+        console.error('Error fetching recent score:', error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+});
 
 
 app.get('/', (req, res) => {

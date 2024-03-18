@@ -96,14 +96,15 @@ const LoginScreen = () => {
 
   return (
     <>
+      <View style={styles.container}>
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={{
           position: 'absolute',
-          top: '5%',
+          top: '10%',
           left: 0,
           right: 0,
-          bottom: '60%',
+          bottom: '50%',
           marginBottom: '10%',
           zIndex: 1,
         }}
@@ -116,8 +117,6 @@ const LoginScreen = () => {
         />
 
       </KeyboardAvoidingView>
-
-      <View style={styles.container}>
         <Text style={styles.title}>Login</Text>
 
         <View style={styles.inputView}>

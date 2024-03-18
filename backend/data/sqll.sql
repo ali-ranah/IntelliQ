@@ -6,7 +6,7 @@ Category VARCHAR( 100 ),
 Correct VARCHAR(11),
 option1 VARCHAR(11),
 option2 VARCHAR(11),
-option3 VARCHAR( 10 , 2 ),
+option3 VARCHAR( 11 ),
 option4 VARCHAR(11)
 );
 
@@ -745,3 +745,205 @@ VALUES
 (
     'Which is the odd one out?','Find the right answer to this question.',4,'dilate','elaborate','expatiate','interpret'
 );
+INSERT INTO mcqs_question(Question, Category, Correct, option1, option2, option3, option4)
+VALUES (
+    '7  9  5  11         4 15  12 7            13 8  11 ?', 
+    'IQ', 
+    3, 
+    8, 
+    10, 
+    11, 
+    13
+);
+INSERT INTO mcqs_question(Question, Category, Correct, option1, option2, option3, option4)
+VALUES (
+    '3, 8, 18, 38, 78, ?', 
+    'IQ', 
+    4, 
+    98, 
+    118, 
+    158, 
+    198
+);
+INSERT INTO mcqs_question(Question, Category, Correct, option1, option2, option3, option4)
+VALUES (
+    '5, 6, 8, 11, 15, ?', 
+    'IQ', 
+    4, 
+    19, 
+    20, 
+    21, 
+    22
+);
+INSERT INTO mcqs_question(Question, Category, Correct, option1, option2, option3, option4)
+VALUES (
+    '144, 121, 100, 81, 64, ?', 
+    'IQ', 
+    2, 
+    56, 
+    49, 
+    36, 
+    25
+);
+INSERT INTO mcqs_question(Question, Category, Correct, option1, option2, option3, option4)
+VALUES (
+    '3, 4, 6, 9, 15, ?', 
+    'IQ', 
+    2, 
+    21, 
+    24, 
+    27, 
+    30
+);
+INSERT INTO mcqs_question(Question, Category, Correct, option1, option2, option3, option4)
+VALUES (
+    '2, 5, 10, 17, 26, ?', 
+    'IQ', 
+    4, 
+    37, 
+    38, 
+    39, 
+    40
+);
+INSERT INTO mcqs_question(Question, Category, Correct, option1, option2, option3, option4)
+VALUES (
+    '8, 27, 64, 125, 216, ?', 
+    'IQ', 
+    1, 
+    343, 
+    512, 
+    729, 
+    1000
+);
+INSERT INTO mcqs_question(Question, Category, Correct, option1, option2, option3, option4)
+VALUES (
+    '15, 10, 18, 13, 21, ?', 
+    'IQ', 
+    2, 
+    16, 
+    11, 
+    24, 
+    19
+);
+INSERT INTO mcqs_question(Question, Category, Correct, option1, option2, option3, option4)
+VALUES (
+    '6, 9, 15, 24, 36, ?', 
+    'IQ', 
+    4, 
+    50, 
+    48, 
+    40, 
+    45
+);
+INSERT INTO mcqs_question(Question, Category, Correct, option1, option2, option3, option4)
+VALUES (
+    '5, 10, 20, 40, 80, ?', 
+    'IQ', 
+    1, 
+    160, 
+    120, 
+    100, 
+    200
+);
+INSERT INTO mcqs_question(Question, Category, Correct, option1, option2, option3, option4)
+VALUES (
+    '1, 4, 9, 16, 25, ?', 
+    'IQ', 
+    4, 
+    36, 
+    45, 
+    49, 
+    64
+);
+INSERT INTO mcqs_question(Question, Category, Correct, option1, option2, option3, option4)
+VALUES (
+    '3, 12, 27, 48, 75, ?', 
+    'IQ', 
+    1, 
+    108, 
+    112, 
+    100, 
+    96
+);
+INSERT INTO mcqs_question(Question, Category, Correct, option1, option2, option3, option4)
+VALUES (
+    '2, 5, 9, 19, 37, ?', 
+    'IQ', 
+    3, 
+    61, 
+    65, 
+    67, 
+    73
+);
+INSERT INTO mcqs_question(Question, Category, Correct, option1, option2, option3, option4)
+VALUES (
+    '4, 18, 48, 100, ?', 
+    'IQ', 
+    4, 
+    150, 
+    176, 
+    180, 
+    200
+);
+INSERT INTO mcqs_question(Question, Category, Correct, option1, option2, option3, option4)
+VALUES (
+    '10, 13, 17, 22, 28, ?', 
+    'IQ', 
+    3, 
+    34, 
+    36, 
+    38, 
+    40
+);
+INSERT INTO mcqs_question(Question, Category, Correct, option1, option2, option3, option4)
+VALUES (
+    '7, 10, 8, 11, 9, ?', 
+    'IQ', 
+    2, 
+    12, 
+    10, 
+    13, 
+    14
+);
+INSERT INTO mcqs_question(Question, Category, Correct, option1, option2, option3, option4)
+VALUES (
+    '16, 23, 21, 28, 26, ?', 
+    'IQ', 
+    3, 
+    33, 
+    31, 
+    34, 
+    29
+);
+INSERT INTO mcqs_question(Question, Category, Correct, option1, option2, option3, option4)
+VALUES (
+    '2, 12, 30, 56, 90, ?', 
+    'IQ', 
+    1, 
+    122, 
+    112, 
+    140, 
+    100
+);
+INSERT INTO mcqs_question(Question, Category, Correct, option1, option2, option3, option4)
+VALUES (
+    '6, 15, 35, 77, ?', 
+    'IQ', 
+    4, 
+    121, 
+    145, 
+    159, 
+    188
+);
+INSERT INTO mcqs_question(Question, Category, Correct, option1, option2, option3, option4)
+VALUES (
+    '1, 4, 9, 16, 25, ?', 
+    'IQ', 
+    4, 
+    36, 
+    45, 
+    49, 
+    64
+);
+
+

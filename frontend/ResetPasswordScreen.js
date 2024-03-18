@@ -58,6 +58,7 @@ const ResetPassword = () => {
 
     return (
         <>
+            <View style={styles.container}>
             <KeyboardAvoidingView
                 behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
                 style={{
@@ -65,9 +66,9 @@ const ResetPassword = () => {
                     top: '10%',
                     left: 0,
                     right: 0,
-                    bottom: '55%',
+                    bottom: '50%',
+                    marginBottom: '16%',
                     zIndex: 1,
-                    marginBottom: '10%'
                 }}
             >
                 <LottieView
@@ -78,7 +79,6 @@ const ResetPassword = () => {
                 />
 
             </KeyboardAvoidingView>
-            <View style={styles.container}>
                 <Text style={styles.title}>Reset Password</Text>
                 <View style={styles.inputView}>
                     <TextInput

@@ -40,18 +40,16 @@ const ForgotPasswordScreen = () => {
 
     return (
         <View style={styles.container}>
-            {isLoading ? (
-                <Loading /> // Use the LoadingScreen component when loading
-            ) : (
                 <>
                     <KeyboardAvoidingView
                         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
                         style={{
                             position: 'absolute',
-                            top: '5%',
+                            top: '10%',
                             left: 0,
                             right: 0,
-                            bottom: '55%',
+                            bottom: '50%',
+                            marginBottom: '6%',
                             zIndex: 1,
                         }}
                     >
@@ -77,7 +75,6 @@ const ForgotPasswordScreen = () => {
                         <Text style={styles.btn_text}>Send Verification Code</Text>
                     </TouchableOpacity>
                 </>
-            )}
         </View>
     );
 };

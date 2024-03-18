@@ -116,7 +116,7 @@ const ProfileScreen = () => {
             ) : (
                 <>
                     <View>
-                        <Text style={styles.app_title}>Profile</Text>
+                        <Text style={styles.screen_title}>Profile</Text>
                     </View>
                     <Card containerStyle={styles.cardContainer}>
 

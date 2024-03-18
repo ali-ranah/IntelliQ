@@ -46,7 +46,7 @@ const UpdateNameScreen = () => {
 
     return (
         <View style={styles.p_container}>
-            <Text style={styles.title}>Update Name</Text>
+            <Text style={styles.screen_title}>Update Name</Text>
             <View style={styles.profilePictureContainer}>
                 <Text style={styles.p_label}>Current Name</Text>
                 <Text style={styles.p_text}>{currentName}</Text>

@@ -1,14 +1,39 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, ScrollView, ActivityIndicator } from 'react-native';
-import axios from 'axios';
 import { styles } from './theme';
 import { API_URL } from './Api';
 import Loading from './LoadingScreen';
+import { Ionicons } from '@expo/vector-icons';
 
-const Mcqs = ({ navigation }) => {
+
+const Mcqs = ({ route }) => {
+    const email = route.params ? route.params.email : 'No email provided';
+    const isGoogleSignedIn = route.params ? route.params.isGoogleSignedIn : 'Not Signed In';
     const [mcqData, setMCQData] = useState(null);
     const [selectedOption, setSelectedOption] = useState(null);
-    const [isFetching, setIsFetching] = useState(true); // Initially set to true to fetch on the first render
+    const [isFetching, setIsFetching] = useState(true);
+    const [questionCount, setQuestionCount] = useState(0);
+    const [score, setScore] = useState(0);
+    const [testEnded, setTestEnded] = useState(false);
+    const [timeLeft, setTimeLeft] = useState(100);
+
+    useEffect(() => {
+        const timer = setInterval(() => {
+            if (timeLeft > 0) {
+                setTimeLeft(timeLeft - 1);
+            } else {
+                clearInterval(timer);
+                // End the test when time runs out
+                setTestEnded(true);
+            }
+        }, 1000); // Update the timer every second
+
+        return () => clearInterval(timer); // Clean up the timer on unmount
+    }, [timeLeft]);
+
+    useEffect(() => {
+        fetchRandomMCQ();
+    }, []);
 
     const fetchRandomMCQ = () => {
         setIsFetching(true);
@@ -20,26 +45,41 @@ const Mcqs = ({ navigation }) => {
             .finally(() => setIsFetching(false));
     };
 
-    useEffect(() => {
-        // Fetch only on the initial render when selectedOption is null
-        if (selectedOption === null) {
-            fetchRandomMCQ();
-        }
-    }, [selectedOption]);
-
     const handleOptionSelect = (option) => {
         setSelectedOption(option);
     };
 
     const handleNextQuestion = () => {
-        // Proceed only if an option is selected
         if (selectedOption !== null) {
-            // Set mcqData to null to trigger the useEffect fetch
-            setMCQData(null);
+            const isCorrect = parseInt(selectedOption) === parseInt(mcqData.Correct);
+            setScore(score + (isCorrect ? 1 : 0));
+            setQuestionCount(questionCount + 1);
             setSelectedOption(null);
+
+            if (questionCount === 9) {
+                // End the test after 10 questions
+                setTestEnded(true);
+            } else {
+                fetchRandomMCQ();
+            }
         }
     };
-
+    const sendScore = async () => {
+        try {
+            const endpoint = isGoogleSignedIn ? `google-scores/${email}` : `scores/${email}`;
+            await API_URL.post(endpoint, { score });
+            console.log('Score sent successfully');
+        } catch (error) {
+            console.error('Error sending score:', error);
+        }
+    };
+    
+    useEffect(() => {
+        if (testEnded) {
+            sendScore();
+        }
+    }, [testEnded]);
+    
     return (
         <ScrollView contentContainerStyle={styles.scrollContainer}>
             <View style={styles.questions_container}>
@@ -49,9 +89,18 @@ const Mcqs = ({ navigation }) => {
                     <View style={styles.loadingContainer}>
                         <Loading />
                     </View>
-                ) : mcqData ? (
+                ) : mcqData && !testEnded ? (
                     <>
                         <View style={styles.question_con_prop}>
+                        <View style={styles.timerContainer}>
+                                <Ionicons name="timer-outline" size={24} color="black" />
+                                <Text style={styles.timerText}>
+                                    {Math.floor(timeLeft / 60)}:{(timeLeft % 60).toString().padStart(2, '0')}
+                                </Text>
+                            </View>
+                            <Text style={styles.question_count}>
+                                Question {questionCount + 1} / 10
+                            </Text>
                             <ScrollView>
                                 <Text
                                     numberOfLines={3}
@@ -62,7 +111,7 @@ const Mcqs = ({ navigation }) => {
                                 </Text>
                             </ScrollView>
 
-                            {['option1', 'option2', 'option3', 'option4'].map((key) => (
+                            {['option1', 'option2', 'option3', 'option4'].map((key, index) => (
                                 <View key={key}>
                                     <TouchableOpacity
                                         style={{
@@ -70,9 +119,9 @@ const Mcqs = ({ navigation }) => {
                                             padding: 10,
                                             marginVertical: 5,
                                             backgroundColor:
-                                                selectedOption === mcqData[key] ? 'gray' : '#DDDDDD',
+                                                selectedOption === index + 1 ? 'gray' : '#DDDDDD', // Compare with index + 1
                                         }}
-                                        onPress={() => handleOptionSelect(mcqData[key])}
+                                        onPress={() => handleOptionSelect(index + 1)}
                                     >
                                         <Text>{mcqData[key]}</Text>
                                     </TouchableOpacity>
@@ -87,6 +136,10 @@ const Mcqs = ({ navigation }) => {
                             <Text style={{ color: 'white' }}>Next</Text>
                         </TouchableOpacity>
                     </>
+                ) : testEnded ? (
+                    <View style={styles.resultContainer}>
+                        <Text style={styles.resultText}>Your score is: {score} out of 10</Text>
+                    </View>
                 ) : (
                     console.log('Loading Question')
                 )}
