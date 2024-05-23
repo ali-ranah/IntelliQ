@@ -33,11 +33,11 @@ const initializeDatabase = () => {
 
     db.serialize(() => {
         db.run(
-            'CREATE TABLE IF NOT EXISTS registered_accounts (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, email TEXT, password TEXT, profile_picture BLOB);'
+            'CREATE TABLE IF NOT EXISTS registered_accounts (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, email TEXT, password TEXT, profile_picture BLOB, age INTEGER);'
         );
 
         db.run(
-            'CREATE TABLE IF NOT EXISTS registered_accounts_with_google (id INTEGER PRIMARY KEY AUTOINCREMENT,email TEXT, name TEXT, profile_picture BLOB);'
+            'CREATE TABLE IF NOT EXISTS registered_accounts_with_google (id INTEGER PRIMARY KEY AUTOINCREMENT,email TEXT, name TEXT, profile_picture BLOB, age INTEGER);'
         );
 
         db.run(
@@ -320,7 +320,7 @@ app.post('/user_details', async (req, res) => {
 
     try {
         // Check if the email exists in the database
-        db.get('SELECT * FROM registered_accounts WHERE email = ?;', [email], async (err, row) => {
+        db.get('SELECT name, age FROM registered_accounts WHERE email = ?;', [email], async (err, row) => {
             if (err) {
                 return res.status(500).json({ error: 'Error checking account existence' });
             } else if (!row) {
@@ -328,7 +328,7 @@ app.post('/user_details', async (req, res) => {
             }
 
             // Send the user details (name) as a response
-            res.status(200).json({ name: row.name });
+            res.status(200).json({ name: row.name, age: row.age });
         });
     } catch (error) {
         console.error('An unexpected error occurred:', error.message);
@@ -341,7 +341,7 @@ app.post('/user_details_google', async (req, res) => {
 
     try {
         // Check if the email exists in the Google sign-in table
-        db.get('SELECT * FROM registered_accounts_with_google WHERE email = ?;', [email], async (err, row) => {
+        db.get('SELECT name, age FROM registered_accounts_with_google WHERE email = ?;', [email], async (err, row) => {
             if (err) {
                 return res.status(500).json({ error: 'Error checking account existence' });
             } else if (!row) {
@@ -349,7 +349,7 @@ app.post('/user_details_google', async (req, res) => {
             }
 
             // Send the user details (name) as a response
-            res.status(200).json({ name: row.name });
+            res.status(200).json({ name: row.name,age: row.age });
         });
     } catch (error) {
         console.error('An unexpected error occurred:', error.message);
@@ -357,52 +357,94 @@ app.post('/user_details_google', async (req, res) => {
     }
 });
 
-app.post('/update-name', async (req, res) => {
-    const { email, newName } = req.body;
 
-    // Update the user's name in the database for regular accounts
-    db.run('UPDATE registered_accounts SET name = ? WHERE email = ?;', [newName, email], async (err) => {
+
+app.post('/update-details', async (req, res) => {
+    const { email, newName, newAge } = req.body;
+
+    // Update the user's name and age in the database
+    db.run('UPDATE registered_accounts SET name = ?, age = ? WHERE email = ?;', [newName, newAge, email], async (err) => {
         if (err) {
-            console.error('Error updating name:', err);
-            return res.status(500).json({ error: 'Error updating name' });
+            console.error('Error updating name and age:', err);
+            return res.status(500).json({ error: 'Error updating name and age' });
         }
 
-        // Successfully updated the name
-        res.status(200).json({ message: 'Name updated successfully' });
+        // Successfully updated the name and age
+        res.status(200).json({ message: 'Name and age updated successfully' });
     });
 });
 
-app.post('/update-name-google', async (req, res) => {
-    const { email, newName } = req.body;
+app.post('/update-details-google', async (req, res) => {
+    const { email, newName, newAge } = req.body;
 
-    // Update the user's name in the database for Google accounts
-    db.run('UPDATE registered_accounts_with_google SET name = ? WHERE email = ?;', [newName, email], async (err) => {
+    // Update the user's name and age in the database for Google accounts
+    db.run('UPDATE registered_accounts_with_google SET name = ?, age = ? WHERE email = ?;', [newName, newAge, email], async (err) => {
         if (err) {
-            console.error('Error updating name for Google account:', err);
-            return res.status(500).json({ error: 'Error updating name for Google account' });
+            console.error('Error updating name and age for Google account:', err);
+            return res.status(500).json({ error: 'Error updating name and age for Google account' });
         }
 
-        // Successfully updated the name for Google account
-        res.status(200).json({ message: 'Name updated successfully for Google account' });
+        // Successfully updated the name and age for Google account
+        res.status(200).json({ message: 'Name and age updated successfully for Google account' });
     });
 });
+
+
+
+
+// app.post('/mcqs', (req, res) => {
+//     db.all('SELECT * FROM mcqs_question ORDER BY RANDOM() LIMIT 1;', (err, rows) => {
+//         if (err) {
+//             console.error(err);
+//             res.status(500).json({ error: 'Internal Server Error' });
+//             return;
+//         }
+
+//         if (rows.length > 0) {
+//             res.json(rows[0]);
+//         } else {
+//             res.status(404).json({ error: 'No questions available' });
+//         }
+//     });
+// });
 
 
 app.post('/mcqs', (req, res) => {
-    db.all('SELECT * FROM mcqs_question ORDER BY RANDOM() LIMIT 1;', (err, rows) => {
+    // First, select a random question
+    db.get('SELECT * FROM Questions ORDER BY RANDOM() LIMIT 1;', (err, questionRow) => {
         if (err) {
             console.error(err);
             res.status(500).json({ error: 'Internal Server Error' });
             return;
         }
 
-        if (rows.length > 0) {
-            res.json(rows[0]);
+        if (questionRow) {
+            const questionId = questionRow.question_id;
+
+            // Then, select the options for the chosen question
+            db.all('SELECT option_text, is_correct FROM Options WHERE question_id = ?;', [questionId], (err, optionRows) => {
+                if (err) {
+                    console.error(err);
+                    res.status(500).json({ error: 'Internal Server Error' });
+                    return;
+                }
+
+                if (optionRows.length > 0) {
+                    res.json({
+                        question: questionRow,
+                        options: optionRows
+                    });
+                } else {
+                    res.status(404).json({ error: 'No options available for the selected question' });
+                }
+            });
         } else {
             res.status(404).json({ error: 'No questions available' });
         }
     });
 });
+
+
 
 app.post('/upload/:email', upload.single('image'), async (req, res) => {
     try {
@@ -832,6 +874,99 @@ app.get('/recent-score-google/:email', async (req, res) => {
     }
 });
 
+app.get('/user-age/:email', (req, res) => {
+    const { email } = req.params;
+    // Check if email is provided
+    if (!email) {
+        return res.status(400).json({ error: 'Email is required' });
+    }
+
+    // Fetch user's age from the database
+    db.get('SELECT age FROM registered_accounts WHERE email = ?', [email], (err, row) => {
+        if (err) {
+            console.error('Error fetching user age:', err);
+            return res.status(500).json({ error: 'Internal Server Error' });
+        }
+
+        // Check if user's age is found
+        if (!row) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        res.json({ age: row.age });
+    });
+});
+
+app.get('/user-age-google/:email', (req, res) => {
+    const { email } = req.params;
+    // Check if email is provided
+    if (!email) {
+        return res.status(400).json({ error: 'Email is required' });
+    }
+
+    // Fetch user's age from the database
+    db.get('SELECT age FROM registered_accounts_with_google WHERE email = ?', [email], (err, row) => {
+        if (err) {
+            console.error('Error fetching user age:', err);
+            return res.status(500).json({ error: 'Internal Server Error' });
+        }
+
+        // Check if user's age is found
+        if (!row) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        res.json({ age: row.age });
+    });
+});
+
+app.post('/update-user-age/:email', (req, res) => {
+    const { email } = req.params;
+    const { age } = req.body;
+    // Check if email and age are provided
+    if (!email || !age) {
+        return res.status(400).json({ error: 'Email and age are required' });
+    }
+
+    // Update user's age in the database
+    db.run('UPDATE registered_accounts SET age = ? WHERE email = ?', [age, email], function(err) {
+        if (err) {
+            console.error('Error updating user age:', err);
+            return res.status(500).json({ error: 'Internal Server Error' });
+        }
+
+        // Check if any rows were affected
+        if (this.changes === 0) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        res.json({ message: 'User age updated successfully' });
+    });
+});
+
+app.post('/update-user-age-google/:email', (req, res) => {
+    const { email } = req.params;
+    const { age } = req.body;
+    // Check if email and age are provided
+    if (!email || !age) {
+        return res.status(400).json({ error: 'Email and age are required' });
+    }
+
+    // Update user's age in the database
+    db.run('UPDATE registered_accounts_with_google SET age = ? WHERE email = ?', [age, email], function(err) {
+        if (err) {
+            console.error('Error updating user age:', err);
+            return res.status(500).json({ error: 'Internal Server Error' });
+        }
+
+        // Check if any rows were affected
+        if (this.changes === 0) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        res.json({ message: 'User age updated successfully' });
+    });
+});
 
 app.get('/', (req, res) => {
     res.status(200).json({ message: 'Welcome to the server!' });

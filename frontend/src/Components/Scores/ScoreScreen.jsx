@@ -22,7 +22,7 @@ const ScoreScreen = ({route}) => {
     <View style={styles.container}>
     <Text style={styles.screen_title}>Select a Score</Text>
       <TouchableOpacity style={styles.btn} onPress={handleAllScoresPress}>
-        <Text style={styles.cardText}>All Scores</Text>
+        <Text style={styles.cardText}>Top Scores</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.btn} onPress={handleRecentScoresPress}>
         <Text style={styles.cardText}>Recent Scores</Text>

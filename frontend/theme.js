@@ -145,8 +145,12 @@ const styles = StyleSheet.create({
         fontSize: 18,
     },
     checkboxLabel: {
-        color: '#000',
-        fontSize: 16,
+        alignItems: "center",
+        justifyContent: "center",
+        fontWeight: "500",
+        fontSize: 12,
+        color: "#000",
+        marginBottom: 5,
     },
     inputText: {
         height: 50,
@@ -154,8 +158,12 @@ const styles = StyleSheet.create({
         fontWeight: 'bold'
     },
     forgotAndSignUpText: {
-        color: "black",
-        fontSize: 11,
+        alignItems: "center",
+        justifyContent: "center",
+        fontWeight: "400",
+        fontSize: 12,
+        color: "#000",
+        marginBottom: 5,
     },
     p_container: {
         backgroundColor: 'white',

@@ -11,8 +11,8 @@ frontend/node_modules/
 frontend/android/
 frontend/.gradle/
 frontend/.expo/
-frontend/gradlew
-frontend/gradlew.bat
+frontend/gradlew/
+frontend/gradlew.bat/
 
 frontend/eas.json
 backend/node_modules/
@@ -33,3 +33,4 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
