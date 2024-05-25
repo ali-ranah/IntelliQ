@@ -444,6 +444,41 @@ app.post('/mcqs', (req, res) => {
     });
 });
 
+app.post('/image-mcqs', (req, res) => {
+    // First, select a random question
+    db.get('SELECT * FROM Image_Questions ORDER BY RANDOM() LIMIT 1;', (err, questionRow) => {
+        if (err) {
+            console.error(err);
+            res.status(500).json({ error: 'Internal Server Error' });
+            return;
+        }
+
+        if (questionRow) {
+            const questionId = questionRow.question_id;
+
+            // Then, select the options for the chosen question
+            db.all('SELECT option_text, is_correct FROM Image_Options WHERE question_id = ?;', [questionId], (err, optionRows) => {
+                if (err) {
+                    console.error(err);
+                    res.status(500).json({ error: 'Internal Server Error' });
+                    return;
+                }
+
+                if (optionRows.length > 0) {
+                    res.json({
+                        question: questionRow,
+                        options: optionRows
+                    });
+                } else {
+                    res.status(404).json({ error: 'No options available for the selected question' });
+                }
+            });
+        } else {
+            res.status(404).json({ error: 'No questions available' });
+        }
+    });
+});
+
 
 
 app.post('/upload/:email', upload.single('image'), async (req, res) => {

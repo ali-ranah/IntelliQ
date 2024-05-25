@@ -34,6 +34,11 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         marginRight: 10,
     },
+    questionImage: {
+        width: 200, // Adjust the width as needed
+        height: 200, // Adjust the height as needed
+        resizeMode: 'contain',
+    },
     switchButtonText: {
         color: 'white',
         fontWeight: 'bold',

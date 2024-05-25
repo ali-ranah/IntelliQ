@@ -1,10 +1,9 @@
 // import React, { useState, useEffect } from 'react';
-// import { View, Text, TouchableOpacity, ScrollView, ActivityIndicator } from 'react-native';
+// import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
 // import { styles } from './theme';
 // import { API_URL } from './Api';
 // import Loading from './LoadingScreen';
 // import { Ionicons } from '@expo/vector-icons';
-
 
 // const Mcqs = ({ route }) => {
 //     const email = route.params ? route.params.email : 'No email provided';
@@ -45,13 +44,14 @@
 //             .finally(() => setIsFetching(false));
 //     };
 
-//     const handleOptionSelect = (option) => {
-//         setSelectedOption(option);
+//     const handleOptionSelect = (optionIndex) => {
+//         setSelectedOption(optionIndex);
 //     };
 
 //     const handleNextQuestion = () => {
 //         if (selectedOption !== null) {
-//             const isCorrect = parseInt(selectedOption) === parseInt(mcqData.Correct);
+//             const selectedOptionData = mcqData.options[selectedOption];
+//             const isCorrect = selectedOptionData.is_correct;
 //             setScore(score + (isCorrect ? 1 : 0));
 //             setQuestionCount(questionCount + 1);
 //             setSelectedOption(null);
@@ -64,6 +64,7 @@
 //             }
 //         }
 //     };
+
 //     const sendScore = async () => {
 //         try {
 //             const endpoint = isGoogleSignedIn ? `google-scores/${email}` : `scores/${email}`;
@@ -73,13 +74,13 @@
 //             console.error('Error sending score:', error);
 //         }
 //     };
-    
+
 //     useEffect(() => {
 //         if (testEnded) {
 //             sendScore();
 //         }
 //     }, [testEnded]);
-    
+
 //     return (
 //         <ScrollView contentContainerStyle={styles.scrollContainer}>
 //             <View style={styles.questions_container}>
@@ -92,7 +93,7 @@
 //                 ) : mcqData && !testEnded ? (
 //                     <>
 //                         <View style={styles.question_con_prop}>
-//                         <View style={styles.timerContainer}>
+//                             <View style={styles.timerContainer}>
 //                                 <Ionicons name="timer-outline" size={24} color="black" />
 //                                 <Text style={styles.timerText}>
 //                                     {Math.floor(timeLeft / 60)}:{(timeLeft % 60).toString().padStart(2, '0')}
@@ -107,23 +108,22 @@
 //                                     ellipsizeMode="tail"
 //                                     style={styles.question_text}
 //                                 >
-//                                     {mcqData.Question}
+//                                     {mcqData.question.question_text}
 //                                 </Text>
 //                             </ScrollView>
 
-//                             {['option1', 'option2', 'option3', 'option4'].map((key, index) => (
-//                                 <View key={key}>
+//                             {mcqData.options.map((option, index) => (
+//                                 <View key={index}>
 //                                     <TouchableOpacity
 //                                         style={{
 //                                             marginBottom: '5%',
 //                                             padding: 10,
 //                                             marginVertical: 5,
-//                                             backgroundColor:
-//                                                 selectedOption === index + 1 ? 'gray' : '#DDDDDD', // Compare with index + 1
+//                                             backgroundColor: selectedOption === index ? 'gray' : '#DDDDDD',
 //                                         }}
-//                                         onPress={() => handleOptionSelect(index + 1)}
+//                                         onPress={() => handleOptionSelect(index)}
 //                                     >
-//                                         <Text>{mcqData[key]}</Text>
+//                                         <Text>{option.option_text}</Text>
 //                                     </TouchableOpacity>
 //                                 </View>
 //                             ))}
@@ -131,7 +131,7 @@
 //                         <TouchableOpacity
 //                             style={styles.btn}
 //                             onPress={handleNextQuestion}
-//                             disabled={!selectedOption}
+//                             disabled={selectedOption === null}
 //                         >
 //                             <Text style={{ color: 'white' }}>Next</Text>
 //                         </TouchableOpacity>
@@ -150,9 +150,8 @@
 
 // export default Mcqs;
 
-
 import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
+import { View, Text, TouchableOpacity, ScrollView, Image } from 'react-native';
 import { styles } from './theme';
 import { API_URL } from './Api';
 import Loading from './LoadingScreen';
@@ -168,6 +167,7 @@ const Mcqs = ({ route }) => {
     const [score, setScore] = useState(0);
     const [testEnded, setTestEnded] = useState(false);
     const [timeLeft, setTimeLeft] = useState(100);
+    const [isImageLoaded, setIsImageLoaded] = useState(false);
 
     useEffect(() => {
         const timer = setInterval(() => {
@@ -175,12 +175,11 @@ const Mcqs = ({ route }) => {
                 setTimeLeft(timeLeft - 1);
             } else {
                 clearInterval(timer);
-                // End the test when time runs out
                 setTestEnded(true);
             }
-        }, 1000); // Update the timer every second
+        }, 1000);
 
-        return () => clearInterval(timer); // Clean up the timer on unmount
+        return () => clearInterval(timer);
     }, [timeLeft]);
 
     useEffect(() => {
@@ -191,8 +190,11 @@ const Mcqs = ({ route }) => {
         setIsFetching(true);
 
         API_URL
-            .post('/mcqs')
-            .then((response) => setMCQData(response.data))
+            .post('/image-mcqs')
+            .then((response) => {
+                setMCQData(response.data);
+                setIsImageLoaded(false);
+            })
             .catch((error) => console.error('Error fetching MCQ data:', error))
             .finally(() => setIsFetching(false));
     };
@@ -210,7 +212,6 @@ const Mcqs = ({ route }) => {
             setSelectedOption(null);
 
             if (questionCount === 9) {
-                // End the test after 10 questions
                 setTestEnded(true);
             } else {
                 fetchRandomMCQ();
@@ -256,16 +257,14 @@ const Mcqs = ({ route }) => {
                                 Question {questionCount + 1} / 10
                             </Text>
                             <ScrollView>
-                                <Text
-                                    numberOfLines={3}
-                                    ellipsizeMode="tail"
-                                    style={styles.question_text}
-                                >
-                                    {mcqData.question.question_text}
-                                </Text>
+                                <Image
+                                    source={{ uri: mcqData.question.question_img }}
+                                    style={styles.questionImage}
+                                    onLoad={() => setIsImageLoaded(true)}
+                                />
                             </ScrollView>
 
-                            {mcqData.options.map((option, index) => (
+                            {isImageLoaded && mcqData.options.map((option, index) => (
                                 <View key={index}>
                                     <TouchableOpacity
                                         style={{
@@ -281,13 +280,15 @@ const Mcqs = ({ route }) => {
                                 </View>
                             ))}
                         </View>
-                        <TouchableOpacity
-                            style={styles.btn}
-                            onPress={handleNextQuestion}
-                            disabled={selectedOption === null}
-                        >
-                            <Text style={{ color: 'white' }}>Next</Text>
-                        </TouchableOpacity>
+                        {isImageLoaded && (
+                            <TouchableOpacity
+                                style={styles.btn}
+                                onPress={handleNextQuestion}
+                                disabled={selectedOption === null}
+                            >
+                                <Text style={{ color: 'white' }}>Next</Text>
+                            </TouchableOpacity>
+                        )}
                     </>
                 ) : testEnded ? (
                     <View style={styles.resultContainer}>
@@ -302,4 +303,3 @@ const Mcqs = ({ route }) => {
 };
 
 export default Mcqs;
-
