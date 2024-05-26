@@ -103,13 +103,13 @@
 //                                 Question {questionCount + 1} / 10
 //                             </Text>
 //                             <ScrollView>
-//                                 <Text
-//                                     numberOfLines={3}
-//                                     ellipsizeMode="tail"
-//                                     style={styles.question_text}
-//                                 >
-//                                     {mcqData.question.question_text}
-//                                 </Text>
+                                // <Text
+                                //     numberOfLines={3}
+                                //     ellipsizeMode="tail"
+                                //     style={styles.question_text}
+                                // >
+                                //     {mcqData.question.question_text}
+                                // </Text>
 //                             </ScrollView>
 
 //                             {mcqData.options.map((option, index) => (
@@ -238,8 +238,6 @@ const Mcqs = ({ route }) => {
     return (
         <ScrollView contentContainerStyle={styles.scrollContainer}>
             <View style={styles.questions_container}>
-                <Text style={styles.app_title}>IQ Test</Text>
-
                 {isFetching ? (
                     <View style={styles.loadingContainer}>
                         <Loading />

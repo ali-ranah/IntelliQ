@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, TouchableOpacity, Text, StyleSheet, TextInput, Button, Alert } from 'react-native';
+import { View, TouchableOpacity, Text, StyleSheet, TextInput, Alert } from 'react-native';
 import { useNavigation } from "@react-navigation/native";
 import { styles } from "../../../theme";
 import { API_URL } from "../../../Api";
@@ -7,7 +7,7 @@ import Toast from 'react-native-toast-message';
 
 const Category = ({ route }) => {
   const email = route.params ? route.params.email : 'No email provided';
-  const isGoogleSignedIn = route.params ? route.params.isGoogleSignedIn : 'Not Signed In';
+  const isGoogleSignedIn = route.params ? route.params.isGoogleSignedIn : false;
   console.log('Email in Category screen:', email);
   const navigation = useNavigation();
   const [userAge, setUserAge] = useState(null);
@@ -35,10 +35,10 @@ const Category = ({ route }) => {
     };
 
     fetchUserAge();
-  }, [email]);
+  }, [email, isGoogleSignedIn]);
 
-  const handleCategory = () => {
-    navigation.navigate('Mcqs', { email, isGoogleSignedIn });
+  const handleCategory = (route) => {
+    navigation.navigate(route, { email, isGoogleSignedIn });
   };
 
   const handleAgeSubmit = async () => {
@@ -47,14 +47,14 @@ const Category = ({ route }) => {
       return;
     }
     const age = parseInt(inputAge);
-    if (age < 9 || age > 80) {
+    if (isNaN(age) || age < 9 || age > 80) {
       Alert.alert('Invalid Age', 'Age must be between 9 and 80 and also should not contain special characters');
       return;
     }
 
     try {
       const endpoint = isGoogleSignedIn ? `/update-user-age-google/${email}` : `/update-user-age/${email}`;
-      await API_URL.post(endpoint, {age});
+      await API_URL.post(endpoint, { age });
       setUserAge(age);
       setShowAgeInput(false);
     } catch (error) {
@@ -71,20 +71,18 @@ const Category = ({ route }) => {
     return (
       <View style={styles.p_container}>
         <Text style={styles.screen_title}>Enter Your Age</Text>
-        {/* <View style={styles.profilePictureContainer}> */}
         <View style={styles.inputView}>
-        <TextInput
-          style={styles.inputText}
-          onChangeText={setInputAge}
-          placeholder="Enter Your Age"
-          value={inputAge}
-          keyboardType="numeric"
-        />
+          <TextInput
+            style={styles.inputText}
+            onChangeText={setInputAge}
+            placeholder="Enter Your Age"
+            value={inputAge}
+            keyboardType="numeric"
+          />
         </View>
-        {/* </View> */}
         <TouchableOpacity onPress={handleAgeSubmit} style={styles.btn}>
           <Text style={styles.btn_text}>Submit</Text>
-          </TouchableOpacity> 
+        </TouchableOpacity>
       </View>
     );
   }
@@ -96,29 +94,29 @@ const Category = ({ route }) => {
         <View style={styles.row}>
           <TouchableOpacity
             style={styles.card}
-            onPress={handleCategory}
+            onPress={() => handleCategory('verbal-reasoning')}
           >
             <Text style={styles.cardText}>Verbal Reasoning</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.card}
-            onPress={handleCategory}
+            onPress={() => handleCategory('logical')}
           >
-            <Text style={styles.cardText}>Analytical</Text>
+            <Text style={styles.cardText}>Logical</Text>
           </TouchableOpacity>
         </View>
         <View style={styles.row}>
           <TouchableOpacity
             style={styles.card}
-            onPress={handleCategory}
+            onPress={() => handleCategory('abstract-reasoning')}
           >
-            <Text style={styles.cardText}>Pattern Recognition</Text>
+            <Text style={styles.cardText}>Abstract Reasoning</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.card}
-            onPress={handleCategory}
+            onPress={() => handleCategory('numerical-reasoning')}
           >
-            <Text style={styles.cardText}>Sequence</Text>
+            <Text style={styles.cardText}>Numerical Reasoning</Text>
           </TouchableOpacity>
         </View>
       </View>

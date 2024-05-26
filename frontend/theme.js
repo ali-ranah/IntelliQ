@@ -35,8 +35,8 @@ const styles = StyleSheet.create({
         marginRight: 10,
     },
     questionImage: {
-        width: 200, // Adjust the width as needed
-        height: 200, // Adjust the height as needed
+        width: '100%' , // Adjust the width as needed
+        height: 200 , // Adjust the height as needed
         resizeMode: 'contain',
     },
     switchButtonText: {
@@ -286,7 +286,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent:'center',
         alignItems: 'center',
-        marginBottom: 20,
+        marginBottom: 20 ,
     },
     timerText: {
         marginLeft: 5,
@@ -366,12 +366,12 @@ resultText: {
     },
     question_con_prop: {
         flex: 1,
-        marginBottom: 10,
-        padding: 50,
+        marginBottom: 20,
+        padding: 40,
         alignContent: 'center',
         backgroundColor: 'white',
         borderRadius: 10,
-        height: '55%',
+        height: '80%',
         width: '90%',
         shadowColor: 'black',
         shadowOffset: {

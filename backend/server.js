@@ -409,9 +409,9 @@ app.post('/update-details-google', async (req, res) => {
 // });
 
 
-app.post('/mcqs', (req, res) => {
+app.post('/verbal-mcqs', (req, res) => {
     // First, select a random question
-    db.get('SELECT * FROM Questions ORDER BY RANDOM() LIMIT 1;', (err, questionRow) => {
+    db.get('SELECT * FROM Verbal_Questions ORDER BY RANDOM() LIMIT 1;', (err, questionRow) => {
         if (err) {
             console.error(err);
             res.status(500).json({ error: 'Internal Server Error' });
@@ -422,7 +422,7 @@ app.post('/mcqs', (req, res) => {
             const questionId = questionRow.question_id;
 
             // Then, select the options for the chosen question
-            db.all('SELECT option_text, is_correct FROM Options WHERE question_id = ?;', [questionId], (err, optionRows) => {
+            db.all('SELECT option_text, is_correct FROM Verbal_Options WHERE question_id = ?;', [questionId], (err, optionRows) => {
                 if (err) {
                     console.error(err);
                     res.status(500).json({ error: 'Internal Server Error' });
@@ -479,6 +479,36 @@ app.post('/image-mcqs', (req, res) => {
     });
 });
 
+
+app.post('/numerical-reasoning-mcqs', (req, res) => {
+    // Select a random question from the database
+    db.get('SELECT * FROM numerical_reasoning_questions ORDER BY RANDOM() LIMIT 1;', (err, questionRow) => {
+        if (err) {
+            console.error(err);
+            res.status(500).json({ error: 'Internal Server Error' });
+            return;
+        }
+
+        if (questionRow) {
+            // Prepare the response object with the question and its options
+            const question = {
+                id: questionRow.id,
+                question_text: questionRow.question_text,
+                is_correct: questionRow.correct_answer,
+                options: {
+                    option_a: questionRow.option_a,
+                    option_b: questionRow.option_b,
+                    option_c: questionRow.option_c,
+                    option_d: questionRow.option_d,
+                }
+            };
+
+            res.json(question);
+        } else {
+            res.status(404).json({ error: 'No questions available' });
+        }
+    });
+});
 
 
 app.post('/upload/:email', upload.single('image'), async (req, res) => {
