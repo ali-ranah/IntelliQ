@@ -93,12 +93,12 @@ const initializeDatabase = () => {
       db.run(`
     CREATE TABLE IF NOT EXISTS iq_scores (
         email TEXT NOT NULL,
-        verbal INTEGER NOT NULL,
+        verbal_reasoning INTEGER NOT NULL,
         logical INTEGER NOT NULL,
-        numerical INTEGER NOT NULL,
-        abstract INTEGER NOT NULL,
+        numerical_reasoning INTEGER NOT NULL,
+        abstract_reasoning INTEGER NOT NULL,
         iq REAL NOT NULL,
-        PRIMARY KEY (email),
+        timestamp TEXT NOT NULL,
         FOREIGN KEY (email) REFERENCES registered_accounts(email) ON DELETE CASCADE
     );
 `);
@@ -107,12 +107,12 @@ const initializeDatabase = () => {
 db.run(`
     CREATE TABLE IF NOT EXISTS iq_scores_google (
         email TEXT NOT NULL,
-        verbal INTEGER NOT NULL,
+        verbal_reasoning INTEGER NOT NULL,
         logical INTEGER NOT NULL,
-        numerical INTEGER NOT NULL,
-        abstract INTEGER NOT NULL,
+        numerical_reasoning INTEGER NOT NULL,
+        abstract_reasoning INTEGER NOT NULL,
         iq REAL NOT NULL,
-        PRIMARY KEY (email),
+        timestamp TEXT NOT NULL,
         FOREIGN KEY (email) REFERENCES registered_accounts_with_google(email) ON DELETE CASCADE
     );
 `);
@@ -1156,19 +1156,22 @@ const calculateIQ = (rawScores, means, stdDevs) => {
   
  // API endpoint for calculating and storing IQ scores for normal users
 app.post('/calculate-IQ', (req, res) => {
-    const { verbal, logical, numerical, abstract, email } = req.body;
-  
-    if (verbal === undefined || logical === undefined || numerical === undefined || abstract === undefined) {
+    const { email,verbal_reasoning, logical, numerical_reasoning, abstract_reasoning } = req.body;
+    const timestamp = new Date().toLocaleString();
+
+    console.log('Scores Being Passed inside body to iq controller',abstract_reasoning, logical, numerical_reasoning,verbal_reasoning)
+    
+    if (verbal_reasoning === undefined || logical === undefined || numerical_reasoning === undefined || abstract_reasoning === undefined) {
         return res.status(400).json({ error: 'All scores are required' });
     }
-    const rawScores = [parseFloat(verbal), parseFloat(logical), parseFloat(numerical), parseFloat(abstract)];
+    const rawScores = [parseFloat(verbal_reasoning), parseFloat(logical), parseFloat(numerical_reasoning), parseFloat(abstract_reasoning)];
     const means = [15, 10, 18, 15];
     const stdDevs = [3, 2, 4, 3];
   
     const iq = calculateIQ(rawScores, means, stdDevs);
   
-    const query = `INSERT INTO iq_scores (email, verbal, logical, numerical, abstract,iq) VALUES (?, ?, ?, ?, ?, ?)`;
-    db.run(query, [email, verbal, logical, numerical, abstract,iq], (err) => {
+    const query = `INSERT INTO iq_scores (email, verbal_reasoning, logical, numerical_reasoning, abstract_reasoning,timestamp,iq) VALUES (?, ?, ?, ?, ?, ?, ?)`;
+    db.run(query, [email, verbal_reasoning, logical, numerical_reasoning, abstract_reasoning,timestamp,iq], (err) => {
         if (err) {
             console.error('Error storing IQ score:', err);
             return res.status(500).json({ error: 'Failed to store IQ score' });
@@ -1179,19 +1182,23 @@ app.post('/calculate-IQ', (req, res) => {
 
 // API endpoint for calculating and storing IQ scores for Google users
 app.post('/calculate-IQ-google', (req, res) => {
-    const { verbal, logical, numerical, abstract, email } = req.body;
+    const { email,verbal_reasoning, logical, numerical_reasoning, abstract_reasoning } = req.body;
+    const timestamp = new Date().toLocaleString();
+
+    
+    console.log('Scores being passed in body to IQ Controller',abstract_reasoning, logical,numerical_reasoning, verbal_reasoning)
   
-    if (verbal === undefined || logical === undefined || numerical === undefined || abstract === undefined) {
+    if (verbal_reasoning === undefined || logical === undefined || numerical_reasoning === undefined || abstract_reasoning === undefined) {
         return res.status(400).json({ error: 'All scores are required' });
     }
   
-    const rawScores = [parseFloat(verbal), parseFloat(logical), parseFloat(numerical), parseFloat(abstract)];
+    const rawScores = [parseFloat(verbal_reasoning), parseFloat(logical), parseFloat(numerical_reasoning), parseFloat(abstract_reasoning)];
     const means = [15, 10, 18, 15];
     const stdDevs = [3, 2, 4, 3];
     const iq = calculateIQ(rawScores, means, stdDevs);
   
-    const query = `INSERT INTO iq_scores_google (email, verbal, logical, numerical, abstract,iq) VALUES (?, ?, ?, ?, ?, ?)`;
-    db.run(query, [email, verbal, logical, numerical, abstract,iq], (err) => {
+    const query = `INSERT INTO iq_scores_google (email, verbal_reasoning, logical, numerical_reasoning, abstract_reasoning,timestamp,iq) VALUES (?, ?, ?, ?, ?, ?, ?)`;
+    db.run(query, [email, verbal_reasoning, logical, numerical_reasoning, abstract_reasoning,timestamp,iq], (err) => {
         if (err) {
             console.error('Error storing IQ score:', err);
             return res.status(500).json({ error: 'Failed to store IQ score' });
@@ -1238,16 +1245,34 @@ app.get('/attempted-categories/:email', (req, res) => {
   });
   
   // Update category score for normal users
-  app.post('/update-category-score/:email', (req, res) => {
+  app.post('/update-category-score/:email', async (req, res) => {
     const { email } = req.params;
-    const { category, score } = req.body;
-    db.run('INSERT INTO category_scores (email, category, score) VALUES (?, ?, ?)', [email, category, score], function (err) {
-      if (err) {
-        return res.status(500).json({ error: err.message });
-      }
-      res.json({ updated: this.changes });
-    });
-  });
+    const { category, score, reset } = req.body;
+
+    if (reset !== undefined && reset) {
+        try {
+            await db.run(`DELETE FROM category_scores WHERE email = ?`, [email]);
+            res.json({ message: 'Scores deleted successfully' });
+        } catch (error) {
+            console.error('Error deleting scores:', error);
+            res.status(500).json({ error: 'Failed to delete scores' });
+        }
+    } else {
+        try {
+            db.run(`INSERT INTO category_scores (email, category, score) 
+                VALUES (?, ?, ?) `, [email, category, score], function (err) {
+                if (err) {
+                    return res.status(500).json({ error: err.message });
+                }
+                res.json({ updated: this.changes });
+            });
+        } catch (error) {
+            console.error('Error updating score:', error);
+            res.status(500).json({ error: 'Failed to update score' });
+        }
+    }
+});
+
 
   // Fetch attempted categories for Google users
 app.get('/attempted-categories-google/:email', (req, res) => {
@@ -1286,16 +1311,34 @@ app.get('/attempted-categories-google/:email', (req, res) => {
   });
   
   // Update category score for Google users
-  app.post('/update-category-score-google/:email', (req, res) => {
+  app.post('/update-category-score-google/:email', async (req, res) => {
     const { email } = req.params;
-    const { category, score } = req.body;
-    db.run('INSERT INTO category_scores_google (email, category, score) VALUES (?, ?, ?)', [email, category, score], function (err) {
-      if (err) {
-        return res.status(500).json({ error: err.message });
-      }
-      res.json({ updated: this.changes });
-    });
-  });
+    const { category, score, reset } = req.body;
+
+    if (reset !== undefined && reset) {
+        try {
+            await db.run(`DELETE FROM category_scores_google WHERE email = ?`, [email]);
+            res.json({ message: 'Scores deleted successfully' });
+        } catch (error) {
+            console.error('Error deleting scores:', error);
+            res.status(500).json({ error: 'Failed to delete scores' });
+        }
+    } else {
+        try {
+            db.run(`INSERT INTO category_scores_google (email, category, score) 
+                VALUES (?, ?, ?)`, [email, category, score], function (err) {
+                if (err) {
+                    return res.status(500).json({ error: err.message });
+                }
+                res.json({ updated: this.changes });
+            });
+        } catch (error) {
+            console.error('Error updating score:', error);
+            res.status(500).json({ error: 'Failed to update score' });
+        }
+    }
+});
+
 
 
 

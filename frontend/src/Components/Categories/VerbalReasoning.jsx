@@ -57,7 +57,7 @@ const VerbalReasoning = ({ route }) => {
             setQuestionCount(questionCount + 1);
             setSelectedOption(null);
 
-            if (questionCount === 9) {
+            if (questionCount === 19) {
                 setTestEnded(true);
             } else {
                 fetchRandomMCQ();
@@ -68,7 +68,7 @@ const VerbalReasoning = ({ route }) => {
     const sendScore = async () => {
         try {
           const endpoint = isGoogleSignedIn ? `/update-category-score-google/${email}` : `/update-category-score/${email}`;
-          await API_URL.post(endpoint, { category: 'verbal-reasoning', score });
+          await API_URL.post(endpoint, { category: 'verbal_reasoning', score });
           console.log('Score sent successfully');
         } catch (error) {
           console.error('Error sending score:', error);
@@ -99,7 +99,7 @@ const VerbalReasoning = ({ route }) => {
                                 </Text>
                             </View>
                             <Text style={styles.question_count}>
-                                Question {questionCount + 1} / 10
+                                Question {questionCount + 1} / 20
                             </Text>
                             <ScrollView>
                             <Text
@@ -137,7 +137,7 @@ const VerbalReasoning = ({ route }) => {
                     </>
                 ) : testEnded ? (
                     <View style={styles.resultContainer}>
-                        <Text style={styles.resultText}>Your score is: {score} out of 10</Text>
+                        <Text style={styles.resultText}>Your score is: {score} out of 20</Text>
                     </View>
                 ) : (
                     console.log('Loading Question')

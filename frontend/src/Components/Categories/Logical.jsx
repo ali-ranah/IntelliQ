@@ -73,7 +73,7 @@ const Logical = ({ route }) => {
             setQuestionCount(questionCount + 1);
             setSelectedOption(null);
 
-            if (questionCount === 9) {
+            if (questionCount === 14) {
                 setTestEnded(true);
             } else {
                 fetchRandomMCQ();
@@ -115,7 +115,7 @@ const Logical = ({ route }) => {
                                 </Text>
                             </View>
                             <Text style={styles.question_count}>
-                                Question {questionCount + 1} / 10
+                                Question {questionCount + 1} / 15
                             </Text>
                             <ScrollView>
                             <Text
@@ -153,7 +153,7 @@ const Logical = ({ route }) => {
                     </>
                 ) : testEnded ? (
                     <View style={styles.resultContainer}>
-                        <Text style={styles.resultText}>Your score is: {score} out of 10</Text>
+                        <Text style={styles.resultText}>Your score is: {score} out of 15</Text>
                     </View>
                 ) : (
                     console.log('Loading Question')

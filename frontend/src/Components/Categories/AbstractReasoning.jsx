@@ -59,7 +59,7 @@ const AbstractReasoning = ({ route }) => {
             setQuestionCount(questionCount + 1);
             setSelectedOption(null);
 
-            if (questionCount === 9) {
+            if (questionCount === 19) {
                 setTestEnded(true);
             } else {
                 fetchRandomMCQ();
@@ -80,7 +80,7 @@ const AbstractReasoning = ({ route }) => {
     const sendScore = async () => {
         try {
           const endpoint = isGoogleSignedIn ? `/update-category-score-google/${email}` : `/update-category-score/${email}`;
-          await API_URL.post(endpoint, { category: 'abstract-reasoning', score });
+          await API_URL.post(endpoint, { category: 'abstract_reasoning', score });
           console.log('Score sent successfully');
         } catch (error) {
           console.error('Error sending score:', error);
@@ -110,7 +110,7 @@ const AbstractReasoning = ({ route }) => {
                                 </Text>
                             </View>
                             <Text style={styles.question_count}>
-                                Question {questionCount + 1} / 10
+                                Question {questionCount + 1} / 20
                             </Text>
                             <ScrollView>
                                 <Image
@@ -148,7 +148,7 @@ const AbstractReasoning = ({ route }) => {
                     </>
                 ) : testEnded ? (
                     <View style={styles.resultContainer}>
-                        <Text style={styles.resultText}>Your score is: {score} out of 10</Text>
+                        <Text style={styles.resultText}>Your score is: {score} out of 20</Text>
                     </View>
                 ) : (
                     console.log('Loading Question')

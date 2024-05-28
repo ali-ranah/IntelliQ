@@ -56,7 +56,7 @@ const NumericalReasoning = ({ route }) => {
             setQuestionCount(questionCount + 1);
             setSelectedOption(null);
 
-            if (questionCount === 9) {
+            if (questionCount === 24) {
                 setTestEnded(true);
             } else {
                 fetchRandomMCQ();
@@ -67,7 +67,7 @@ const NumericalReasoning = ({ route }) => {
     const sendScore = async () => {
         try {
           const endpoint = isGoogleSignedIn ? `/update-category-score-google/${email}` : `/update-category-score/${email}`;
-          await API_URL.post(endpoint, { category: 'numerical-reasoning', score });
+          await API_URL.post(endpoint, { category: 'numerical_reasoning', score });
           console.log('Score sent successfully');
         } catch (error) {
           console.error('Error sending score:', error);
@@ -98,7 +98,7 @@ const NumericalReasoning = ({ route }) => {
                                 </Text>
                             </View>
                             <Text style={styles.question_count}>
-                                Question {questionCount + 1} / 10
+                                Question {questionCount + 1} / 25
                             </Text>
                             <ScrollView>
                                 <Text
@@ -136,7 +136,7 @@ const NumericalReasoning = ({ route }) => {
                     </>
                 ) : testEnded ? (
                     <View style={styles.resultContainer}>
-                        <Text style={styles.resultText}>Your score is: {score} out of 10</Text>
+                        <Text style={styles.resultText}>Your score is: {score} out of 25</Text>
                     </View>
                 ) : (
                     console.log('Loading Question')
