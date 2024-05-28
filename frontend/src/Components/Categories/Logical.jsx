@@ -5,7 +5,7 @@ import { API_URL } from '../../../Api';
 import Loading from '../../../LoadingScreen';
 import { Ionicons } from '@expo/vector-icons';
 
-const AbstractReasoning = ({ route }) => {
+const Logical = ({ route }) => {
     const email = route.params ? route.params.email : 'No email provided';
     const isGoogleSignedIn = route.params ? route.params.isGoogleSignedIn : 'Not Signed In';
     const [mcqData, setMCQData] = useState(null);
@@ -36,16 +36,30 @@ const AbstractReasoning = ({ route }) => {
 
     const fetchRandomMCQ = () => {
         setIsFetching(true);
-
+    
         API_URL
-            .post('/image-mcqs')
+            .post('/mcqs')
             .then((response) => {
-                setMCQData(response.data);
-                setIsImageLoaded(false);
+                const mcqData = response.data;
+                const options = [
+                    { option_text: mcqData.option1, is_correct: mcqData.Correct === "1" },
+                    { option_text: mcqData.option2, is_correct: mcqData.Correct === "2" },
+                    { option_text: mcqData.option3, is_correct: mcqData.Correct === "3" },
+                    { option_text: mcqData.option4, is_correct: mcqData.Correct === "4" }
+                ];
+    
+                setMCQData({
+                    ID: mcqData.ID,
+                    Question: mcqData.Question,
+                    Category: mcqData.Category,
+                    options: options
+                });
+    
             })
             .catch((error) => console.error('Error fetching MCQ data:', error))
             .finally(() => setIsFetching(false));
     };
+    
 
     const handleOptionSelect = (optionIndex) => {
         setSelectedOption(optionIndex);
@@ -67,26 +81,17 @@ const AbstractReasoning = ({ route }) => {
         }
     };
 
-    // const sendScore = async () => {
-    //     try {
-    //         const endpoint = isGoogleSignedIn ? `google-scores/${email}` : `scores/${email}`;
-    //         await API_URL.post(endpoint, { score });
-    //         console.log('Score sent successfully');
-    //     } catch (error) {
-    //         console.error('Error sending score:', error);
-    //     }
-    // };
-
     const sendScore = async () => {
         try {
           const endpoint = isGoogleSignedIn ? `/update-category-score-google/${email}` : `/update-category-score/${email}`;
-          await API_URL.post(endpoint, { category: 'abstract-reasoning', score });
+          await API_URL.post(endpoint, { category: 'logical', score });
           console.log('Score sent successfully');
         } catch (error) {
           console.error('Error sending score:', error);
         }
       };
       
+
     useEffect(() => {
         if (testEnded) {
             sendScore();
@@ -113,14 +118,16 @@ const AbstractReasoning = ({ route }) => {
                                 Question {questionCount + 1} / 10
                             </Text>
                             <ScrollView>
-                                <Image
-                                    source={{ uri: mcqData.question.question_img }}
-                                    style={styles.questionImage}
-                                    onLoad={() => setIsImageLoaded(true)}
-                                />
+                            <Text
+                                    numberOfLines={3}
+                                    ellipsizeMode="tail"
+                                    style={styles.question_text}
+                                >
+                                    {mcqData.Question}
+                                </Text>
                             </ScrollView>
 
-                            {isImageLoaded && mcqData.options.map((option, index) => (
+                            {mcqData.options.map((option, index) => (
                                 <View key={index}>
                                     <TouchableOpacity
                                         style={{
@@ -136,7 +143,6 @@ const AbstractReasoning = ({ route }) => {
                                 </View>
                             ))}
                         </View>
-                        {isImageLoaded && (
                             <TouchableOpacity
                                 style={styles.btn}
                                 onPress={handleNextQuestion}
@@ -144,7 +150,6 @@ const AbstractReasoning = ({ route }) => {
                             >
                                 <Text style={{ color: 'white' }}>Next</Text>
                             </TouchableOpacity>
-                        )}
                     </>
                 ) : testEnded ? (
                     <View style={styles.resultContainer}>
@@ -158,4 +163,4 @@ const AbstractReasoning = ({ route }) => {
     );
 };
 
-export default AbstractReasoning;
+export default Logical;

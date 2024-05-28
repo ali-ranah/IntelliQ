@@ -21,6 +21,7 @@ import RecentScores from './src/Components/Scores/RecentScores';
 import AbstractReasoning from './src/Components/Categories/AbstractReasoning';
 import VerbalReasoning from './src/Components/Categories/VerbalReasoning';
 import NumericalReasoning from './src/Components/Categories/NumericalReasoning';
+import Logical from './src/Components/Categories/Logical';
 
 const Stack = createStackNavigator();
 
@@ -43,6 +44,7 @@ const Navigation = () => {
         <Stack.Screen name="UpdatePassword" component={UpdatePassword} options={{ headerShown: false }} />
         <Stack.Screen name="Mcqs" component={Mcqs} options={{ headerShown: false }} />
         <Stack.Screen name="abstract-reasoning" component={AbstractReasoning} options={{ headerShown: false }} />
+        <Stack.Screen name="logical" component={Logical} options={{ headerShown: false }} />
         <Stack.Screen name="verbal-reasoning" component={VerbalReasoning} options={{ headerShown: false }} />
         <Stack.Screen name="numerical-reasoning" component={NumericalReasoning} options={{ headerShown: false }} />
         <Stack.Screen name="Category" component={Category} options={{ headerShown: false }} />

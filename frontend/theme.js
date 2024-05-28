@@ -77,6 +77,9 @@ const styles = StyleSheet.create({
         padding: 20,
     },
     card: {
+        display:'flex',
+        flexDirection: 'row',
+        justifyContent:'space-between',
         width: '46%',
         height: 100,
         backgroundColor: '#fb5b5a',
@@ -91,10 +94,14 @@ const styles = StyleSheet.create({
         shadowRadius: 3.84,
         elevation: 10,
       },
+      disabledCard: {
+        backgroundColor: '#d3d3d3', // Light grey color to indicate the category is disabled
+      },
       cardText: {
-        fontSize: 18,
+        color: '#fff',
+        fontSize: 16,
         fontWeight: 'bold',
-        color:'white'
+        textAlign: 'center',
       },
     drawerHeaderText: {
         fontWeight: "bold",

@@ -38,7 +38,7 @@ const initializeDatabase = () => {
 
         db.run(
             'CREATE TABLE IF NOT EXISTS registered_accounts_with_google (id INTEGER PRIMARY KEY AUTOINCREMENT,email TEXT, name TEXT, profile_picture BLOB, age INTEGER);'
-        );
+        );        
 
         db.run(
             'CREATE TABLE IF NOT EXISTS registered_accounts_reset (email TEXT, verification_code TEXT);'
@@ -49,6 +49,73 @@ const initializeDatabase = () => {
         db.run(
             'CREATE TABLE IF NOT EXISTS google_scores (id INTEGER PRIMARY KEY AUTOINCREMENT, user_id INTEGER, score INTEGER, FOREIGN KEY(user_id) REFERENCES registered_accounts_with_google(id));'
         );
+        db.run(`
+        CREATE TABLE IF NOT EXISTS attempted_categories (
+          email TEXT NOT NULL,
+          category TEXT NOT NULL,
+          PRIMARY KEY (email, category),
+          FOREIGN KEY (email) REFERENCES registered_accounts(email) ON DELETE CASCADE
+        );
+      `);
+      
+      // Table for attempted categories for Google users
+      db.run(`
+        CREATE TABLE IF NOT EXISTS attempted_categories_google (
+          email TEXT NOT NULL,
+          category TEXT NOT NULL,
+          PRIMARY KEY (email, category),
+          FOREIGN KEY (email) REFERENCES registered_accounts_with_google(email) ON DELETE CASCADE
+        );
+      `);
+      
+      // Table for category scores for normal users
+      db.run(`
+        CREATE TABLE IF NOT EXISTS category_scores (
+          email TEXT NOT NULL,
+          category TEXT NOT NULL,
+          score INTEGER NOT NULL,
+          PRIMARY KEY (email, category),
+          FOREIGN KEY (email) REFERENCES registered_accounts(email) ON DELETE CASCADE
+        );
+      `);
+      
+      // Table for category scores for Google users
+      db.run(`
+        CREATE TABLE IF NOT EXISTS category_scores_google (
+          email TEXT NOT NULL,
+          category TEXT NOT NULL,
+          score INTEGER NOT NULL,
+          PRIMARY KEY (email, category),
+          FOREIGN KEY (email) REFERENCES registered_accounts_with_google(email) ON DELETE CASCADE
+        );
+      `);
+
+      db.run(`
+    CREATE TABLE IF NOT EXISTS iq_scores (
+        email TEXT NOT NULL,
+        verbal INTEGER NOT NULL,
+        logical INTEGER NOT NULL,
+        numerical INTEGER NOT NULL,
+        abstract INTEGER NOT NULL,
+        iq REAL NOT NULL,
+        PRIMARY KEY (email),
+        FOREIGN KEY (email) REFERENCES registered_accounts(email) ON DELETE CASCADE
+    );
+`);
+
+// IQ model for Google users
+db.run(`
+    CREATE TABLE IF NOT EXISTS iq_scores_google (
+        email TEXT NOT NULL,
+        verbal INTEGER NOT NULL,
+        logical INTEGER NOT NULL,
+        numerical INTEGER NOT NULL,
+        abstract INTEGER NOT NULL,
+        iq REAL NOT NULL,
+        PRIMARY KEY (email),
+        FOREIGN KEY (email) REFERENCES registered_accounts_with_google(email) ON DELETE CASCADE
+    );
+`);
         
 
         db.exec(sqlStatements, (err) => {
@@ -358,55 +425,94 @@ app.post('/user_details_google', async (req, res) => {
 });
 
 
-
 app.post('/update-details', async (req, res) => {
     const { email, newName, newAge } = req.body;
 
-    // Update the user's name and age in the database
-    db.run('UPDATE registered_accounts SET name = ?, age = ? WHERE email = ?;', [newName, newAge, email], async (err) => {
+    // Prepare the update query and parameters
+    let query = 'UPDATE registered_accounts SET ';
+    let params = [];
+    if (newName) {
+        query += 'name = ?, ';
+        params.push(newName);
+    }
+    if (newAge) {
+        query += 'age = ?, ';
+        params.push(newAge);
+    }
+    query = query.slice(0, -2); // Remove the last comma and space
+    query += ' WHERE email = ?;';
+    params.push(email);
+
+    if (params.length === 1) { // Only email is in params, nothing to update
+        return res.status(400).json({ error: 'No fields to update' });
+    }
+
+    // Update the user's details in the database
+    db.run(query, params, async (err) => {
         if (err) {
-            console.error('Error updating name and age:', err);
-            return res.status(500).json({ error: 'Error updating name and age' });
+            console.error('Error updating details:', err);
+            return res.status(500).json({ error: 'Error updating details' });
         }
 
-        // Successfully updated the name and age
-        res.status(200).json({ message: 'Name and age updated successfully' });
+        // Successfully updated the details
+        res.status(200).json({ message: 'Details updated successfully' });
     });
 });
+
 
 app.post('/update-details-google', async (req, res) => {
     const { email, newName, newAge } = req.body;
 
-    // Update the user's name and age in the database for Google accounts
-    db.run('UPDATE registered_accounts_with_google SET name = ?, age = ? WHERE email = ?;', [newName, newAge, email], async (err) => {
+    // Prepare the update query and parameters
+    let query = 'UPDATE registered_accounts_with_google SET ';
+    let params = [];
+    if (newName) {
+        query += 'name = ?, ';
+        params.push(newName);
+    }
+    if (newAge) {
+        query += 'age = ?, ';
+        params.push(newAge);
+    }
+    query = query.slice(0, -2); // Remove the last comma and space
+    query += ' WHERE email = ?;';
+    params.push(email);
+
+    if (params.length === 1) { // Only email is in params, nothing to update
+        return res.status(400).json({ error: 'No fields to update' });
+    }
+
+    // Update the user's details in the database for Google accounts
+    db.run(query, params, async (err) => {
         if (err) {
-            console.error('Error updating name and age for Google account:', err);
-            return res.status(500).json({ error: 'Error updating name and age for Google account' });
+            console.error('Error updating details for Google account:', err);
+            return res.status(500).json({ error: 'Error updating details for Google account' });
         }
 
-        // Successfully updated the name and age for Google account
-        res.status(200).json({ message: 'Name and age updated successfully for Google account' });
+        // Successfully updated the details for Google account
+        res.status(200).json({ message: 'Details updated successfully for Google account' });
     });
 });
 
 
 
 
-// app.post('/mcqs', (req, res) => {
-//     db.all('SELECT * FROM mcqs_question ORDER BY RANDOM() LIMIT 1;', (err, rows) => {
-//         if (err) {
-//             console.error(err);
-//             res.status(500).json({ error: 'Internal Server Error' });
-//             return;
-//         }
 
-//         if (rows.length > 0) {
-//             res.json(rows[0]);
-//         } else {
-//             res.status(404).json({ error: 'No questions available' });
-//         }
-//     });
-// });
+app.post('/mcqs', (req, res) => {
+    db.all('SELECT * FROM mcqs_question ORDER BY RANDOM() LIMIT 1;', (err, rows) => {
+        if (err) {
+            console.error(err);
+            res.status(500).json({ error: 'Internal Server Error' });
+            return;
+        }
+
+        if (rows.length > 0) {
+            res.json(rows[0]);
+        } else {
+            res.status(404).json({ error: 'No questions available' });
+        }
+    });
+});
 
 
 app.post('/verbal-mcqs', (req, res) => {
@@ -1032,6 +1138,166 @@ app.post('/update-user-age-google/:email', (req, res) => {
         res.json({ message: 'User age updated successfully' });
     });
 });
+
+const calculateIQ = (rawScores, means, stdDevs) => {
+    // Calculate Z-Scores for each category
+    const zScores = rawScores.map((score, index) => {
+      return (score - means[index]) / stdDevs[index];
+    });
+  
+    // Calculate combined Z-Score (average)
+    const zCombined = zScores.reduce((sum, z) => sum + z, 0) / zScores.length;
+  
+    // Convert to IQ
+    const iq = 100 + (zCombined * 15);
+  
+    return iq;
+  };
+  
+ // API endpoint for calculating and storing IQ scores for normal users
+app.post('/calculate-IQ', (req, res) => {
+    const { verbal, logical, numerical, abstract, email } = req.body;
+  
+    if (verbal === undefined || logical === undefined || numerical === undefined || abstract === undefined) {
+        return res.status(400).json({ error: 'All scores are required' });
+    }
+    const rawScores = [parseFloat(verbal), parseFloat(logical), parseFloat(numerical), parseFloat(abstract)];
+    const means = [15, 10, 18, 15];
+    const stdDevs = [3, 2, 4, 3];
+  
+    const iq = calculateIQ(rawScores, means, stdDevs);
+  
+    const query = `INSERT INTO iq_scores (email, verbal, logical, numerical, abstract,iq) VALUES (?, ?, ?, ?, ?, ?)`;
+    db.run(query, [email, verbal, logical, numerical, abstract,iq], (err) => {
+        if (err) {
+            console.error('Error storing IQ score:', err);
+            return res.status(500).json({ error: 'Failed to store IQ score' });
+        }
+        return res.status(200).json({ iq });
+    });
+});
+
+// API endpoint for calculating and storing IQ scores for Google users
+app.post('/calculate-IQ-google', (req, res) => {
+    const { verbal, logical, numerical, abstract, email } = req.body;
+  
+    if (verbal === undefined || logical === undefined || numerical === undefined || abstract === undefined) {
+        return res.status(400).json({ error: 'All scores are required' });
+    }
+  
+    const rawScores = [parseFloat(verbal), parseFloat(logical), parseFloat(numerical), parseFloat(abstract)];
+    const means = [15, 10, 18, 15];
+    const stdDevs = [3, 2, 4, 3];
+    const iq = calculateIQ(rawScores, means, stdDevs);
+  
+    const query = `INSERT INTO iq_scores_google (email, verbal, logical, numerical, abstract,iq) VALUES (?, ?, ?, ?, ?, ?)`;
+    db.run(query, [email, verbal, logical, numerical, abstract,iq], (err) => {
+        if (err) {
+            console.error('Error storing IQ score:', err);
+            return res.status(500).json({ error: 'Failed to store IQ score' });
+        }
+        return res.status(200).json({ iq });
+    });
+});
+
+  
+// Fetch attempted categories for normal users
+app.get('/attempted-categories/:email', (req, res) => {
+    const { email } = req.params;
+    db.all('SELECT category FROM attempted_categories WHERE email = ?', [email], (err, rows) => {
+      if (err) {
+        return res.status(500).json({ error: err.message });
+      }
+      res.json({ attemptedCategories: rows.map(row => row.category) });
+    });
+  });
+  
+  // Update attempted categories for normal users
+  app.post('/update-attempted-categories/:email', (req, res) => {
+    const { email } = req.params;
+    const { category, reset } = req.body;
+    const query = reset ? 'DELETE FROM attempted_categories WHERE email = ?' : 'INSERT INTO attempted_categories (email, category) VALUES (?, ?)';
+    const params = reset ? [email] : [email, category];
+    db.run(query, params, function (err) {
+      if (err) {
+        return res.status(500).json({ error: err.message });
+      }
+      res.json({ updated: this.changes });
+    });
+  });
+  
+  // Fetch category scores for normal users
+  app.get('/category-scores/:email', (req, res) => {
+    const { email } = req.params;
+    db.all('SELECT category, score FROM category_scores WHERE email = ?', [email], (err, rows) => {
+      if (err) {
+        return res.status(500).json({ error: err.message });
+      }
+      res.json({ scores: rows });
+    });
+  });
+  
+  // Update category score for normal users
+  app.post('/update-category-score/:email', (req, res) => {
+    const { email } = req.params;
+    const { category, score } = req.body;
+    db.run('INSERT INTO category_scores (email, category, score) VALUES (?, ?, ?)', [email, category, score], function (err) {
+      if (err) {
+        return res.status(500).json({ error: err.message });
+      }
+      res.json({ updated: this.changes });
+    });
+  });
+
+  // Fetch attempted categories for Google users
+app.get('/attempted-categories-google/:email', (req, res) => {
+    const { email } = req.params;
+    db.all('SELECT category FROM attempted_categories_google WHERE email = ?', [email], (err, rows) => {
+      if (err) {
+        return res.status(500).json({ error: err.message });
+      }
+      res.json({ attemptedCategories: rows.map(row => row.category) });
+    });
+  });
+  
+  // Update attempted categories for Google users
+  app.post('/update-attempted-categories-google/:email', (req, res) => {
+    const { email } = req.params;
+    const { category, reset } = req.body;
+    const query = reset ? 'DELETE FROM attempted_categories_google WHERE email = ?' : 'INSERT INTO attempted_categories_google (email, category) VALUES (?, ?)';
+    const params = reset ? [email] : [email, category];
+    db.run(query, params, function (err) {
+      if (err) {
+        return res.status(500).json({ error: err.message });
+      }
+      res.json({ updated: this.changes });
+    });
+  });
+  
+  // Fetch category scores for Google users
+  app.get('/category-scores-google/:email', (req, res) => {
+    const { email } = req.params;
+    db.all('SELECT category, score FROM category_scores_google WHERE email = ?', [email], (err, rows) => {
+      if (err) {
+        return res.status(500).json({ error: err.message });
+      }
+      res.json({ scores: rows });
+    });
+  });
+  
+  // Update category score for Google users
+  app.post('/update-category-score-google/:email', (req, res) => {
+    const { email } = req.params;
+    const { category, score } = req.body;
+    db.run('INSERT INTO category_scores_google (email, category, score) VALUES (?, ?, ?)', [email, category, score], function (err) {
+      if (err) {
+        return res.status(500).json({ error: err.message });
+      }
+      res.json({ updated: this.changes });
+    });
+  });
+
+
 
 app.get('/', (req, res) => {
     res.status(200).json({ message: 'Welcome to the server!' });

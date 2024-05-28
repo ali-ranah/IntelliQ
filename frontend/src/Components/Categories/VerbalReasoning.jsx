@@ -67,13 +67,14 @@ const VerbalReasoning = ({ route }) => {
 
     const sendScore = async () => {
         try {
-            const endpoint = isGoogleSignedIn ? `google-scores/${email}` : `scores/${email}`;
-            await API_URL.post(endpoint, { score });
-            console.log('Score sent successfully');
+          const endpoint = isGoogleSignedIn ? `/update-category-score-google/${email}` : `/update-category-score/${email}`;
+          await API_URL.post(endpoint, { category: 'verbal-reasoning', score });
+          console.log('Score sent successfully');
         } catch (error) {
-            console.error('Error sending score:', error);
+          console.error('Error sending score:', error);
         }
-    };
+      };
+      
 
     useEffect(() => {
         if (testEnded) {
