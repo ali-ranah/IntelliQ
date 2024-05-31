@@ -92,6 +92,7 @@ const initializeDatabase = () => {
 
       db.run(`
     CREATE TABLE IF NOT EXISTS iq_scores (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
         email TEXT NOT NULL,
         verbal_reasoning INTEGER NOT NULL,
         logical INTEGER NOT NULL,
@@ -106,6 +107,7 @@ const initializeDatabase = () => {
 // IQ model for Google users
 db.run(`
     CREATE TABLE IF NOT EXISTS iq_scores_google (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
         email TEXT NOT NULL,
         verbal_reasoning INTEGER NOT NULL,
         logical INTEGER NOT NULL,
@@ -171,7 +173,7 @@ app.post('/login', async (req, res) => {
         if (err) {
             return res.status(500).json({ error: 'Error checking account existence' });
         } else if (!row) {
-            return res.status(401).json({ error: 'Invalid email or password' });
+            return res.status(404).json({ error: 'Account Doesnot Exist' });
         }
 
         // Email exists, check the password
@@ -1298,6 +1300,39 @@ app.get('/attempted-categories-google/:email', (req, res) => {
       res.json({ updated: this.changes });
     });
   });
+
+
+  
+  app.post('/delete-attempted-category/:email', (req, res) => {
+    const { email } = req.params;
+    const { category } = req.body;
+  
+    const query = 'DELETE FROM attempted_categories WHERE email = ? AND category = ?';
+    const params = [email, category];
+  
+    db.run(query, params, function (err) {
+      if (err) {
+        return res.status(500).json({ error: err.message });
+      }
+      res.json({ deleted: this.changes });
+    });
+  });
+  
+  app.post('/delete-attempted-category-google/:email', (req, res) => {
+    const { email } = req.params;
+    const { category } = req.body;
+  
+    const query = 'DELETE FROM attempted_categories_google WHERE email = ? AND category = ?';
+    const params = [email, category];
+  
+    db.run(query, params, function (err) {
+      if (err) {
+        return res.status(500).json({ error: err.message });
+      }
+      res.json({ deleted: this.changes });
+    });
+  });
+  
   
   // Fetch category scores for Google users
   app.get('/category-scores-google/:email', (req, res) => {

@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { View, TouchableOpacity, Text, StyleSheet, TextInput, Alert } from 'react-native';
+import { View, TouchableOpacity, Text, TextInput, Alert } from 'react-native';
 import { useNavigation, useIsFocused } from "@react-navigation/native";
 import { styles } from "../../../theme";
 import { API_URL } from "../../../Api";
 import Toast from 'react-native-toast-message';
-import Loading from "../../../LoadingScreen"
+import Loading from "../../../LoadingScreen";
 
 const Category = ({ route }) => {
   const email = route.params ? route.params.email : 'No email provided';
@@ -15,9 +15,8 @@ const Category = ({ route }) => {
   const [showAgeInput, setShowAgeInput] = useState(false);
   const [inputAge, setInputAge] = useState('');
   const [attemptedCategories, setAttemptedCategories] = useState([]);
-  const [scores, setScores] = useState([]);
+  const [scores, setScores] = useState({});
   const [isLoading, setIsLoading] = useState(false);
-
 
   const categories = [
     'verbal_reasoning',
@@ -32,85 +31,143 @@ const Category = ({ route }) => {
         const ageEndpoint = isGoogleSignedIn ? `/user-age-google/${email}` : `/user-age/${email}`;
         const categoriesEndpoint = isGoogleSignedIn ? `/attempted-categories-google/${email}` : `/attempted-categories/${email}`;
         const scoresEndpoint = isGoogleSignedIn ? `/category-scores-google/${email}` : `/category-scores/${email}`;
-
-        const [ageResponse, categoriesResponse,scoresResponse] = await Promise.all([
+  
+        const [ageResponse, categoriesResponse, scoresResponse] = await Promise.all([
           API_URL.get(ageEndpoint),
           API_URL.get(categoriesEndpoint),
           API_URL.get(scoresEndpoint)
         ]);
-
+  
         if (ageResponse.data.age) {
           setUserAge(ageResponse.data.age);
         } else {
           setShowAgeInput(true);
         }
-
-        if (categoriesResponse.data.attemptedCategories) {
-          setAttemptedCategories(categoriesResponse.data.attemptedCategories);
-        }
-        if (scoresResponse.data.scores) {
-          setScores(scoresResponse.data.scores.reduce((acc, { category, score }) => {
-            if (score !== undefined) {
-              acc[category] = score;
-            }
-            return acc;
-          }, {}));
-        }
-        
+  
+        const fetchedAttemptedCategories = categoriesResponse.data.attemptedCategories;
+        const fetchedScores = scoresResponse.data.scores.reduce((acc, { category, score }) => {
+          if (score !== undefined) {
+            acc[category] = score;
+          }
+          return acc;
+        }, {});
+  
+        const fetchedCategoriesCount = fetchedAttemptedCategories.length;
+        const fetchedScoresCount = Object.keys(fetchedScores).length;
+  
+        console.log('Fetched Categories Count', fetchedCategoriesCount);
+        console.log('Fetched Scores Count', fetchedScoresCount);
+  
+        // Update attempted categories
+        const updatedAttemptedCategories = fetchedAttemptedCategories.filter(category => fetchedScores[category] !== undefined);
+        setAttemptedCategories(updatedAttemptedCategories);
+  
+        // Update scores
+        setScores(fetchedScores);
+  
+        // Delete additional categories
+        await Promise.all(
+          fetchedAttemptedCategories
+            .filter(category => fetchedScores[category] === undefined)
+            .map(async category => {
+              const deleteEndpoint = isGoogleSignedIn ? `/delete-attempted-category-google/${email}` : `/delete-attempted-category/${email}`;
+              await API_URL.post(deleteEndpoint, { category });
+            })
+        );
+  
+        // Add scores for specific categories
+        await Promise.all(
+          Object.entries(fetchedScores)
+            .map(async ([category, score]) => {
+              const updateEndpoint = isGoogleSignedIn ? `/update-attempted-categories-google/${email}` : `/update-attempted-categories/${email}`;
+              await API_URL.post(updateEndpoint, { category });
+            })
+        );
+  
       } catch (error) {
-        console.error('Error fetching user details:', error);
+        let errorMessage = 'Failed to fetch user details. Please try again later.';
+        if (error.response && error.response.data && error.response.data.error) {
+          errorMessage = error.response.data.error;
+        }
         Toast.show({
           type: 'error',
           text1: 'Error',
-          text2: 'Failed to fetch user details. Please try again later.',
+          text2: errorMessage,
         });
       }
     };
-
+  
     fetchUserDetails();
   }, [email, isGoogleSignedIn, isFocused]);
+  
+  
+    
+  
+
+  useEffect(() => {
+    const calculateIQIfNeeded = async () => {
+      const scoresEndpoint = isGoogleSignedIn ? `/category-scores-google/${email}` : `/category-scores/${email}`;
+      const scoresResponse = await API_URL.get(scoresEndpoint);
+
+      const fetchedScores = scoresResponse.data.scores.reduce((acc, { category, score }) => {
+        if (score !== undefined) {
+          acc[category] = score;
+        }
+        return acc;
+      }, {});
+      const attemptedCategoriesCount = Object.keys(fetchedScores).length;
+      if (attemptedCategoriesCount === 4) {
+        setIsLoading(true);
+        const iqEndpoint = isGoogleSignedIn ? `/calculate-IQ-google` : `/calculate-IQ`;
+        try {
+          const iqResponse = await API_URL.post(iqEndpoint, {
+            verbal_reasoning: fetchedScores.verbal_reasoning,
+            logical: fetchedScores.logical,
+            abstract_reasoning: fetchedScores.abstract_reasoning,
+            numerical_reasoning: fetchedScores.numerical_reasoning,
+            email
+          });
+          const { iq } = iqResponse.data;
+
+          Alert.alert(
+            'IQ Score',
+            `Your IQ score is ${iq}`,
+            [
+              {
+                text: 'OK',
+                onPress: async () => {
+                  setAttemptedCategories([]);
+                  const scoreResetEndpoint = isGoogleSignedIn ? `/update-category-score-google/${email}` : `/update-category-score/${email}`;
+                  await API_URL.post(scoreResetEndpoint, { reset: 1 });
+                  setIsLoading(false);
+                }
+              }
+            ],
+            { cancelable: false }
+          );
+        } catch (error) {
+          console.error('Error calculating IQ:', error);
+          Toast.show({
+            type: 'error',
+            text1: 'Error',
+            text2: 'Failed to calculate IQ. Please try again later.',
+          });
+          setIsLoading(false);
+        }
+      }
+    };
+
+    calculateIQIfNeeded();
+  }, [scores,email,isGoogleSignedIn,isFocused]);
 
   const handleCategory = async (route, index) => {
     const reset = index === categories.length - 1;
     const endpoint = isGoogleSignedIn ? `/update-attempted-categories-google/${email}` : `/update-attempted-categories/${email}`;
-    const scoreResetendpoint = isGoogleSignedIn ? `/update-category-score-google/${email}` : `/update-category-score/${email}`;
-
+  
     try {
-      const attemptedCategoriesCount = Object.keys(scores).length;
-      if (attemptedCategoriesCount == 4) {
-        setIsLoading(true);
-        const iqEndpoint = isGoogleSignedIn ? `/calculate-IQ-google` : `/calculate-IQ`;
-        const iqResponse = await API_URL.post(iqEndpoint, {
-          verbal_reasoning: scores.verbal_reasoning,
-          logical: scores.logical,
-          abstract_reasoning: scores.abstract_reasoning,
-          numerical_reasoning: scores.numerical_reasoning,
-          email
-        });
-        const { iq } = iqResponse.data;
-  
-        // Show alert with IQ score
-        Alert.alert(
-          'IQ Score',
-          `Your IQ score is ${iq}`,
-          [
-            {
-              text: 'OK',
-              onPress: async () => {
-                // Reset attempted categories if all categories are done
-                setAttemptedCategories([]);
-                await API_URL.post(scoreResetendpoint, { reset: 1 });
-                setIsLoading(false); // Move this here
-              }
-            }
-          ],
-          { cancelable: false }
-        );
+      if (reset) {
+        await API_URL.post(endpoint, { reset });
       }
-  
-      // Update attempted category for the current selection
-      await API_URL.post(endpoint, { category: route, reset });
-  
       navigation.navigate(route, { email, isGoogleSignedIn });
     } catch (error) {
       console.error('Error updating attempted category:', error);
@@ -166,26 +223,28 @@ const Category = ({ route }) => {
 
   return (
     <View style={styles.container}>
-      {isLoading && (
+      {isLoading ? (
         <View style={styles.loadingContainer}>
-          <Loading/>
+          <Loading />
         </View>
+      ) : (
+        <>
+          <Text style={styles.screen_title}>Select a Category</Text>
+          {categories.map((category, index) => (
+            <TouchableOpacity
+              key={category}
+              style={[styles.card, attemptedCategories.includes(category) && styles.disabledCard]}
+              onPress={() => !attemptedCategories.includes(category) && handleCategory(category, index)}
+              disabled={attemptedCategories.includes(category)}
+            >
+              <Text style={styles.cardText}>{category.split('_').map(word => word[0].toUpperCase() + word.slice(1)).join(' ')}</Text>
+              {attemptedCategories.includes(category) && <Text style={styles.attemptedText}>Attempted</Text>}
+            </TouchableOpacity>
+          ))}
+        </>
       )}
-      <Text style={styles.screen_title}>Select a Category</Text>
-      {categories.map((category, index) => (
-        <TouchableOpacity
-          key={category}
-          style={[styles.card, attemptedCategories.includes(category) && styles.disabledCard]}
-          onPress={() => !attemptedCategories.includes(category) && handleCategory(category, index)}
-          disabled={attemptedCategories.includes(category)}
-        >
-          <Text style={styles.cardText}>{category.split('_').map(word => word[0].toUpperCase() + word.slice(1)).join(' ')}</Text>
-          {attemptedCategories.includes(category) && <Text style={styles.attemptedText}>Attempted</Text>}
-        </TouchableOpacity>
-      ))}
     </View>
   );
-};
-
+}
 
 export default Category;

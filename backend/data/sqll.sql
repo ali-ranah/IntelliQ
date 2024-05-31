@@ -1,7 +1,8 @@
 -- Insert verbal reasoning questions
 CREATE TABLE IF NOT EXISTS Verbal_Questions (
     question_id INTEGER PRIMARY KEY,
-    question_text VARCHAR(255) NOT NULL
+    question_text VARCHAR(255) NOT NULL,
+    UNIQUE (question_text)
 );
 
 -- Create the Options table
@@ -10,7 +11,8 @@ CREATE TABLE IF NOT EXISTS Verbal_Options (
     question_id INTEGER,
     option_text VARCHAR(255) NOT NULL,
     is_correct BOOLEAN,
-    FOREIGN KEY (question_id) REFERENCES Verbal_Questions(question_id)
+    FOREIGN KEY (question_id) REFERENCES Verbal_Questions(question_id),
+    UNIQUE (question_id, option_text)
 );
 
 CREATE TABLE IF NOT EXISTS numerical_reasoning_questions (
@@ -20,13 +22,15 @@ CREATE TABLE IF NOT EXISTS numerical_reasoning_questions (
     option_a REAL NOT NULL,
     option_b REAL NOT NULL,
     option_c REAL NOT NULL,
-    option_d REAL NOT NULL
+    option_d REAL NOT NULL,
+    UNIQUE (question_text)
 );
 
 
 CREATE TABLE IF NOT EXISTS Image_Questions (
     question_id INTEGER PRIMARY KEY,
-    question_img VARCHAR(255) NOT NULL
+    question_img VARCHAR(255) NOT NULL,
+    UNIQUE (question_img)
 );
 
 CREATE TABLE IF NOT EXISTS Image_Options (
@@ -34,7 +38,8 @@ CREATE TABLE IF NOT EXISTS Image_Options (
     question_id INTEGER,
     option_text VARCHAR(255) NOT NULL,
     is_correct BOOLEAN,
-    FOREIGN KEY (question_id) REFERENCES Image_Questions(question_id)
+    FOREIGN KEY (question_id) REFERENCES Image_Questions(question_id),
+    UNIQUE (question_id, option_text)
 );
 
 

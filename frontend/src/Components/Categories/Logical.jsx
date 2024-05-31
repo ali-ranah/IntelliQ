@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, ScrollView, Image } from 'react-native';
+import { View, Text, TouchableOpacity, ScrollView,Alert, Image,BackHandler } from 'react-native';
 import { styles } from '../../../theme';
 import { API_URL } from '../../../Api';
 import Loading from '../../../LoadingScreen';
 import { Ionicons } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
 
 const Logical = ({ route }) => {
     const email = route.params ? route.params.email : 'No email provided';
@@ -12,10 +13,11 @@ const Logical = ({ route }) => {
     const [selectedOption, setSelectedOption] = useState(null);
     const [isFetching, setIsFetching] = useState(true);
     const [questionCount, setQuestionCount] = useState(0);
-    const [score, setScore] = useState(0);
+    const [questionScores, setQuestionScores] = useState(Array(15).fill(0)); // Array to store scores for each question
     const [testEnded, setTestEnded] = useState(false);
     const [timeLeft, setTimeLeft] = useState(100);
     const [isImageLoaded, setIsImageLoaded] = useState(false);
+    const navigation = useNavigation();
 
     useEffect(() => {
         const timer = setInterval(() => {
@@ -33,6 +35,8 @@ const Logical = ({ route }) => {
     useEffect(() => {
         fetchRandomMCQ();
     }, []);
+
+   
 
     const fetchRandomMCQ = () => {
         setIsFetching(true);
@@ -66,10 +70,13 @@ const Logical = ({ route }) => {
     };
 
     const handleNextQuestion = () => {
-        if (selectedOption !== null) {
+        if (!testEnded && selectedOption !== null) {
             const selectedOptionData = mcqData.options[selectedOption];
             const isCorrect = selectedOptionData.is_correct;
-            setScore(score + (isCorrect ? 1 : 0));
+            const updatedScores = [...questionScores];
+            updatedScores[questionCount] = isCorrect ? 1 : 0;
+            setQuestionScores(updatedScores);
+
             setQuestionCount(questionCount + 1);
             setSelectedOption(null);
 
@@ -81,20 +88,61 @@ const Logical = ({ route }) => {
         }
     };
 
-    const sendScore = async () => {
+    const sendScore = async (score) => {
         try {
-          const endpoint = isGoogleSignedIn ? `/update-category-score-google/${email}` : `/update-category-score/${email}`;
-          await API_URL.post(endpoint, { category: 'logical', score });
-          console.log('Score sent successfully');
+            const endpoint = isGoogleSignedIn ? `/update-category-score-google/${email}` : `/update-category-score/${email}`;
+            await API_URL.post(endpoint, { category: 'logical', score });
+            const categoryendpoint = isGoogleSignedIn ? `/update-attempted-categories-google/${email}` : `/update-attempted-categories/${email}`;
+            await API_URL.post(categoryendpoint, { category: 'logical', reset: 0 });
+            console.log('Score sent successfully');
         } catch (error) {
-          console.error('Error sending score:', error);
+            console.error('Error sending score:', error);
         }
-      };
+    };
+
+
+    useEffect(() => {
+        const backAction = () => {
+            if (!testEnded) {
+                Alert.alert(
+                    'Are you sure?',
+                    'Your score will be counted if you go back.',
+                    [
+                        {
+                            text: 'Yes, I want to go back',
+                            onPress: async () => {
+                                const score = questionScores.reduce((acc, val) => acc + val, 0);
+                                await sendScore(score);
+                                navigation.goBack();
+                            },
+                        },
+                        {
+                            text: "No, I'll continue the test",
+                            onPress: () => {},
+                            style: 'cancel'
+                        }
+                    ],
+                    { cancelable: false }
+                );
+                return true;
+            } else {
+                return false;
+            }
+        };
+
+        const backHandler = BackHandler.addEventListener(
+            'hardwareBackPress',
+            backAction
+        );
+
+        return () => backHandler.remove();
+    }, [testEnded, questionScores]);
       
 
     useEffect(() => {
         if (testEnded) {
-            sendScore();
+            const score = questionScores.reduce((acc, val) => acc + val, 0);
+            sendScore(score);
         }
     }, [testEnded]);
 
@@ -153,7 +201,9 @@ const Logical = ({ route }) => {
                     </>
                 ) : testEnded ? (
                     <View style={styles.resultContainer}>
-                        <Text style={styles.resultText}>Your score is: {score} out of 15</Text>
+<Text style={styles.resultText}>
+    Your score is: {questionScores.reduce((acc, score) => acc + score, 0)} out of 15
+</Text>
                     </View>
                 ) : (
                     console.log('Loading Question')
