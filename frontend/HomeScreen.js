@@ -40,7 +40,7 @@ const HomeScreen = () => {
   }, [route.params]);
 
   const handleTabPress = (tabName) => {
-    navigation.navigate(tabName, { email, name });
+    navigation.navigate(tabName, { email, name,isGoogleSignedIn });
   };
 
   return (

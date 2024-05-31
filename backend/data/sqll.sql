@@ -1,747 +1,2146 @@
- /* CREATE TABLE */
-CREATE TABLE IF NOT EXISTS mcqs_question(
-ID INTEGER PRIMARY KEY AUTOINCREMENT,
-Question VARCHAR( 100 ),
-Category VARCHAR( 100 ),
-Correct VARCHAR(11),
-option1 VARCHAR(11),
-option2 VARCHAR(11),
-option3 VARCHAR( 10 , 2 ),
-option4 VARCHAR(11)
-);
-
-/* INSERT QUERY */
-INSERT INTO mcqs_question( Question,Category,Correct,option1,option2,option3,option4 )
-VALUES
-(
-    '7  9  5  11         4 15  12 7            13 8  11 ?','Which number logically follows this series?',2,8,10,11,13
-);
-
-/* INSERT QUERY */
-INSERT INTO mcqs_question( Question,Category,Correct,option1,option2,option3,option4 )
-VALUES
-(
-    '2  5  7      4  7  5     3  6 ?','Which number logically follows this series?',2,4,6,8,10
-);
-
-/* INSERT QUERY */
-INSERT INTO mcqs_question( Question,Category,Correct,option1,option2,option3,option4 )
-VALUES
-(
-    '2, 5, 8, 11, ?','Which number logically follows this series?',3,8,12,14,16
-);
-
-/* INSERT QUERY */
-INSERT INTO mcqs_question( Question,Category,Correct,option1,option2,option3,option4 )
-VALUES
-(
-    '121, 144, 169, 196, ?','Which number logically follows this series?',1,225,230,275,221
-);
-
-/* INSERT QUERY */
-INSERT INTO mcqs_question( Question,Category,Correct,option1,option2,option3,option4 )
-VALUES
-(
-    '4, 6, 9, 6, 14, 6, ?','Which number logically follows this series?',4,14,9,16,19
-);
-
-/* INSERT QUERY */
-INSERT INTO mcqs_question( Question,Category,Correct,option1,option2,option3,option4 )
-VALUES
-(
-    '2, 3, 5, 9, 17, 33, 65, ?','Which number logically follows this series?',2,104,129,97,135
-);
-
-/* INSERT QUERY */
-INSERT INTO mcqs_question( Question,Category,Correct,option1,option2,option3,option4 )
-VALUES
-(
-    '1, 3, 12, 52, 265, ?','Which number logically follows this series?',4,1188,1390,1489,1596
-);
-
-/* INSERT QUERY */
-INSERT INTO mcqs_question( Question,Category,Correct,option1,option2,option3,option4 )
-VALUES
-(
-    '2, 8, 26, 62, 122, 212,?','Which number logically follows this series?',1,338,339,340,341
-);
-
-/* INSERT QUERY */
-INSERT INTO mcqs_question( Question,Category,Correct,option1,option2,option3,option4 )
-VALUES
-(
-    '13, 17, 19, 23, 29,?','Which number logically follows this series?',2,30,31,33,34
-);
-
-/* INSERT QUERY */
-INSERT INTO mcqs_question( Question,Category,Correct,option1,option2,option3,option4 )
-VALUES
-(
-    '2, 3, 6, 11, 18, 27, ?','Which number logically follows this series?',3,21,28,38,41
-);
-
-/* INSERT QUERY */
-INSERT INTO mcqs_question( Question,Category,Correct,option1,option2,option3,option4 )
-VALUES
-(
-    '2, 2, 4, 12, 48, 240, ?','Which number logically follows this series?',4,347,567,1009,1440
-);
-
-/* INSERT QUERY */
-INSERT INTO mcqs_question( Question,Category,Correct,option1,option2,option3,option4 )
-VALUES
-(
-    '3 2 2 5 5 5 7 8 8 9 11 11 ?','Which number logically follows this series?',1,11,12,13,15
-);
-
-/* INSERT QUERY */
-INSERT INTO mcqs_question( Question,Category,Correct,option1,option2,option3,option4 )
-VALUES
-(
-    '1 3 2 6 3 11 4 18 5 ?','Which number logically follows this series?',3,20,25,27,29
-);
-
-/* INSERT QUERY */
-INSERT INTO mcqs_question( Question,Category,Correct,option1,option2,option3,option4 )
-VALUES
-(
-    '13 17 23 29 31 37 ?','Which number logically follows this series?',2,39,41,49,55
-);
-
-/* INSERT QUERY */
-INSERT INTO mcqs_question( Question,Category,Correct,option1,option2,option3,option4 )
-VALUES
-(
-    '17 16 14 12 11 8 8 ?','Which number logically follows this series?',4,'none of the above',11,3,4
-);
-
-/* INSERT QUERY */
-INSERT INTO mcqs_question( Question,Category,Correct,option1,option2,option3,option4 )
-VALUES
-(
-    '9 11 13 ?','Which number logically follows this series?',1,'none of the above',14,16,17
-);
-
-/* INSERT QUERY */
-INSERT INTO mcqs_question( Question,Category,Correct,option1,option2,option3,option4 )
-VALUES
-(
-    '5, 6, 9, 14, 21, ?','Which number logically follows this series?',2,'none of the above',30,31,36
-);
-
-/* INSERT QUERY */
-INSERT INTO mcqs_question( Question,Category,Correct,option1,option2,option3,option4 )
-VALUES
-(
-    '40, 30, 22, 16, ?','Which number logically follows this series?',1,12,10,14,30
-);
-
-/* INSERT QUERY */
-INSERT INTO mcqs_question( Question,Category,Correct,option1,option2,option3,option4 )
-VALUES
-(
-    '1, 3, 6, 11, 18, ?','Which number logically follows this series?',4,20,24,25,29
-);
-
-/* INSERT QUERY */
-INSERT INTO mcqs_question( Question,Category,Correct,option1,option2,option3,option4 )
-VALUES
-(
-    '32, 19, 8, ?','Which number logically follows this series?',1,1,3,5,10
-);
-
-/* INSERT QUERY */
-INSERT INTO mcqs_question( Question,Category,Correct,option1,option2,option3,option4 )
-VALUES
-(
-    '1, 3, 9, 27, 81, ?','Which number logically follows this series?',2,216,243,250,'none of the above'
-);
-
-/* INSERT QUERY */
-INSERT INTO mcqs_question( Question,Category,Correct,option1,option2,option3,option4 )
-VALUES
-(
-    '1, 2, 6, 15, 31, ?','Which number logically follows this series?',2,44,56,60,'none of the above'
-);
-
-/* INSERT QUERY */
-INSERT INTO mcqs_question( Question,Category,Correct,option1,option2,option3,option4 )
-VALUES
-(
-    '71, 55, 46, 42, ?','Which number logically follows this series?',1,41,40,39,60
-);
-
-/* INSERT QUERY */
-INSERT INTO mcqs_question( Question,Category,Correct,option1,option2,option3,option4 )
-VALUES
-(
-    '1, 2, 10, 37, 101, ?','Which number logically follows this series?',3,402,206,226,178
-);
-
-/* INSERT QUERY */
-INSERT INTO mcqs_question( Question,Category,Correct,option1,option2,option3,option4 )
-VALUES
-(
-    '225, 100, 36, 9, 1, ?','Which number logically follows this series?',4,11,-5,6,0
-);
-
-/* INSERT QUERY */
-INSERT INTO mcqs_question( Question,Category,Correct,option1,option2,option3,option4 )
-VALUES
-(
-    '13, 25, 51, 101, 203, ?','Which number logically follows this series?',3,306,344,405,406
-);
-
-/* INSERT QUERY */
-INSERT INTO mcqs_question( Question,Category,Correct,option1,option2,option3,option4 )
-VALUES
-(
-    '5, 11, 23, 47, 95, ?','Which number logically follows this series?',3,176,191,199,207
-);
-
-/* INSERT QUERY */
-INSERT INTO mcqs_question( Question,Category,Correct,option1,option2,option3,option4 )
-VALUES
-(
-    '1, 2, 2, 4, 3, 8, 7, 10, ?','Which number logically follows this series?',4,9,8,13,11
-);
-
-/* INSERT QUERY */
-INSERT INTO mcqs_question( Question,Category,Correct,option1,option2,option3,option4 )
-VALUES
-(
-    '831, 842, 853, 864, 875, ?','Which number logically follows this series?',2,880,886,890,892
-);
-
-/* INSERT QUERY */
-INSERT INTO mcqs_question( Question,Category,Correct,option1,option2,option3,option4 )
-VALUES
-(
-    '74, 83, 92, 101, 110','Which number logically follows this series?',2,118,119,120,122
-);
-
-/* INSERT QUERY */
-INSERT INTO mcqs_question( Question,Category,Correct,option1,option2,option3,option4 )
-VALUES
-(
-    '8 10 14 18 ? 34 50 66','Which number is missing?',2,20,26,28,30
-);
-
-/* INSERT QUERY */
-INSERT INTO mcqs_question( Question,Category,Correct,option1,option2,option3,option4 )
-VALUES
-(
-    '16 (31) 47
-21 (?) 48','Which number is missing?',4,37,21,15,27
-);
-
-/* INSERT QUERY */
-INSERT INTO mcqs_question( Question,Category,Correct,option1,option2,option3,option4 )
-VALUES
-(
-    '7 9 8 6 10 9 5 11 10 ? 12','Which number is missing?',1,4,15,11,29
-);
-
-/* INSERT QUERY */
-INSERT INTO mcqs_question( Question,Category,Correct,option1,option2,option3,option4 )
-VALUES
-(
-    '? 9 27 81','Which number is missing?',3,0,1,3,5
-);
-
-/* INSERT QUERY */
-INSERT INTO mcqs_question( Question,Category,Correct,option1,option2,option3,option4 )
-VALUES
-(
-    '144, ?, 206, 240','Which number is missing?',4,155,167,170,174
-);
-
-/* INSERT QUERY */
-INSERT INTO mcqs_question( Question,Category,Correct,option1,option2,option3,option4 )
-VALUES
-(
-    '16, 64, ?, 1024, 4096','Which number is missing?',3,98,156,256,298
-);
-
-/* INSERT QUERY */
-INSERT INTO mcqs_question( Question,Category,Correct,option1,option2,option3,option4 )
-VALUES
-(
-    '56, 75, 94, ? , 132','Which number is missing?',1,113,128,130,131
-);
-
-/* INSERT QUERY */
-INSERT INTO mcqs_question( Question,Category,Correct,option1,option2,option3,option4 )
-VALUES
-(
-    '19, 57, ?, 513','Which number is missing?',2,88,171,333,467
-);
-
-/* INSERT QUERY */
-INSERT INTO mcqs_question( Question,Category,Correct,option1,option2,option3,option4 )
-VALUES
-(
-    '2448, 408, 68, ?','Which number is missing?',3,9,11,17,29
-);
-
-/* INSERT QUERY */
-INSERT INTO mcqs_question( Question,Category,Correct,option1,option2,option3,option4 )
-VALUES
-(
-    '68, ?, 86, 95, 104','Which number is missing?',1,77,11,17,29
-);
-
-/* INSERT QUERY */
-INSERT INTO mcqs_question( Question,Category,Correct,option1,option2,option3,option4 )
-VALUES
-(
-    '(-9) (-6) (-3) (?) (3)','Which number is missing?',4,3,4,5,0
-);
-
-/* INSERT QUERY */
-INSERT INTO mcqs_question( Question,Category,Correct,option1,option2,option3,option4 )
-VALUES
-(
-    '498     668     ?     974
-(249)  (334)  (448)  (486)','Which number is missing?',3,699,966,896,716
-);
-
-/* INSERT QUERY */
-INSERT INTO mcqs_question( Question,Category,Correct,option1,option2,option3,option4 )
-VALUES
-(
-    '64, ?, 1024, 4096','Which number is missing?',4,98,167,199,256
-);
-
-/* INSERT QUERY */
-INSERT INTO mcqs_question( Question,Category,Correct,option1,option2,option3,option4 )
-VALUES
-(
-    '169, ?, 225, 256, 289','Which number is missing?',2,176,196,199,200
-);
-
-/* INSERT QUERY */
-INSERT INTO mcqs_question( Question,Category,Correct,option1,option2,option3,option4 )
-VALUES
-(
-    '278, 179, ?, -19, -118','Which number is missing?',2,0,80,-7,66
-);
-
-/* INSERT QUERY */
-INSERT INTO mcqs_question( Question,Category,Correct,option1,option2,option3,option4 )
-VALUES
-(
-    '2754, ?, 306, 102, 34','Which number is missing?',1,918,1345,1266,1456
-);
-
-/* INSERT QUERY */
-INSERT INTO mcqs_question( Question,Category,Correct,option1,option2,option3,option4 )
-VALUES
-(
-    '288   594     ?    738
-(48)  (99)  (98)  (123)','Which number is missing?',3,677,413,588,698
-);
-
-/* INSERT QUERY */
-INSERT INTO mcqs_question( Question,Category,Correct,option1,option2,option3,option4 )
-VALUES
-(
-    '83, ?, 332, 664','Which number is missing?',1,166,178,266,567
-);
-
-/* INSERT QUERY */
-INSERT INTO mcqs_question( Question,Category,Correct,option1,option2,option3,option4 )
-VALUES
-(
-    '92, ?, 5888, 47 104','Which number is missing?',4,109,167,677,736
-);
-
-/* INSERT QUERY */
-INSERT INTO mcqs_question( Question,Category,Correct,option1,option2,option3,option4 )
-VALUES
-(
-    '78, 184, ?, 396, 502','Which number is missing?',1,290,1345,1266,1456
-);
-
-/* INSERT QUERY */
-INSERT INTO mcqs_question( Question,Category,Correct,option1,option2,option3,option4 )
-VALUES
-(
-    'Mary is 16 years old. She is 4 times older than her brother. How old will Mary be when she is twice his age?','Find the right answer to this question.',3,'Thats impossible',20,24,28
-);
-
-/* INSERT QUERY */
-INSERT INTO mcqs_question( Question,Category,Correct,option1,option2,option3,option4 )
-VALUES
-(
-    'Which fraction is the biggest?','Find the right answer to this question.',2, 3/5, 5/8, 5/9, 4/7
-);
-
-/* INSERT QUERY */
-INSERT INTO mcqs_question( Question,Category,Correct,option1,option2,option3,option4 )
-VALUES
-(
-    'The store reduces the price of one product by 20 percent. How many percent do you need to raise to the percentage to get the original price?','Find the right answer to this question.',1,25,27,30,35
-);
-
-/* INSERT QUERY */
-INSERT INTO mcqs_question( Question,Category,Correct,option1,option2,option3,option4 )
-VALUES
-(
-    'There are 5 machines that make 5 parts in 5 minutes. How long does it take to make 100 parts on 100 machines?','Find the right answer to this question.',1,5,10,13,30
-);
-
-/* INSERT QUERY */
-INSERT INTO mcqs_question( Question,Category,Correct,option1,option2,option3,option4 )
-VALUES
-(
-    'There is a lake on the surface of which water lilies float. The number of lilies doubles daily. If it takes 48 days to completely occupy the entire area of the lake, how many days will it take to occupy the floor of the lake?','Find the right answer to this question.',1,47,46,96,108
-);
-
-/* INSERT QUERY */
-INSERT INTO mcqs_question( Question,Category,Correct,option1,option2,option3,option4 )
-VALUES
-(
-    'A car travels at a speed of 40 mph over a certain distance and then returns over the same distance at a speed of 60 mph. What is the average speed for the total journey?','Find the right answer to this question.',4,'30 mph','40 mph','60 mph','48 mph'
-);
-
-/* INSERT QUERY */
-INSERT INTO mcqs_question( Question,Category,Correct,option1,option2,option3,option4 )
-VALUES
-(
-    'SUNDAY
-MONDAY
-TUESDAY
-WEDNESDAY
-THURSDAY
-FRIDAY
-SATURDAY
-SUNDAY
-Which day is three days before the day immediately following the day two days before the day three days after the day immediately before Friday?','Find the right answer to this question.',2,'Tuesday','Wednesday','Thursday','Sunday'
-);
-
-/* INSERT QUERY */
-INSERT INTO mcqs_question( Question,Category,Correct,option1,option2,option3,option4 )
-VALUES
-(
-    'What is always associated with DOLMEN?','Find the right answer to this question.',4,'cloths','statue','tribe','stone'
-);
-
-/* INSERT QUERY */
-INSERT INTO mcqs_question( Question,Category,Correct,option1,option2,option3,option4 )
-VALUES
-(
-    'What is the name given to a group of HORSES?','Find the right answer to this question.',2,'husk','harras','mute','rush'
-);
-
-/* INSERT QUERY */
-INSERT INTO mcqs_question( Question,Category,Correct,option1,option2,option3,option4 )
-VALUES
-(
-    'You have accidentally left the plug out of the bath and are attempting to fill the bath with both taps full on. The hot tap takes three minutes to fill the bath and the cold tap two minutes, and the water empties through the plughole in six minutes. In how many minutes will the bath be filled?','Find the right answer to this question.',3,1,3,1.5,5
-);
-
-/* INSERT QUERY */
-INSERT INTO mcqs_question( Question,Category,Correct,option1,option2,option3,option4 )
-VALUES
-(
-    'Which word in brackets is opposite in meaning to the word in capitals? FREQUENT','Find the right answer to this question.',3,'glow','restrain','avoid','discard'
-);
-
-/* INSERT QUERY */
-INSERT INTO mcqs_question( Question,Category,Correct,option1,option2,option3,option4 )
-VALUES
-(
-    'What is the name given to a group of FINCHES?','Find the right answer to this question.',1,'a charm','a cluster','a nest','a place'
-);
-
-/* INSERT QUERY */
-INSERT INTO mcqs_question( Question,Category,Correct,option1,option2,option3,option4 )
-VALUES
-(
-    'What is a GOOGOL?','Find the right answer to this question.',4,'a folk dance','a carrion crow','an albatross','a mathematical term'
-);
-
-/* INSERT QUERY */
-INSERT INTO mcqs_question( Question,Category,Correct,option1,option2,option3,option4 )
-VALUES
-(
-    'Which is the odd one out? CLAVICHORD, HARPSICHORD, CLARION, ACCORDION','Find the right answer to this question.',3,'clavichord','harpsichord','clarion','accordion'
-);
-
-/* INSERT QUERY */
-INSERT INTO mcqs_question( Question,Category,Correct,option1,option2,option3,option4 )
-VALUES
-(
-    'LATTICE : WINDOW Which two words below have the same relationship as the two words above?','Find the right answer to this question.',2,'portal: gable','mansard: roof','parapet: door','fascia: floor'
-);
-
-/* INSERT QUERY */
-INSERT INTO mcqs_question( Question,Category,Correct,option1,option2,option3,option4 )
-VALUES
-(
-    'Which word in brackets means the same as the word in capitals? INDISCRETION','Find the right answer to this question.',1,'folly','sloth','aversion','vacillation'
-);
-
-/* INSERT QUERY */
-INSERT INTO mcqs_question( Question,Category,Correct,option1,option2,option3,option4 )
-VALUES
-(
-    'Which is the odd one out?','Find the right answer to this question.',2,'SALIFEROUS ','EVACUATION','EXHAUSTION','INOCULATED'
-);
-
-/* INSERT QUERY */
-INSERT INTO mcqs_question( Question,Category,Correct,option1,option2,option3,option4 )
-VALUES
-(
-    'What is an ORRERY?','Find the right answer to this question.',3,'a museum','a dungeon ','a clockwork model','a golden ornament'
-);
-
-/* INSERT QUERY */
-INSERT INTO mcqs_question( Question,Category,Correct,option1,option2,option3,option4 )
-VALUES
-(
-    'Which one of these is not an animal?','Find the right answer to this question.',4,'macyan','lawsee','rougac','dihras'
-);
-
-/* INSERT QUERY */
-INSERT INTO mcqs_question( Question,Category,Correct,option1,option2,option3,option4 )
-VALUES
-(
-    'MUSIC: COMPOSE
-DEVICE: ?','Find the right answer to this question.',4,'use','create','construct','invent'
-);
-
-/* INSERT QUERY */
-INSERT INTO mcqs_question( Question,Category,Correct,option1,option2,option3,option4 )
-VALUES
-(
-    'Which one of these is not a vegetable?','Find the right answer to this question.',2,'rocart','xestte','romraw','eyeclr'
-);
-
-/* INSERT QUERY */
-INSERT INTO mcqs_question( Question,Category,Correct,option1,option2,option3,option4 )
-VALUES
-(
-    'What is the name given to a group of BUTLERS?','Find the right answer to this question.',3,'blast','host','draught','stuff'
-);
-
-/* INSERT QUERY */
-INSERT INTO mcqs_question( Question,Category,Correct,option1,option2,option3,option4 )
-VALUES
-(
-    'What is a CURRICLE?','Find the right answer to this question.',1,'a vehicle','a boat','a curtain','a vegetable'
-);
-
-/* INSERT QUERY */
-INSERT INTO mcqs_question( Question,Category,Correct,option1,option2,option3,option4 )
-VALUES
-(
-    'Which word means the same as NEGATORY?','Find the right answer to this question.',3,'fallacious','prodigious','trifling','restraining'
-);
-
-/* INSERT QUERY */
-INSERT INTO mcqs_question( Question,Category,Correct,option1,option2,option3,option4 )
-VALUES
-(
-    'What is always associated with FAIENCE?','Find the right answer to this question.',1,'pottery','fairies','zink','ghosts'
-);
-
-/* INSERT QUERY */
-INSERT INTO mcqs_question( Question,Category,Correct,option1,option2,option3,option4 )
-VALUES
-(
-    'Which of the following is not an anagram of an animal?','Find the right answer to this question.',4,'BRISK PONG','PUNCH KIM','RED OPAL','MOMS HOUR'
-);
-
-/* INSERT QUERY */
-INSERT INTO mcqs_question( Question,Category,Correct,option1,option2,option3,option4 )
-VALUES
-(
-    'Which word in brackets means the same as the word in capitals? PROGENY','Find the right answer to this question.',2,'skill','lineage','movement','vocation'
-);
-
-/* INSERT QUERY */
-INSERT INTO mcqs_question( Question,Category,Correct,option1,option2,option3,option4 )
-VALUES
-(
-    'PERIGEE : APOGEE
-PERIHELION: ?','Find the right answer to this question.',1,'aphelion','eliptic','orrery','nadir'
-);
-
-/* INSERT QUERY */
-INSERT INTO mcqs_question( Question,Category,Correct,option1,option2,option3,option4 )
-VALUES
-(
-    'What is a FERRULE?','Find the right answer to this question.',1,'a metal band','a circus wheel ','a window','a funeral'
-);
-
-/* INSERT QUERY */
-INSERT INTO mcqs_question( Question,Category,Correct,option1,option2,option3,option4 )
-VALUES
-(
-    'What is the name given to a group of KITTENS?','Find the right answer to this question.',3,'clutch','labour','kindle','swarm'
-);
-
-/* INSERT QUERY */
-INSERT INTO mcqs_question( Question,Category,Correct,option1,option2,option3,option4 )
-VALUES
-(
-    'What is always associated with GENOA?','Find the right answer to this question.',3,'a bustle','haberdashery','a sail','an eyeglass'
-);
-
-/* INSERT QUERY */
-INSERT INTO mcqs_question( Question,Category,Correct,option1,option2,option3,option4 )
-VALUES
-(
-    'Which one of these is not a flower?','Find the right answer to this question.',4,'ALEZAA','SUCROC','TEVOIL','TRYLUS'
-);
-
-/* INSERT QUERY */
-INSERT INTO mcqs_question( Question,Category,Correct,option1,option2,option3,option4 )
-VALUES
-(
-    'Which of the following is not an anagram of ?intelligence test??','Find the right answer to this question.',4,'TESTING ELECT LINE','TESTING CLIENTELE','TIES GENTLE CLIENT','LET TESTING CLIENT'
-);
-
-/* INSERT QUERY */
-INSERT INTO mcqs_question( Question,Category,Correct,option1,option2,option3,option4 )
-VALUES
-(
-    'Which word in brackets is opposite in meaning to the word in capitals? GRUESOME','Find the right answer to this question.',2,'enjoyable','appealing','wholesome','young'
-);
-
-/* INSERT QUERY */
-INSERT INTO mcqs_question( Question,Category,Correct,option1,option2,option3,option4 )
-VALUES
-(
-    'SUNDAY, MONDAY, WEDNESDAY, SATURDAY, WEDNESDAY
-Which day comes next?','Find the right answer to this question.',2,'SUNDAY','MONDAY','WEDNESDAY','SATURDAY'
-);
-
-/* INSERT QUERY */
-INSERT INTO mcqs_question( Question,Category,Correct,option1,option2,option3,option4 )
-VALUES
-(
-    'Which word means the same as ESOTERIC?','Find the right answer to this question.',4,'pristine','misshapen','gibbous','secret'
-);
-
-/* INSERT QUERY */
-INSERT INTO mcqs_question( Question,Category,Correct,option1,option2,option3,option4 )
-VALUES
-(
-    'What is a GIGOT?','Find the right answer to this question.',2,'a dancer','a leg of mutton','a measure','a rogue'
-);
-
-/* INSERT QUERY */
-INSERT INTO mcqs_question( Question,Category,Correct,option1,option2,option3,option4 )
-VALUES
-(
-    'What is the name given to a group of LARKS?','Find the right answer to this question.',1,'exaltation','badelynge','flock','pitying'
-);
-
-/* INSERT QUERY */
-INSERT INTO mcqs_question( Question,Category,Correct,option1,option2,option3,option4 )
-VALUES
-(
-    'Which one of these is not a musical instrument?','Find the right answer to this question.',2,'NILOIV','MATBAN','THIZRE','LAMYCB'
-);
-
-/* INSERT QUERY */
-INSERT INTO mcqs_question( Question,Category,Correct,option1,option2,option3,option4 )
-VALUES
-(
-    'Only one set of letters below can be arranged into a five-letter word. Can you find the word?','Find the right answer to this question.',3,'KIRCE','ONTDI','EMRUD','ENCID'
-);
-
-/* INSERT QUERY */
-INSERT INTO mcqs_question( Question,Category,Correct,option1,option2,option3,option4 )
-VALUES
-(
-    'Which word in brackets is opposite in meaning to the word in capitals? SURREPTITIOUS','Find the right answer to this question.',4,'servile','trusty','scarce','overt'
-);
-
-/* INSERT QUERY */
-INSERT INTO mcqs_question( Question,Category,Correct,option1,option2,option3,option4 )
-VALUES
-(
-    'Which is the odd one out?','Find the right answer to this question.',1,'MOGUL','SHANG','TANG','MING'
-);
-
-/* INSERT QUERY */
-INSERT INTO mcqs_question( Question,Category,Correct,option1,option2,option3,option4 )
-VALUES
-(
-    'GENEALOGY : ANCESTRY
-ETYMOLOGY : ?','Find the right answer to this question.',4,'knowledge','fossils','inscriptions','words'
-);
-
-/* INSERT QUERY */
-INSERT INTO mcqs_question( Question,Category,Correct,option1,option2,option3,option4 )
-VALUES
-(
-    'What is STOCCADO?','Find the right answer to this question.',3,'a stockade','fast-talking','a fencing stroke','illness'
-);
-
-/* INSERT QUERY */
-INSERT INTO mcqs_question( Question,Category,Correct,option1,option2,option3,option4 )
-VALUES
-(
-    'What is the name given to a group of PEACOCKS?','Find the right answer to this question.',2,'bevy','ostentation','lepe','richesse'
-);
-
-/* INSERT QUERY */
-INSERT INTO mcqs_question( Question,Category,Correct,option1,option2,option3,option4 )
-VALUES
-(
-    'What is always associated with INCARNADINE?','Find the right answer to this question.',3,'imprisonment','body language','flesh coloured','quarries'
-);
-
-/* INSERT QUERY */
-INSERT INTO mcqs_question( Question,Category,Correct,option1,option2,option3,option4 )
-VALUES
-(
-    'Which one of these is not a weather term?','Find the right answer to this question.',3,'YLILHC','YTOSMR','SUMPOS','WEROHS'
-);
-
-/* INSERT QUERY */
-INSERT INTO mcqs_question( Question,Category,Correct,option1,option2,option3,option4 )
-VALUES
-(
-    'Which word in brackets means the same as the word in capitals. METAPHYSICAL','Find the right answer to this question.',2,'transient','esoteric','symbolic','fastidious'
-);
-
-/* INSERT QUERY */
-INSERT INTO mcqs_question( Question,Category,Correct,option1,option2,option3,option4 )
-VALUES
-(
-    'Only one set of letters below can be arranged into a fiveletter word. Can you find the word?','Find the right answer to this question.',4,'KIRCE','ENCID','ONTDI','EMRUD'
-);
-
-/* INSERT QUERY */
-INSERT INTO mcqs_question( Question,Category,Correct,option1,option2,option3,option4 )
-VALUES
-(
-    'Which word means the same as ESPALIER?','Find the right answer to this question.',1,'wooden trellis ','spectre','advocate','ligament'
-);
-
-/* INSERT QUERY */
-INSERT INTO mcqs_question( Question,Category,Correct,option1,option2,option3,option4 )
-VALUES
-(
-    'Which word in brackets is most opposite in meaning to the word in capitals? EXPEDITE','Find the right answer to this question.',3,'dispatch','dismiss','curb','conclude'
-);
-
-/* INSERT QUERY */
-INSERT INTO mcqs_question( Question,Category,Correct,option1,option2,option3,option4 )
-VALUES
-(
-    'How many minutes is it before noon if 29 minutes ago it was six times as many minutes past 10 am?','Find the right answer to this question.',1,'13 minutes','15 minutes','10 minutes','16 minutes'
-);
-
-/* INSERT QUERY */
-INSERT INTO mcqs_question( Question,Category,Correct,option1,option2,option3,option4 )
-VALUES
-(
-    'Which is the odd one out?','Find the right answer to this question.',4,'dilate','elaborate','expatiate','interpret'
-);
+-- Insert verbal reasoning questions
+CREATE TABLE IF NOT EXISTS Verbal_Questions (
+    question_id INTEGER PRIMARY KEY,
+    question_text VARCHAR(255) NOT NULL,
+    UNIQUE (question_text)
+);
+
+-- Create the Options table
+CREATE TABLE IF NOT EXISTS Verbal_Options (
+    option_id INTEGER,
+    question_id INTEGER,
+    option_text VARCHAR(255) NOT NULL,
+    is_correct BOOLEAN,
+    FOREIGN KEY (question_id) REFERENCES Verbal_Questions(question_id),
+    UNIQUE (question_id, option_text)
+);
+
+CREATE TABLE IF NOT EXISTS numerical_reasoning_questions (
+    id INTEGER PRIMARY KEY,
+    question_text TEXT NOT NULL,
+    correct_answer REAL NOT NULL,
+    option_a REAL NOT NULL,
+    option_b REAL NOT NULL,
+    option_c REAL NOT NULL,
+    option_d REAL NOT NULL,
+    UNIQUE (question_text)
+);
+
+
+CREATE TABLE IF NOT EXISTS Image_Questions (
+    question_id INTEGER PRIMARY KEY,
+    question_img VARCHAR(255) NOT NULL,
+    UNIQUE (question_img)
+);
+
+CREATE TABLE IF NOT EXISTS Image_Options (
+    option_id INTEGER,
+    question_id INTEGER,
+    option_text VARCHAR(255) NOT NULL,
+    is_correct BOOLEAN,
+    FOREIGN KEY (question_id) REFERENCES Image_Questions(question_id),
+    UNIQUE (question_id, option_text)
+);
+
+
+INSERT OR IGNORE INTO Verbal_Questions (question_id, question_text) VALUES
+    (1, 'What is the synonym of "exuberant"?'),
+    (2, 'Choose the word that best fits the sentence: He was _______ after winning the championship.'),
+    (3, 'Select the word that is the opposite of "diligent".'),
+    (4, 'Fill in the blank: The child exhibited _______ behavior during the performance.'),
+    (5, 'What is the synonym of "loquacious"?'),
+    (6, 'Choose the word that best fits the sentence: Her _______ appearance made her stand out in the crowd.'),
+    (7, 'Select the word that is the opposite of "ephemeral".'),
+    (8, 'Fill in the blank: The team exhibited _______ cooperation during the project.'),
+    (9, 'What is the synonym of "pensive"?'),
+    (10,'Choose the word that best fits the sentence: His _______ remarks offended many in the audience.'),
+    (11,'Choose the word that best fits the sentence: Her _______ smile lit up the room.'),
+    (12,'Select the word that is the opposite of "obscure".'),
+    (13,'Fill in the blank: The musician played with _______ passion, moving the audience to tears.'),
+    (14,'What is the synonym of "furtive"?'),
+    (15,'Choose the word that best fits the sentence: His _______ demeanor made it difficult to discern his 1 feelings.'),
+    (16,'Select the word that is the opposite of "gregarious".'),
+    (17,'Fill in the blank: The explorer faced _______ challenges during his journey through the wilderness.'),
+    (18,'What is the synonym of "sagacious"?'),
+    (19,'Choose the word that best fits the sentence: Her _______ attitude towards life inspired everyone around her.'),
+    (20,'Select the word that is the opposite of "ephemeral".'),
+    (21,'Fill in the blank: The artist`s work displayed _______ creativity and originality.'),
+    (22,'What is the synonym of "resilient"?'),
+    (23,'Choose the word that best fits the sentence: Despite facing numerous setbacks, he remained _______ in his pursuit of success.'),
+    (24,'Select the word that is the opposite of "mundane".'),
+    (25,'Fill in the blank: The author`s prose was characterized by its _______ elegance and sophistication.'),
+    (26,'What is the synonym of "perceptive"?'),
+    (27,'Choose the word that best fits the sentence: His _______ observations shed light on the complexities of human nature.'),
+    (28,'Select the word that is the opposite of "futile".'),
+    (29,'Fill in the blank: The team demonstrated _______ coordination and teamwork during the crisis.'),
+    (30,'What is the synonym of "intrepid"?'),
+    (31,'Choose the word that best fits the sentence: The _______ explorer ventured into uncharted territories with fearless determination.'),
+    (32,'Select the word that is the opposite of "exuberant".'),
+    (33,'Fill in the blank: The child`s laughter filled the room with _______ joy and innocence.'),
+    (34,'What is the synonym of "mirthful"?'),
+    (35,'Choose the word that best fits the sentence: His _______ jokes never failed to brighten the mood.'),
+    (36,'Select the word that is the opposite of "profound".'),
+    (37,'Fill in the blank: The speaker delivered a _______ speech that resonated with the audience.'),
+    (38,'Select the word that is the opposite of "mundane".'),
+    (39,'Fill in the blank: The author''s prose was characterized by its _______ elegance and sophistication.'),
+    (40,'What is the synonym of "perceptive"?'),
+    (41,'Choose the word that best fits the sentence: His _______ observations shed light on the complexities of human nature.'),
+    (42,'Select the word that is the opposite of "futile".'),
+    (43,'Fill in the blank: The team demonstrated _______ coordination and teamwork during the crisis.'),
+    (44,'What is the synonym of "intrepid"?'),
+    (45,'Choose the word that best fits the sentence: The _______ explorer ventured into uncharted territories with fearless determination.'),
+    (46,'Select the word that is the opposite of "exuberant".'),
+    (47,'Fill in the blank: The child''s laughter filled the room with _______ joy and innocence.'),
+    (48,'What is the synonym of "engrossed"?'),
+    (49,'Choose the word that best fits the sentence: She felt _______ when immersed in her favorite book.'),
+    (50,'Select the word that is the opposite of "placid".'),
+    (51,'Fill in the blank: The stormy weather matched his _______ mood perfectly.'),
+    (52,'What is the synonym of "astute"?'),
+    (53,'Choose the word that best fits the sentence: His _______ observations enabled him to solve the mystery.'),
+    (54,'Select the word that is the opposite of "sporadic".'),
+    (55,'Fill in the blank: The project required _______ attention to detail.'),
+    (56,'What is the synonym of "congenial"?'),
+    (57,'Choose the word that best fits the sentence: His _______ personality made him popular among his peers.'),
+    (58,'Select the word that is the opposite of "arduous".'),
+    (59,'Fill in the blank: The journey was long and _______.'),
+    (60,'What is the synonym of "pervasive"?'),
+    (61,'Choose the word that best fits the sentence: The scent of flowers was _______ throughout the garden.'),
+    (62,'Select the word that is the opposite of "inquisitive".'),
+    (63,'Fill in the blank: His _______ nature led him to explore new ideas and concepts.'),
+    (64,'What is the synonym of "vivacious"?'),
+    (65,'Choose the word that best fits the sentence: Her _______ personality lit up the room.'),
+    (66,'Select the word that is the opposite of "auspicious".'),
+    (67,'Fill in the blank: The experiment yielded _______ results.'),
+    (68,'What is the synonym of "enigmatic"?'),
+    (69,'Choose the word that best fits the sentence: The _______ smile on her face left everyone puzzled.'),
+    (70,'Select the word that is the opposite of "affable".'),
+    (71,'Fill in the blank: His _______ demeanor made it difficult for others to approach him.'),
+    (72,'What is the synonym of "prolific"?'),
+    (73,'Choose the word that best fits the sentence: The _______ writer published several books in a single year.'),
+    (74,'Select the word that is the opposite of "amicable".'),
+    (75,'Fill in the blank: Despite their differences, they parted on _______ terms.'),
+    (76,'What is the synonym of "magnanimous"?'),
+    (77,'Choose the word that best fits the sentence: Her _______ gesture touched the hearts of many.'),
+    (78,'Select the word that is the opposite of "inept".'),
+    (79,'Fill in the blank: Despite his _______ attempts, he couldn''t master the skill.'),
+    (80,'What is the synonym of "querulous"?'),
+    (81,'Choose the word that best fits the sentence: His _______ complaints annoyed everyone around him.'),
+    (82,'Select the word that is the opposite of "ephemeral".'),
+    (83,'Fill in the blank: The impact of his words was _______ and long-lasting.'),
+    (84,'What is the synonym of "altruistic"?'),
+    (85,'Choose the word that best fits the sentence: His _______ actions always prioritized the welfare of others.'),
+    (86,'Select the word that is the opposite of "astute".'),
+    (87,'Fill in the blank: Despite his _______ appearance, he was a shrewd businessman.'),
+    (88,'What is the synonym of "gregarious"?'),
+    (89,'Choose the word that best fits the sentence: His _______ nature made him the life of the party.'),
+    (90,'Select the word that is the opposite of "tenacious".'),
+    (91,'Fill in the blank: Despite facing numerous obstacles, she remained _______ in her pursuit of success.'),
+    (92,'What is the synonym of "veracious"?'),
+    (93,'Choose the word that best fits the sentence: His _______ account of the events was trusted by all.'),
+    (94,'Select the word that is the opposite of "fervent".'),
+    (95,'Fill in the blank: Despite their _______ pleas, their request was denied.'),
+    (96,'What is the synonym of "ephemeral"?'),
+    (97,'Choose the word that best fits the sentence: The _______ beauty of the sunset left us speechless.'),
+    (98,'Select the word that is the opposite of "vex".'),
+    (99,'Fill in the blank: His calm demeanor helped _______ the situation.'),
+    (100,'Select the word that is the opposite of "candid".'),
+    (101,'Fill in the blank: Her _______ nature made it difficult to trust her.'),
+    (102,'What is the synonym of "lucid"?'),
+    (103,'Choose the word that best fits the sentence: His explanation was so _______ that everyone understood immediately.'),
+    (104,'Select the word that is the opposite of "dormant".'),
+    (105,'Fill in the blank: The volcano had been _______ for centuries before it erupted.'),
+    (106,'What is the synonym of "mollify"?'),
+    (107,'Choose the word that best fits the sentence: The manager tried to _______ the angry customers.'),
+    (108,'Select the word that is the opposite of "reticent".'),
+    (109,'Fill in the blank: She was surprisingly _______ about her plans.'),
+    (110,'What is the synonym of "precarious"?'),
+    (111,'Choose the word that best fits the sentence: The ladder was _______ balanced on the wall.'),
+    (112,'Select the word that is the opposite of "sparse".'),
+    (113,'Fill in the blank: The forest was so _______ that it was difficult to walk through.'),
+    (114,'What is the synonym of "verbose"?'),
+    (115,'Choose the word that best fits the sentence: His speech was so _______ that many people lost interest.'),
+    (116,'Select the word that is the opposite of "conspicuous".'),
+    (117,'Fill in the blank: The sign was so _______ that many people missed it.'),
+    (118,'What is the synonym of "arid"?'),
+    (119,'Choose the word that best fits the sentence: The desert was so _______ that nothing could grow there.'),
+    (120,'Select the word that is the opposite of "abundant".'),
+    (121,'Fill in the blank: Food was so _______ that people had to ration their meals.'),
+    (122,'What is the synonym of "amicable"?'),
+    (123,'Choose the word that best fits the sentence: Their _______ relationship made working together easy.'),
+    (124,'Select the word that is the opposite of "flamboyant".'),
+    (125,'Fill in the blank: His _______ attire went unnoticed in the crowd.'),
+    (126,'What is the synonym of "astound"?'),
+    (127,'Choose the word that best fits the sentence: The magician`s tricks never failed to _______ the audience.'),
+    (128,'Select the word that is the opposite of "novel".'),
+    (129,'Fill in the blank: His ideas were _______ and failed to impress the judges.'),
+    (130,'What is the synonym of "jovial"?'),
+    (131,'Choose the word that best fits the sentence: Her _______ laughter was contagious.'),
+    (132,'Select the word that is the opposite of "extravagant".'),
+    (133,'Fill in the blank: They lived a _______ life, avoiding any unnecessary expenses.'),
+    (134,'What is the synonym of "noxious"?'),
+    (135,'Choose the word that best fits the sentence: The factory emitted _______ fumes that polluted the air.'),
+    (136,'Select the word that is the opposite of "bland".'),
+    (137,'Fill in the blank: The chefs dish was so _______ that it delighted everyones taste buds.'),
+    (138,'What is the synonym of "pernicious"?'),
+    (139,'Choose the word that best fits the sentence: The _______ influence of social media on teenagers is a growing concern.'),
+    (140,'Select the word that is the opposite of "benevolent".'),
+    (141,'Fill in the blank: His _______ actions made him unpopular among his peers.'),
+    (142,'What is the synonym of "reverent"?'),
+    (143,'Choose the word that best fits the sentence: The audience remained _______ during the memorial service.'),
+    (144,'Select the word that is the opposite of "luminous".'),
+    (145,'Fill in the blank: The cave was so _______ that we needed flashlights to see.'),
+    (146,'What is the synonym of "trivial"?'),
+    (147,'Choose the word that best fits the sentence: The issue was so _______ that it did not require a meeting.'),
+    (148,'Select the word that is the opposite of "melancholy".'),
+    (149,'Fill in the blank: Her _______ mood was infectious and soon everyone was smiling.'),
+    (150,'What is the synonym of "transient"?'),
+    (151,'Choose the word that best fits the sentence: Their stay at the hotel was _______ as they continued their journey the next day.'),
+    (152,'Select the word that is the opposite of "augment".'),
+    (153,'Fill in the blank: They had to _______ their expenses due to budget cuts.'),
+    (154,'What is the synonym of "prudent"?'),
+    (155,'Choose the word that best fits the sentence: Her _______ decisions ensured the companys success.'),
+    (156,'Select the word that is the opposite of "ardent".'),
+    (157,'Fill in the blank: Despite his _______ support, the project failed to take off.'),
+    (158,'What is the synonym of "effervescent"?'),
+    (159,'Choose the word that best fits the sentence: Her _______ personality made her the center of attention at parties.'),
+    (160,'Select the word that is the opposite of "genuine".'),
+    (161,'Fill in the blank: His _______ apology did little to mend their relationship.'),
+    (162,'What is the synonym of "callous"?'),
+    (163,'Choose the word that best fits the sentence: His _______ remarks hurt her feelings.'),
+    (164,'Select the word that is the opposite of "meticulous".'),
+    (165,'Fill in the blank: His _______ approach led to several errors in the report.'),
+    (166,'Select the word that is the opposite of "explicit".'),
+    (167,'Fill in the blank: The instructions were so _______ that no one understood them.'),
+    (168,'What is the synonym of "eclectic"?'),
+    (169,'Choose the word that best fits the sentence: Her tastes were so _______ that she enjoyed both classical and modern art.'),
+    (170,'Select the word that is the opposite of "languid".'),
+    (171,'Fill in the blank: He was so _______ that he finished the marathon in record time.'),
+    (172,'What is the synonym of "elated"?'),
+    (173,'Choose the word that best fits the sentence: She was so _______ when she heard the good news.'),
+    (174,'Select the word that is the opposite of "placid".'),
+    (175,'Fill in the blank: The sea was so _______ that the boat was constantly rocking.'),
+    (176,'What is the synonym of "gregarious"?'),
+    (177,'Choose the word that best fits the sentence: His _______ nature made him popular at parties.'),
+    (178,'Select the word that is the opposite of "obscure".'),
+    (179,'Fill in the blank: The meaning of the text was so _______ that everyone understood it.'),
+    (180,'What is the synonym of "penchant"?'),
+    (181,'Choose the word that best fits the sentence: She had a _______ for collecting rare books.'),
+    (182,'Select the word that is the opposite of "sagacious".'),
+    (183,'Fill in the blank: His decisions were often _______ and led to many mistakes.'),
+    (184,'What is the synonym of "abstruse"?'),
+    (185,'Choose the word that best fits the sentence: The theory was so _______ that only a few experts understood it.'),
+    (186,'Select the word that is the opposite of "frugal".'),
+    (187,'Fill in the blank: He was so _______ that he spent money on things he didnt need.'),
+    (188,'What is the synonym of "laconic"?'),
+    (189,'Choose the word that best fits the sentence: His speech was so _______ that he used only a few words.'),
+    (190,'Select the word that is the opposite of "immutable".'),
+    (191,'Fill in the blank: The policy was so _______ that it changed frequently.'),
+    (192,'What is the synonym of "pervasive"?'),
+    (193,'Choose the word that best fits the sentence: The influence of technology is so _______ in modern society.'),
+    (194,'Select the word that is the opposite of "altruistic".'),
+    (195,'Fill in the blank: His _______ behavior made him unpopular among his colleagues.'),
+    (196,'What is the synonym of "mercurial"?'),
+    (197,'Choose the word that best fits the sentence: Her _______ personality made her unpredictable.'),
+    (198,'Select the word that is the opposite of "austere".'),
+    (199,'Fill in the blank: The decorations were so _______ that the room looked festive.'),
+    (200,'What is the synonym of "tenacious"?'),
+    (201,'Choose the word that best fits the sentence: Her _______ attitude helped her overcome many obstacles.'),
+    (202,'Select the word that is the opposite of "zealous".'),
+    (203,'Fill in the blank: His support for the cause was so _______ that he rarely attended meetings.'),
+    (204,'What is the synonym of "insipid"?'),
+    (205,'Choose the word that best fits the sentence: The dish was so _______ that no one wanted to eat it.'),
+    (206,'Select the word that is the opposite of "esoteric".'),
+    (207,'Fill in the blank: The lecture was so _______ that everyone in the audience could understand it.'),
+    (208,'What is the synonym of "pithy"?'),
+    (209,'Choose the word that best fits the sentence: His remarks were so _______ that they left a lasting impression.'),
+    (210,'Select the word that is the opposite of "ostentatious".'),
+    (211,'Fill in the blank: Her style was so _______ that she went unnoticed in the crowd.'),
+    (212,'What is the synonym of "audacious"?'),
+    (213,'Choose the word that best fits the sentence: His _______ actions shocked everyone.'),
+    (214,'Select the word that is the opposite of "docile".'),
+    (215,'Fill in the blank: The dog was so _______ that it was difficult to control.'),
+    (216,'What is the synonym of "circumspect"?'),
+    (217,'Choose the word that best fits the sentence: He was so _______ in his decisions that he rarely made mistakes.'),
+    (218,'Select the word that is the opposite of "nebulous".'),
+    (219,'Fill in the blank: The instructions were so _______ that everyone understood them.'),
+    (220,'What is the synonym of "exacerbate"?'),
+    (221,'Choose the word that best fits the sentence: The problem was so _______ by their constant arguing.'),
+    (222,'Select the word that is the opposite of "equivocal".'),
+    (223,'Fill in the blank: His response was so _______ that there was no room for doubt.'),
+    (224,'What is the synonym of "munificent"?'),
+    (225,'Choose the word that best fits the sentence: The donor was so _______ that the charity received a large sum of money.'),
+    (226,'Select the word that is the opposite of "stoic".'),
+    (227,'Fill in the blank: He was so _______ that he cried during the movie.'),
+    (228,'What is the synonym of "ubiquitous"?'),
+    (229,'Choose the word that best fits the sentence: The internet is so _______ in modern life.'),
+    (230,'Select the word that is the opposite of "magnanimous".'),
+    (231,'Fill in the blank: His actions were so _______ that people avoided him.'),
+    (232,'What is the synonym of "ebullient"?'),
+    (233,'Choose the word that best fits the sentence: She was so _______ that her energy was infectious.'),
+    (234,'Select the word that is the opposite of "cogent".'),
+    (235,'Fill in the blank: His arguments were so _______ that no one was convinced.'),
+    (236,'What is the synonym of "insolent"?'),
+    (237,'Choose the word that best fits the sentence: The student`s _______ behavior shocked the teacher.'),
+    (238,'Select the word that is the opposite of "florid".'),
+    (239,'Fill in the blank: His style was so _______ that it lacked any ornamentation.'),
+    (240,'What is the synonym of "aberrant"?'),
+    (241,'Choose the word that best fits the sentence: The results were so _______ that they surprised everyone.'),
+    (242,'Select the word that is the opposite of "euphoric".'),
+    (243,'Fill in the blank: She was so _______ after the news that she couldn`t stop crying.'),
+    (244,'What is the synonym of "recapitulate"?'),
+    (245,'Choose the word that best fits the sentence: At the end of the presentation, he decided to _______ the main points.'),
+    (246,'Select the word that is the opposite of "jocular".'),
+    (247,'Fill in the blank: His mood was so _______ that no one dared to make a joke.'),
+    (248,'What is the synonym of "fastidious"?'),
+    (249,'Choose the word that best fits the sentence: She was so _______ about cleanliness that her house was always spotless.'),
+    (250,'Select the word that is the opposite of "absolve".'),
+    (251,'Fill in the blank: The judge decided to _______ him of all charges.'),
+    (252,'What is the synonym of "garrulous"?'),
+    (253,'Choose the word that best fits the sentence: He was so _______ that conversations with him lasted for hours.'),
+    (254,'Select the word that is the opposite of "penurious".'),
+    (255,'Fill in the blank: She was so _______ that she often donated to charity.'),
+    (256,'What is the synonym of "intrepid"?'),
+    (257,'Choose the word that best fits the sentence: The _______ explorer ventured into unknown territories.'),
+    (258,'Select the word that is the opposite of "malevolent".'),
+    (259,'Fill in the blank: Her _______ nature made her beloved by all.'),
+    (260,'What is the synonym of "morose"?'),
+    (261,'Choose the word that best fits the sentence: His _______ demeanor made him unapproachable.'),
+    (262,'Select the word that is the opposite of "pragmatic".'),
+    (263,'Fill in the blank: Her approach was so _______ that it was more idealistic than practical.'),
+    (264,'What is the synonym of "prodigal"?'),
+    (265,'Choose the word that best fits the sentence: The _______ son returned home after wasting his inheritance.'),
+    (266,'Select the word that is the opposite of "succinct".'),
+    (267,'Fill in the blank: His explanation was so _______ that it was hard to follow.'),
+    (268,'What is the synonym of "anomalous"?'),
+    (269,'Choose the word that best fits the sentence: The data was so _______ that it required further investigation.'),
+    (270,'Select the word that is the opposite of "ascetic".'),
+    (271,'Fill in the blank: His lifestyle was so _______ that he indulged in every luxury.'),
+    (272,'What is the synonym of "deleterious"?'),
+    (273,'Choose the word that best fits the sentence: The chemicals had a _______ effect on the environment.'),
+    (274,'Select the word that is the opposite of "venerate".'),
+    (275,'Fill in the blank: His actions were so _______ that they were condemned by the community.'),
+    (276,'What is the synonym of "intransigent"?'),
+    (277,'Choose the word that best fits the sentence: The _______ leader refused to compromise.'),
+    (278,'Select the word that is the opposite of "loquacious".'),
+    (279,'Fill in the blank: The monk`s vow of silence made him _______.'),
+    (280,'What is the synonym of "obdurate"?'),
+    (281,'Choose the word that best fits the sentence: Despite the evidence, he remained _______ in his beliefs.'),
+    (282,'Select the word that is the opposite of "sagacious".'),
+    (283,'Fill in the blank: His decisions were often _______ and led to many mistakes.'),
+    (284,'What is the synonym of "pulchritudinous"?'),
+    (285,'Choose the word that best fits the sentence: The actress was so _______ that she captivated everyone.'),
+    (286,'Select the word that is the opposite of "tedious".'),
+    (287,'Fill in the blank: The movie was so _______ that everyone stayed until the end.'),
+    (288,'What is the synonym of "munificent"?'),
+    (289,'Choose the word that best fits the sentence: The donor was so _______ that the charity received a large sum of money.'),
+    (290,'Select the word that is the opposite of "stoic".'),
+    (291,'Fill in the blank: He was so _______ that he cried during the movie.'),
+    (292,'Select the word that is the opposite of "frivolous".'),
+    (293,'Choose the word that best fits the sentence: The scientist was _______ in her methodology.'),
+    (294,'What is the synonym of "parsimonious"?'),
+    (295,'Fill in the blank: The _______ businessman donated millions to charity.'),
+    (296,'Select the word that is the opposite of "lucid".'),
+    (297,'What is the synonym of "tenacious"?'),
+    (298,'Choose the word that best fits the sentence: The _______ student studied all night.'),
+    (299,'Fill in the blank: His _______ attitude made him a reliable friend.'),
+    (300,'Select the word that is the opposite of "benevolent".');
+  
+INSERT OR IGNORE INTO Verbal_Options (question_id, option_text, is_correct) VALUES
+    (1, 'Energetic', 1),
+    (1, 'Reserved', 0),
+    (1, 'Tired', 0),
+    (1, 'Excited', 0),
+    (2, 'Proud', 0),
+    (2, 'Elated', 1),
+    (2, 'Depressed', 0),
+    (2, 'Ambivalent', 0),
+    (3, 'Careless', 1),
+    (3, 'Industrious', 0),
+    (3, 'Efficient', 0),
+    (3, 'Determined', 0),
+    (4, 'Impish', 1),
+    (4, 'Serene', 0),
+    (4, 'Calm', 0),
+    (4, 'Anxious', 0),
+    (5, 'Talkative', 1),
+    (5, 'Quiet', 0),
+    (5, 'Shy', 0),
+    (5, 'Reserved', 0),
+    (6, 'Elegant', 1),
+    (6, 'Ragged', 0),
+    (6, 'Plain', 0),
+    (6, 'Ordinary', 0),
+    (7, 'Permanent', 1),
+    (7, 'Lasting', 0),
+    (7, 'Transient', 0),
+    (7, 'Enduring', 0),
+    (8, 'Excellent', 1),
+    (8, 'Poor', 0),
+    (8, 'Lackluster', 0),
+    (8, 'Mediocre', 0),
+    (9, 'Thoughtful', 1),
+    (9, 'Carefree', 0),
+    (9, 'Reflective', 0),
+    (9, 'Impulsive', 0),
+    (10, 'Offensive', 1),
+    (10, 'Tactful', 0),
+    (10, 'Respectful', 0),
+    (10, 'Polite', 0),
+    (11, 'Radiant', 1),
+    (11, 'Somber', 0),
+    (11, 'Gloomy', 0),
+    (11, 'Ethereal', 0),
+    -- Question 12
+    (12, 'Clear', 1),
+    (12, 'Obscure', 0),
+    (12, 'Transparent', 0),
+    (12, 'Concealed', 0),
+    -- Question 13
+    (13, 'Intense', 1),
+    (13, 'Subdued', 0),
+    (13, 'Lackluster', 0),
+    (13, 'Modest', 0),
+    -- Question 14
+    (14, 'Stealthy', 1),
+    (14, 'Open', 0),
+    (14, 'Transparent', 0),
+    (14, 'Honest', 0),
+    -- Question 15
+    (15, 'Reserved', 1),
+    (15, 'Outgoing', 0),
+    (15, 'Sociable', 0),
+    (15, 'Friendly', 0),
+    -- Question 16
+    (16, 'Formidable', 1),
+    (16, 'Daunting', 0),
+    (16, 'Routine', 0),
+    (16, 'Trivial', 0),
+    -- Question 17
+    (17, 'Wise', 1),
+    (17, 'Foolish', 0),
+    (17, 'Nonsensical', 0),
+    (17, 'Ignorant', 0),
+    -- Question 18
+    (18, 'Optimistic', 1),
+    (18, 'Resolute', 0),
+    (18, 'Persistent', 0),
+    (18, 'Tenacious', 0),
+    -- Question 19
+    (19, 'Fearless', 1),
+    (19, 'Cautious', 0),
+    (19, 'Timid', 0),
+    (19, 'Shy', 0),
+    -- Question 20
+    (20, 'Buoyant', 1),
+    (20, 'Melancholic', 0),
+    (20, 'Solemn', 0),
+    (20, 'Sorrowful', 0),
+    -- Question 21
+    (21, 'Extraordinary', 1),
+    (21, 'Routine', 0),
+    (21, 'Everyday', 0),
+    (21, 'Banal', 0),
+    -- Question 22
+    (22, 'Sublime', 1),
+    (22, 'Ordinary', 0),
+    (22, 'Simple', 0),
+    (22, 'Plain', 0),
+    -- Question 23
+    (23, 'Insightful', 1),
+    (23, 'Unperceptive', 0),
+    (23, 'Narrow-minded', 0),
+    (23, 'Dull', 0),
+    -- Question 24
+    (24, 'Astute', 1),
+    (24, 'Superficial', 0),
+    (24, 'Naive', 0),
+    (24, 'Inattentive', 0),
+    -- Question 25
+    (25, 'Effective', 1),
+    (25, 'Useless', 0),
+    (25, 'Ineffective', 0),
+    (25, 'Vain', 0),
+    -- Question 26
+    (26, 'Synchronized', 1),
+    (26, 'Disorganized', 0),
+    (26, 'Chaotic', 0),
+    (26, 'Uncoordinated', 0),
+    -- Question 27
+    (27, 'Fearless', 1),
+    (27, 'Cautious', 0),
+    (27, 'Timid', 0),
+    (27, 'Shy', 0),
+    -- Question 28
+    (28, 'Courageous', 1),
+    (28, 'Cautious', 0),
+    (28, 'Apprehensive', 0),
+    (28, 'Hesitant', 0),
+    -- Question 29
+    (29, 'Buoyant', 1),
+    (29, 'Melancholic', 0),
+    (29, 'Solemn', 0),
+    (29, 'Sorrowful', 0),
+    -- Question 30
+    (30, 'Infectious', 1),
+    (30, 'Contagious', 0),
+    (30, 'Morose', 0),
+    (30, 'Melancholic', 0),
+-- Question 31
+    (31, 'Immersed', 1),
+    (31, 'Distracted', 0),
+    (31, 'Uninterested', 0),
+    (31, 'Bored', 0),
+    -- Question 32
+    (32, 'Serene', 1),
+    (32, 'Excited', 0),
+    (32, 'Animated', 0),
+    (32, 'Energetic', 0),
+    -- Question 33
+    (33, 'Turbulent', 1),
+    (33, 'Calm', 0),
+    (33, 'Tranquil', 0),
+    (33, 'Peaceful', 0),
+    -- Question 34
+    (34, 'Stormy', 1),
+    (34, 'Sunny', 0),
+    (34, 'Gloomy', 0),
+    (34, 'Bright', 0),
+    -- Question 35
+    (35, 'Keen', 1),
+    (35, 'Dull', 0),
+    (35, 'Naive', 0),
+    (35, 'Inattentive', 0),
+    -- Question 36
+    (36, 'Insightful', 1),
+    (36, 'Superficial', 0),
+    (36, 'Narrow-minded', 0),
+    (36, 'Unperceptive', 0),
+    -- Question 37
+    (37, 'Consistent', 1),
+    (37, 'Intermittent', 0),
+    (37, 'Random', 0),
+    (37, 'Occasional', 0),
+    -- Question 38
+    (38, 'Meticulous', 1),
+    (38, 'Hasty', 0),
+    (38, 'Careless', 0),
+    (38, 'Sloppy', 0),
+    -- Question 39
+    (39, 'Friendly', 1),
+    (39, 'Hostile', 0),
+    (39, 'Warm', 0),
+    (39, 'Sociable', 0),
+    -- Question 40
+    (40, 'Ambiguous', 1),
+    (40, 'Clear', 0),
+    (40, 'Transparent', 0),
+    (40, 'Understandable', 0),
+     -- Question 41
+    (41, 'Generous', 1),
+    (41, 'Selfish', 0),
+    (41, 'Greedy', 0),
+    (41, 'Stingy', 0),
+    -- Question 42
+    (42, 'Benevolent', 1),
+    (42, 'Cruel', 0),
+    (42, 'Selfish', 0),
+    (42, 'Indifferent', 0),
+    -- Question 43
+    (43, 'Competent', 1),
+    (43, 'Skilled', 0),
+    (43, 'Capable', 0),
+    (43, 'Incompetent', 0),
+    -- Question 44
+    (44, 'Feeble', 1),
+    (44, 'Competent', 0),
+    (44, 'Skillful', 0),
+    (44, 'Effective', 0),
+    -- Question 45
+    (45, 'Complaining', 1),
+    (45, 'Happy', 0),
+    (45, 'Satisfied', 0),
+    (45, 'Content', 0),
+    -- Question 46
+    (46, 'Whining', 1),
+    (46, 'Pleasant', 0),
+    (46, 'Joyful', 0),
+    (46, 'Cheerful', 0),
+    -- Question 47
+    (47, 'Enduring', 1),
+    (47, 'Temporary', 0),
+    (47, 'Brief', 0),
+    (47, 'Transient', 0),
+    -- Question 48
+    (48, 'Permanent', 1),
+    (48, 'Temporary', 0),
+    (48, 'Short-lived', 0),
+    (48, 'Transient', 0),
+    -- Question 49
+    (49, 'Philanthropic', 1),
+    (49, 'Selfish', 0),
+    (49, 'Narcissistic', 0),
+    (49, 'Egotistic', 0),
+    -- Question 50
+    (50, 'Determined', 1),
+    (50, 'Frustrated', 0),
+    (50, 'Aggravate', 0),
+    (50, 'Exacerbate', 0),
+     -- Question 51
+    (51, 'Deceptive', 1),
+    (51, 'Honest', 0),
+    (51, 'Transparent', 0),
+    (51, 'Candid', 0),
+    -- Question 52
+    (52, 'Devious', 1),
+    (52, 'Sincere', 0),
+    (52, 'Forthright', 0),
+    (52, 'Trustworthy', 0),
+    -- Question 53
+    (53, 'Clear', 1),
+    (53, 'Confusing', 0),
+    (53, 'Obscure', 0),
+    (53, 'Vague', 0),
+    -- Question 54
+    (54, 'Lucid', 1),
+    (54, 'Muddled', 0),
+    (54, 'Complicated', 0),
+    (54, 'Confusing', 0),
+    -- Question 55
+    (55, 'Active', 1),
+    (55, 'Inactive', 0),
+    (55, 'Idle', 0),
+    (55, 'Dormant', 0),
+    -- Question 56
+    (56, 'Dormant', 1),
+    (56, 'Inactive', 0),
+    (56, 'Erupting', 0),
+    (56, 'Calm', 0),
+    -- Question 57
+    (57, 'Pacify', 1),
+    (57, 'Agitate', 0),
+    (57, 'Provoke', 0),
+    (57, 'Annoy', 0),
+    -- Question 58
+    (58, 'Pacify', 1),
+    (58, 'Agitate', 0),
+    (58, 'Provoke', 0),
+    (58, 'Annoy', 0),
+    -- Question 59
+    (59, 'Talkative', 1),
+    (59, 'Silent', 0),
+    (59, 'Quiet', 0),
+    (59, 'Reticent', 0),
+    -- Question 60
+    (60, 'Talkative', 1),
+    (60, 'Silent', 0),
+    (60, 'Quiet', 0),
+    (60, 'Reticent', 0),
+    -- Question 61
+    (61, 'Dangerous', 1),
+    (61, 'Safe', 0),
+    (61, 'Secure', 0),
+    (61, 'Stable', 0),
+    -- Question 62
+    (62, 'Dangerous', 1),
+    (62, 'Safe', 0),
+    (62, 'Secure', 0),
+    (62, 'Stable', 0),
+    -- Question 63
+    (63, 'Dense', 1),
+    (63, 'Sparse', 0),
+    (63, 'Scattered', 0),
+    (63, 'Few', 0),
+    -- Question 64
+    (64, 'Dense', 1),
+    (64, 'Sparse', 0),
+    (64, 'Scattered', 0),
+    (64, 'Few', 0),
+    -- Question 65
+    (65, 'Wordy', 1),
+    (65, 'Concise', 0),
+    (65, 'Terse', 0),
+    (65, 'Brief', 0),
+    -- Question 66
+    (66, 'Wordy', 1),
+    (66, 'Concise', 0),
+    (66, 'Terse', 0),
+    (66, 'Brief', 0),
+    -- Question 67
+    (67, 'Hidden', 1),
+    (67, 'Visible', 0),
+    (67, 'Conspicuous', 0),
+    (67, 'Noticeable', 0),
+    -- Question 68
+    (68, 'Hidden', 1),
+    (68, 'Visible', 0),
+    (68, 'Conspicuous', 0),
+    (68, 'Noticeable', 0),
+    -- Question 69
+    (69, 'Dry', 1),
+    (69, 'Wet', 0),
+    (69, 'Moist', 0),
+    (69, 'Damp', 0),
+    -- Question 70
+    (70, 'Dry', 1),
+    (70, 'Wet', 0),
+    (70, 'Moist', 0),
+    (70, 'Damp', 0),
+    -- Question 71
+    (71, 'Scarce', 1),
+    (71, 'Plentiful', 0),
+    (71, 'Abundant', 0),
+    (71, 'Copious', 0),
+    -- Question 72
+    (72, 'Scarce', 1),
+    (72, 'Plentiful', 0),
+    (72, 'Abundant', 0),
+    (72, 'Copious', 0),
+    -- Question 73
+    (73, 'Friendly', 1),
+    (73, 'Hostile', 0),
+    (73, 'Unfriendly', 0),
+    (73, 'Mean', 0),
+    -- Question 74
+    (74, 'Friendly', 1),
+    (74, 'Hostile', 0),
+    (74, 'Unfriendly', 0),
+    (74, 'Mean', 0),
+    -- Question 75
+    (75, 'Plain', 1),
+    (75, 'Flamboyant', 0),
+    (75, 'Flashy', 0),
+    (75, 'Extravagant', 0),
+    -- Question 76
+    (76, 'Plain', 1),
+    (76, 'Flamboyant', 0),
+    (76, 'Flashy', 0),
+    (76, 'Extravagant', 0),
+    -- Question 77
+    (77, 'Amaze', 1),
+    (77, 'Bore', 0),
+    (77, 'Disappoint', 0),
+    (77, 'Dishearten', 0),
+    -- Question 78
+    (78, 'Amaze', 1),
+    (78, 'Bore', 0),
+    (78, 'Disappoint', 0),
+    (78, 'Dishearten', 0),
+    -- Question 79
+    (79, 'Old', 1),
+    (79, 'New', 0),
+    (79, 'Novel', 0),
+    (79, 'Innovative', 0),
+    -- Question 80
+    (80, 'Old', 1),
+    (80, 'New', 0),
+    (80, 'Novel', 0),
+    (80, 'Innovative', 0),
+    -- Question 81
+    (81, 'Merry', 1),
+    (81, 'Sad', 0),
+    (81, 'Gloomy', 0),
+    (81, 'Melancholy', 0),
+    -- Question 82
+    (82, 'Merry', 1),
+    (82, 'Sad', 0),
+    (82, 'Gloomy', 0),
+    (82, 'Melancholy', 0),
+    -- Question 83
+    (83, 'Frugal', 1),
+    (83, 'Extravagant', 0),
+    (83, 'Lavish', 0),
+    (83, 'Luxurious', 0),
+    -- Question 84
+    (84, 'Frugal', 1),
+    (84, 'Extravagant', 0),
+    (84, 'Lavish', 0),
+    (84, 'Luxurious', 0),
+    -- Question 85
+    (85, 'Toxic', 1),
+    (85, 'Harmless', 0),
+    (85, 'Innocuous', 0),
+    (85, 'Benign', 0),
+    -- Question 86
+    (86, 'Toxic', 1),
+    (86, 'Harmless', 0),
+    (86, 'Innocuous', 0),
+    (86, 'Benign', 0),
+    -- Question 87
+    (87, 'Flavorful', 1),
+    (87, 'Bland', 0),
+    (87, 'Dull', 0),
+    (87, 'Uninteresting', 0),
+    -- Question 88
+    (88, 'Flavorful', 1),
+    (88, 'Bland', 0),
+    (88, 'Dull', 0),
+    (88, 'Uninteresting', 0),
+    -- Question 89
+    (89, 'Harmful', 1),
+    (89, 'Harmless', 0),
+    (89, 'Innocuous', 0),
+    (89, 'Benign', 0),
+    -- Question 90
+    (90, 'Harmful', 1),
+    (90, 'Harmless', 0),
+    (90, 'Innocuous', 0),
+    (90, 'Benign', 0),
+    -- Question 91
+    (91, 'Malevolent', 1),
+    (91, 'Benevolent', 0),
+    (91, 'Kind', 0),
+    (91, 'Charitable', 0),
+    -- Question 92
+    (92, 'Malevolent', 1),
+    (92, 'Benevolent', 0),
+    (92, 'Kind', 0),
+    (92, 'Charitable', 0),
+    -- Question 93
+    (93, 'Respectful', 1),
+    (93, 'Disrespectful', 0),
+    (93, 'Impolite', 0),
+    (93, 'Rude', 0),
+    -- Question 94
+    (94, 'Respectful', 1),
+    (94, 'Disrespectful', 0),
+    (94, 'Impolite', 0),
+    (94, 'Rude', 0),
+    -- Question 95
+    (95, 'Dark', 1),
+    (95, 'Luminous', 0),
+    (95, 'Bright', 0),
+    (95, 'Radiant', 0),
+    -- Question 96
+    (96, 'Dark', 1),
+    (96, 'Luminous', 0),
+    (96, 'Bright', 0),
+    (96, 'Radiant', 0),
+    -- Question 97
+    (97, 'Insignificant', 1),
+    (97, 'Important', 0),
+    (97, 'Significant', 0),
+    (97, 'Crucial', 0),
+    -- Question 98
+    (98, 'Insignificant', 1),
+    (98, 'Important', 0),
+    (98, 'Significant', 0),
+    (98, 'Crucial', 0),
+    -- Question 99
+    (99, 'Cheerful', 1),
+    (99, 'Melancholy', 0),
+    (99, 'Sad', 0),
+    (99, 'Gloomy', 0),
+    -- Question 100
+    (100, 'Cheerful', 1),
+    (100, 'Melancholy', 0),
+    (100, 'Sad', 0),
+    (100, 'Gloomy', 0),
+   -- Question 101
+    (101, 'Implicit', 1),
+    (101, 'Clear', 0),
+    (101, 'Obvious', 0),
+    (101, 'Plain', 0),
+    -- Question 102
+    (102, 'Confusing', 1),
+    (102, 'Clear', 0),
+    (102, 'Simple', 0),
+    (102, 'Easy', 0),
+    -- Question 103
+    (103, 'Diverse', 1),
+    (103, 'Similar', 0),
+    (103, 'Narrow', 0),
+    (103, 'Uniform', 0),
+    -- Question 104
+    (104, 'Eclectic', 1),
+    (104, 'Monotonous', 0),
+    (104, 'Narrow', 0),
+    (104, 'Similar', 0),
+    -- Question 105
+    (105, 'Energetic', 1),
+    (105, 'Lazy', 0),
+    (105, 'Inactive', 0),
+    (105, 'Sluggish', 0),
+    -- Question 106
+    (106, 'Energetic', 1),
+    (106, 'Lazy', 0),
+    (106, 'Inactive', 0),
+    (106, 'Sluggish', 0),
+    -- Question 107
+    (107, 'Joyful', 1),
+    (107, 'Sad', 0),
+    (107, 'Depressed', 0),
+    (107, 'Unhappy', 0),
+    -- Question 108
+    (108, 'Elated', 1),
+    (108, 'Sad', 0),
+    (108, 'Depressed', 0),
+    (108, 'Unhappy', 0),
+    -- Question 109
+    (109, 'Turbulent', 1),
+    (109, 'Calm', 0),
+    (109, 'Peaceful', 0),
+    (109, 'Serene', 0),
+    -- Question 110
+    (110, 'Turbulent', 1),
+    (110, 'Calm', 0),
+    (110, 'Peaceful', 0),
+    (110, 'Serene', 0),
+    -- Question 111
+    (111, 'Sociable', 1),
+    (111, 'Reserved', 0),
+    (111, 'Shy', 0),
+    (111, 'Introverted', 0),
+    -- Question 112
+    (112, 'Gregarious', 1),
+    (112, 'Reserved', 0),
+    (112, 'Shy', 0),
+    (112, 'Introverted', 0),
+    -- Question 113
+    (113, 'Clear', 1),
+    (113, 'Obscure', 0),
+    (113, 'Hidden', 0),
+    (113, 'Unknown', 0),
+    -- Question 114
+    (114, 'Clear', 1),
+    (114, 'Obscure', 0),
+    (114, 'Hidden', 0),
+    (114, 'Unknown', 0),
+    -- Question 115
+    (115, 'Preference', 1),
+    (115, 'Dislike', 0),
+    (115, 'Aversion', 0),
+    (115, 'Hate', 0),
+    -- Question 116
+    (116, 'Penchant', 1),
+    (116, 'Dislike', 0),
+    (116, 'Aversion', 0),
+    (116, 'Hate', 0),
+    -- Question 117
+    (117, 'Foolish', 1),
+    (117, 'Wise', 0),
+    (117, 'Sensible', 0),
+    (117, 'Prudent', 0),
+    -- Question 118
+    (118, 'Foolish', 1),
+    (118, 'Wise', 0),
+    (118, 'Sensible', 0),
+    (118, 'Prudent', 0),
+    -- Question 119
+    (119, 'Complex', 1),
+    (119, 'Simple', 0),
+    (119, 'Easy', 0),
+    (119, 'Obvious', 0),
+    -- Question 120
+    (120, 'Abstruse', 1),
+    (120, 'Simple', 0),
+    (120, 'Easy', 0),
+    (120, 'Obvious', 0),
+    -- Question 121
+    (121, 'Extravagant', 1),
+    (121, 'Frugal', 0),
+    (121, 'Thrifty', 0),
+    (121, 'Economical', 0),
+    -- Question 122
+    (122, 'Extravagant', 1),
+    (122, 'Frugal', 0),
+    (122, 'Thrifty', 0),
+    (122, 'Economical', 0),
+    -- Question 123
+    (123, 'Brief', 1),
+    (123, 'Long-winded', 0),
+    (123, 'Verbose', 0),
+    (123, 'Wordy', 0),
+    -- Question 124
+    (124, 'Laconic', 1),
+    (124, 'Long-winded', 0),
+    (124, 'Verbose', 0),
+    (124, 'Wordy', 0),
+    -- Question 125
+    (125, 'Changeable', 1),
+    (125, 'Immutable', 0),
+    (125, 'Unchangeable', 0),
+    (125, 'Permanent', 0),
+    -- Question 126
+    (126, 'Changeable', 1),
+    (126, 'Immutable', 0),
+    (126, 'Unchangeable', 0),
+    (126, 'Permanent', 0),
+    -- Question 127
+    (127, 'Widespread', 1),
+    (127, 'Limited', 0),
+    (127, 'Restricted', 0),
+    (127, 'Narrow', 0),
+    -- Question 128
+    (128, 'Widespread', 1),
+    (128, 'Limited', 0),
+    (128, 'Restricted', 0),
+    (128, 'Narrow', 0),
+    -- Question 129
+    (129, 'Selfish', 1),
+    (129, 'Altruistic', 0),
+    (129, 'Generous', 0),
+    (129, 'Kind', 0),
+    -- Question 130
+    (130, 'Selfish', 1),
+    (130, 'Altruistic', 0),
+    (130, 'Generous', 0),
+    (130, 'Kind', 0),
+    -- Question 131
+    (131, 'Unpredictable', 1),
+    (131, 'Predictable', 0),
+    (131, 'Stable', 0),
+    (131, 'Steady', 0),
+    -- Question 132
+    (132, 'Unpredictable', 1),
+    (132, 'Predictable', 0),
+    (132, 'Stable', 0),
+    (132, 'Steady', 0),
+    -- Question 133
+    (133, 'Ornate', 1),
+    (133, 'Plain', 0),
+    (133, 'Simple', 0),
+    (133, 'Unadorned', 0),
+    -- Question 134
+    (134, 'Ornate', 1),
+    (134, 'Plain', 0),
+    (134, 'Simple', 0),
+    (134, 'Unadorned', 0),
+    -- Question 135
+    (135, 'Determined', 1),
+    (135, 'Indecisive', 0),
+    (135, 'Weak', 0),
+    (135, 'Yielding', 0),
+    -- Question 136
+    (136, 'Determined', 1),
+    (136, 'Indecisive', 0),
+    (136, 'Weak', 0),
+    (136, 'Yielding', 0),
+    -- Question 137
+    (137, 'Apathetic', 1),
+    (137, 'Zealous', 0),
+    (137, 'Enthusiastic', 0),
+    (137, 'Eager', 0),
+    -- Question 138
+    (138, 'Apathetic', 1),
+    (138, 'Zealous', 0),
+    (138, 'Enthusiastic', 0),
+    (138, 'Eager', 0),
+    -- Question 139
+    (139, 'Bland', 1),
+    (139, 'Spicy', 0),
+    (139, 'Flavorful', 0),
+    (139, 'Tasty', 0),
+    -- Question 140
+    (140, 'Bland', 1),
+    (140, 'Spicy', 0),
+    (140, 'Flavorful', 0),
+    (140, 'Tasty', 0),
+    -- Question 141
+    (141, 'Accessible', 1),
+    (141, 'Esoteric', 0),
+    (141, 'Complex', 0),
+    (141, 'Obscure', 0),
+    -- Question 142
+    (142, 'Accessible', 1),
+    (142, 'Esoteric', 0),
+    (142, 'Complex', 0),
+    (142, 'Obscure', 0),
+    -- Question 143
+    (143, 'Concise', 1),
+    (143, 'Verbose', 0),
+    (143, 'Wordy', 0),
+    (143, 'Lengthy', 0),
+    -- Question 144
+    (144, 'Concise', 1),
+    (144, 'Verbose', 0),
+    (144, 'Wordy', 0),
+    (144, 'Lengthy', 0),
+    -- Question 145
+    (145, 'Simple', 1),
+    (145, 'Ostentatious', 0),
+    (145, 'Showy', 0),
+    (145, 'Flashy', 0),
+    -- Question 146
+    (146, 'Simple', 1),
+    (146, 'Ostentatious', 0),
+    (146, 'Showy', 0),
+    (146, 'Flashy', 0),
+    -- Question 147
+    (147, 'Bold', 1),
+    (147, 'Timid', 0),
+    (147, 'Shy', 0),
+    (147, 'Meek', 0),
+    -- Question 148
+    (148, 'Bold', 1),
+    (148, 'Timid', 0),
+    (148, 'Shy', 0),
+    (148, 'Meek', 0),
+    -- Question 149
+    (149, 'Stubborn', 1),
+    (149, 'Docile', 0),
+    (149, 'Compliant', 0),
+    (149, 'Obedient', 0),
+    -- Question 150
+    (150, 'Stubborn', 1),
+    (150, 'Docile', 0),
+    (150, 'Compliant', 0),
+    (150, 'Obedient', 0),
+    -- Question 151
+    (151, 'Cautious', 1),
+    (151, 'Reckless', 0),
+    (151, 'Careless', 0),
+    (151, 'Impulsive', 0),
+    -- Question 152
+    (152, 'Cautious', 1),
+    (152, 'Reckless', 0),
+    (152, 'Careless', 0),
+    (152, 'Impulsive', 0),
+    -- Question 153
+    (153, 'Clear', 1),
+    (153, 'Nebulous', 0),
+    (153, 'Vague', 0),
+    (153, 'Unclear', 0),
+    -- Question 154
+    (154, 'Clear', 1),
+    (154, 'Nebulous', 0),
+    (154, 'Vague', 0),
+    (154, 'Unclear', 0),
+    -- Question 155
+    (155, 'Aggravate', 1),
+    (155, 'Relieve', 0),
+    (155, 'Alleviate', 0),
+    (155, 'Soothe', 0),
+    -- Question 156
+    (156, 'Aggravate', 1),
+    (156, 'Relieve', 0),
+    (156, 'Alleviate', 0),
+    (156, 'Soothe', 0),
+    -- Question 157
+    (157, 'Clear', 1),
+    (157, 'Equivocal', 0),
+    (157, 'Ambiguous', 0),
+    (157, 'Vague', 0),
+    -- Question 158
+    (158, 'Clear', 1),
+    (158, 'Equivocal', 0),
+    (158, 'Ambiguous', 0),
+    (158, 'Vague', 0),
+    -- Question 159
+    (159, 'Generous', 1),
+    (159, 'Stingy', 0),
+    (159, 'Mean', 0),
+    (159, 'Selfish', 0),
+    -- Question 160
+    (160, 'Generous', 1),
+    (160, 'Stingy', 0),
+    (160, 'Mean', 0),
+    (160, 'Selfish', 0),
+    -- Question 161
+    (161, 'Emotional', 1),
+    (161, 'Stoic', 0),
+    (161, 'Indifferent', 0),
+    (161, 'Unemotional', 0),
+    -- Question 162
+    (162, 'Emotional', 1),
+    (162, 'Stoic', 0),
+    (162, 'Indifferent', 0),
+    (162, 'Unemotional', 0),
+    -- Question 163
+    (163, 'Widespread', 1),
+    (163, 'Rare', 0),
+    (163, 'Scarce', 0),
+    (163, 'Limited', 0),
+    -- Question 164
+    (164, 'Widespread', 1),
+    (164, 'Rare', 0),
+    (164, 'Scarce', 0),
+    (164, 'Limited', 0),
+    -- Question 165
+    (165, 'Mean', 1),
+    (165, 'Magnanimous', 0),
+    (165, 'Generous', 0),
+    (165, 'Kind', 0),
+    -- Question 166
+    (166, 'Mean', 1),
+    (166, 'Magnanimous', 0),
+    (166, 'Generous', 0),
+    (166, 'Kind', 0),
+    -- Question 167
+    (167, 'Enthusiastic', 1),
+    (167, 'Depressed', 0),
+    (167, 'Sad', 0),
+    (167, 'Unhappy', 0),
+    -- Question 168
+    (168, 'Enthusiastic', 1),
+    (168, 'Depressed', 0),
+    (168, 'Sad', 0),
+    (168, 'Unhappy', 0),
+    -- Question 169
+    (169, 'Weak', 1),
+    (169, 'Cogent', 0),
+    (169, 'Convincing', 0),
+    (169, 'Persuasive', 0),
+    -- Question 170
+    (170, 'Weak', 1),
+    (170, 'Cogent', 0),
+    (170, 'Convincing', 0),
+    (170, 'Persuasive', 0),
+    -- Question 171
+    (171, 'Rude', 1),
+    (171, 'Polite', 0),
+    (171, 'Respectful', 0),
+    (171, 'Courteous', 0),
+    -- Question 172
+    (172, 'Rude', 1),
+    (172, 'Polite', 0),
+    (172, 'Respectful', 0),
+    (172, 'Courteous', 0),
+    -- Question 173
+    (173, 'Plain', 1),
+    (173, 'Florid', 0),
+    (173, 'Ornate', 0),
+    (173, 'Decorative', 0),
+    -- Question 174
+    (174, 'Plain', 1),
+    (174, 'Florid', 0),
+    (174, 'Ornate', 0),
+    (174, 'Decorative', 0),
+    -- Question 175
+    (175, 'Abnormal', 1),
+    (175, 'Normal', 0),
+    (175, 'Usual', 0),
+    (175, 'Common', 0),
+    -- Question 176
+    (176, 'Abnormal', 1),
+    (176, 'Normal', 0),
+    (176, 'Usual', 0),
+    (176, 'Common', 0),
+    -- Question 177
+    (177, 'Depressed', 1),
+    (177, 'Euphoric', 0),
+    (177, 'Happy', 0),
+    (177, 'Joyful', 0),
+    -- Question 178
+    (178, 'Depressed', 1),
+    (178, 'Euphoric', 0),
+    (178, 'Happy', 0),
+    (178, 'Joyful', 0),
+    -- Question 179
+    (179, 'Summarize', 1),
+    (179, 'Expand', 0),
+    (179, 'Elaborate', 0),
+    (179, 'Detail', 0),
+    -- Question 180
+    (180, 'Summarize', 1),
+    (180, 'Expand', 0),
+    (180, 'Elaborate', 0),
+    (180, 'Detail', 0),
+    -- Question 181
+    (181, 'Serious', 1),
+    (181, 'Jocular', 0),
+    (181, 'Humorous', 0),
+    (181, 'Funny', 0),
+    -- Question 182
+    (182, 'Serious', 1),
+    (182, 'Jocular', 0),
+    (182, 'Humorous', 0),
+    (182, 'Funny', 0),
+    -- Question 183
+    (183, 'Meticulous', 1),
+    (183, 'Careless', 0),
+    (183, 'Negligent', 0),
+    (183, 'Sloppy', 0),
+    -- Question 184
+    (184, 'Meticulous', 1),
+    (184, 'Careless', 0),
+    (184, 'Negligent', 0),
+    (184, 'Sloppy', 0),
+    -- Question 185
+    (185, 'Obedient', 1),
+    (185, 'Rebellious', 0),
+    (185, 'Defiant', 0),
+    (185, 'Disobedient', 0),
+    -- Question 186
+    (186, 'Obedient', 1),
+    (186, 'Rebellious', 0),
+    (186, 'Defiant', 0),
+    (186, 'Disobedient', 0),
+    -- Question 187
+    (187, 'Optimistic', 1),
+    (187, 'Pessimistic', 0),
+    (187, 'Gloomy', 0),
+    (187, 'Negative', 0),
+    -- Question 188
+    (188, 'Optimistic', 1),
+    (188, 'Pessimistic', 0),
+    (188, 'Gloomy', 0),
+    (188, 'Negative', 0),
+    -- Question 189
+    (189, 'Joyful', 1),
+    (189, 'Sorrowful', 0),
+    (189, 'Sad', 0),
+    (189, 'Unhappy', 0),
+    -- Question 190
+    (190, 'Joyful', 1),
+    (190, 'Sorrowful', 0),
+    (190, 'Sad', 0),
+    (190, 'Unhappy', 0),
+    -- Question 191
+    (191, 'Assertive', 1),
+    (191, 'Meek', 0),
+    (191, 'Shy', 0),
+    (191, 'Timid', 0),
+    -- Question 192
+    (192, 'Assertive', 1),
+    (192, 'Meek', 0),
+    (192, 'Shy', 0),
+    (192, 'Timid', 0),
+    -- Question 193
+    (193, 'Experienced', 1),
+    (193, 'Naive', 0),
+    (193, 'Inexperienced', 0),
+    (193, 'Unskilled', 0),
+    -- Question 194
+    (194, 'Experienced', 1),
+    (194, 'Naive', 0),
+    (194, 'Inexperienced', 0),
+    (194, 'Unskilled', 0),
+    -- Question 195
+    (195, 'Confident', 1),
+    (195, 'Diffident', 0),
+    (195, 'Shy', 0),
+    (195, 'Timid', 0),
+    -- Question 196
+    (196, 'Confident', 1),
+    (196, 'Diffident', 0),
+    (196, 'Shy', 0),
+    (196, 'Timid', 0),
+    -- Question 197
+    (197, 'Empathetic', 1),
+    (197, 'Insensitive', 0),
+    (197, 'Uncaring', 0),
+    (197, 'Apathetic', 0),
+    -- Question 198
+    (198, 'Empathetic', 1),
+    (198, 'Insensitive', 0),
+    (198, 'Uncaring', 0),
+    (198, 'Apathetic', 0),
+    -- Question 199
+    (199, 'Cheerful', 1),
+    (199, 'Melancholic', 0),
+    (199, 'Sad', 0),
+    (199, 'Unhappy', 0),
+    -- Question 200
+    (200, 'Cheerful', 1),
+    (200, 'Melancholic', 0),
+    (200, 'Sad', 0),
+    (200, 'Unhappy', 0),
+  -- Question 201
+    (201, 'Serious', 1),
+    (201, 'Silly', 0),
+    (201, 'Carefree', 0),
+    (201, 'Playful', 0),
+    -- Question 202
+    (202, 'Careful', 1),
+    (202, 'Reckless', 0),
+    (202, 'Hasty', 0),
+    (202, 'Casual', 0),
+    -- Question 203
+    (203, 'Frugal', 1),
+    (203, 'Generous', 0),
+    (203, 'Lavish', 0),
+    (203, 'Extravagant', 0),
+    -- Question 204
+    (204, 'Philanthropic', 1),
+    (204, 'Greedy', 0),
+    (204, 'Selfish', 0),
+    (204, 'Miserly', 0),
+    -- Question 205
+    (205, 'Obscure', 1),
+    (205, 'Clear', 0),
+    (205, 'Lucid', 0),
+    (205, 'Understandable', 0),
+    -- Question 206
+    (206, 'Persistent', 1),
+    (206, 'Yielding', 0),
+    (206, 'Weak', 0),
+    (206, 'Submissive', 0),
+    -- Question 207
+    (207, 'Diligent', 1),
+    (207, 'Lazy', 0),
+    (207, 'Careless', 0),
+    (207, 'Neglectful', 0),
+    -- Question 208
+    (208, 'Dependable', 1),
+    (208, 'Unreliable', 0),
+    (208, 'Irresponsible', 0),
+    (208, 'Fickle', 0),
+    -- Question 209
+    (209, 'Malevolent', 1),
+    (209, 'Kind', 0),
+    (209, 'Benevolent', 0),
+    (209, 'Compassionate', 0),
+    -- Question 210
+    (210, 'Arcane', 1),
+    (210, 'Common', 0),
+    (210, 'Widespread', 0),
+    (210, 'Popular', 0),
+    -- Question 211
+    (211, 'Tedious', 1),
+    (211, 'Interesting', 0),
+    (211, 'Engaging', 0),
+    (211, 'Captivating', 0),
+    -- Question 212
+    (212, 'Picturesque', 1),
+    (212, 'Ugly', 0),
+    (212, 'Unattractive', 0),
+    (212, 'Boring', 0),
+    -- Question 213
+    (213, 'Unproductive', 1),
+    (213, 'Fruitful', 0),
+    (213, 'Fertile', 0),
+    (213, 'Prolific', 0),
+    -- Question 214
+    (214, 'Run-down', 1),
+    (214, 'New', 0),
+    (214, 'Renovated', 0),
+    (214, 'Repaired', 0),
+    -- Question 215
+    (215, 'Deteriorated', 1),
+    (215, 'Maintained', 0),
+    (215, 'Preserved', 0),
+    (215, 'Restored', 0),
+    -- Question 216
+    (216, 'Skilled', 1),
+    (216, 'Unskilled', 0),
+    (216, 'Amateur', 0),
+    (216, 'Novice', 0),
+    -- Question 217
+    (217, 'Wealthy', 1),
+    (217, 'Poor', 0),
+    (217, 'Indigent', 0),
+    (217, 'Impoverished', 0),
+    -- Question 218
+    (218, 'Peak', 1),
+    (218, 'Base', 0),
+    (218, 'Bottom', 0),
+    (218, 'Valley', 0),
+    -- Question 219
+    (219, 'Summit', 1),
+    (219, 'Bottom', 0),
+    (219, 'Foot', 0),
+    (219, 'Base', 0),
+    -- Question 220
+    (220, 'Charismatic', 1),
+    (220, 'Boring', 0),
+    (220, 'Dull', 0),
+    (220, 'Unremarkable', 0),
+    -- Question 221
+    (221, 'Reserved', 1),
+    (221, 'Outgoing', 0),
+    (221, 'Sociable', 0),
+    (221, 'Gregarious', 0),
+    -- Question 222
+    (222, 'Bubbly', 1),
+    (222, 'Dull', 0),
+    (222, 'Serious', 0),
+    (222, 'Boring', 0),
+    -- Question 223
+    (223, 'Lively', 1),
+    (223, 'Dead', 0),
+    (223, 'Lethargic', 0),
+    (223, 'Inactive', 0),
+    -- Question 224
+    (224, 'Economical', 1),
+    (224, 'Wasteful', 0),
+    (224, 'Lavish', 0),
+    (224, 'Extravagant', 0),
+    -- Question 225
+    (225, 'Detail-oriented', 1),
+    (225, 'Careless', 0),
+    (225, 'Sloppy', 0),
+    (225, 'Haphazard', 0),
+    -- Question 226
+    (226, 'Attentive', 1),
+    (226, 'Neglectful', 0),
+    (226, 'Careless', 0),
+    (226, 'Unobservant', 0),
+    -- Question 227
+    (227, 'Lush', 1),
+    (227, 'Barren', 0),
+    (227, 'Desolate', 0),
+    (227, 'Empty', 0),
+    -- Question 228
+    (228, 'Reserved', 1),
+    (228, 'Social', 0),
+    (228, 'Talkative', 0),
+    (228, 'Gregarious', 0),
+    -- Question 229
+    (229, 'Strenuous', 1),
+    (229, 'Easy', 0),
+    (229, 'Simple', 0),
+    (229, 'Effortless', 0),
+    -- Question 230
+    (230, 'Vigorous', 1),
+    (230, 'Weak', 0),
+    (230, 'Feeble', 0),
+    (230, 'Fragile', 0),
+    -- Question 231
+    (231, 'Disrespectful', 1),
+    (231, 'Respectful', 0),
+    (231, 'Reverent', 0),
+    (231, 'Admiring', 0),
+    -- Question 232
+    (232, 'Sad', 1),
+    (232, 'Happy', 0),
+    (232, 'Joyful', 0),
+    (232, 'Cheerful', 0),
+    -- Question 233
+    (233, 'Mournful', 1),
+    (233, 'Happy', 0),
+    (233, 'Cheerful', 0),
+    (233, 'Joyful', 0),
+    -- Question 234
+    (234, 'Inspiring', 1),
+    (234, 'Boring', 0),
+    (234, 'Dull', 0),
+    (234, 'Unremarkable', 0),
+    -- Question 235
+    (235, 'Humble', 1),
+    (235, 'Arrogant', 0),
+    (235, 'Proud', 0),
+    (235, 'Conceited', 0),
+    -- Question 236
+    (236, 'Justify', 1),
+    (236, 'Blame', 0),
+    (236, 'Accuse', 0),
+    (236, 'Condemn', 0),
+    -- Question 237
+    (237, 'Validate', 1),
+    (237, 'Disprove', 0),
+    (237, 'Refute', 0),
+    (237, 'Reject', 0),
+    -- Question 238
+    (238, 'Concise', 1),
+    (238, 'Verbose', 0),
+    (238, 'Wordy', 0),
+    (238, 'Lengthy', 0),
+    -- Question 239
+    (239, 'Persuasive', 1),
+    (239, 'Weak', 0),
+    (239, 'Unconvincing', 0),
+    (239, 'Unclear', 0),
+    -- Question 240
+    (240, 'Strong', 1),
+    (240, 'Weak', 0),
+    (240, 'Feeble', 0),
+    (240, 'Fragile', 0),
+    -- Question 241
+    (241, 'Lazy', 1),
+    (241, 'Hardworking', 0),
+    (241, 'Diligent', 0),
+    (241, 'Industrious', 0),
+    -- Question 242
+    (242, 'Fearless', 1),
+    (242, 'Fearful', 0),
+    (242, 'Afraid', 0),
+    (242, 'Scared', 0),
+    -- Question 243
+    (243, 'Brave', 1),
+    (243, 'Cowardly', 0),
+    (243, 'Timid', 0),
+    (243, 'Frightened', 0),
+    -- Question 244
+    (244, 'Aggressive', 1),
+    (244, 'Passive', 0),
+    (244, 'Calm', 0),
+    (244, 'Gentle', 0),
+    -- Question 245
+    (245, 'Lively', 1),
+    (245, 'Dull', 0),
+    (245, 'Quiet', 0),
+    (245, 'Serious', 0),
+    -- Question 246
+    (246, 'Calm', 1),
+    (246, 'Agitated', 0),
+    (246, 'Disturbed', 0),
+    (246, 'Excited', 0),
+    -- Question 247
+    (247, 'Indifferent', 1),
+    (247, 'Interested', 0),
+    (247, 'Engaged', 0),
+    (247, 'Curious', 0),
+    -- Question 248
+    (248, 'Permanent', 1),
+    (248, 'Temporary', 0),
+    (248, 'Short-lived', 0),
+    (248, 'Brief', 0),
+    -- Question 249
+    (249, 'Quiet', 1),
+    (249, 'Talkative', 0),
+    (249, 'Gregarious', 0),
+    (249, 'Sociable', 0),
+    -- Question 250
+    (250, 'Secretive', 1),
+    (250, 'Open', 0),
+    (250, 'Transparent', 0),
+    (250, 'Obvious', 0),
+    -- Question 251
+    (251, 'Calm', 1),
+    (251, 'Agitated', 0),
+    (251, 'Excited', 0),
+    (251, 'Furious', 0),
+    -- Question 252
+    (252, 'Famous', 1),
+    (252, 'Unknown', 0),
+    (252, 'Obscure', 0),
+    (252, 'Hidden', 0),
+    -- Question 253
+    (253, 'Explain', 1),
+    (253, 'Confuse', 0),
+    (253, 'Obscure', 0),
+    (253, 'Mystify', 0),
+    -- Question 254
+    (254, 'Talented', 1),
+    (254, 'Unskilled', 0),
+    (254, 'Amateur', 0),
+    (254, 'Novice', 0),
+    -- Question 255
+    (255, 'Quiet', 1),
+    (255, 'Noisy', 0),
+    (255, 'Loud', 0),
+    (255, 'Clamorous', 0),
+    -- Question 256
+    (256, 'Peaceful', 1),
+    (256, 'Chaotic', 0),
+    (256, 'Disturbed', 0),
+    (256, 'Agitated', 0),
+    -- Question 257
+    (257, 'Gentle', 1),
+    (257, 'Violent', 0),
+    (257, 'Stormy', 0),
+    (257, 'Rough', 0),
+    -- Question 258
+    (258, 'Malevolent', 1),
+    (258, 'Kind', 0),
+    (258, 'Compassionate', 0),
+    (258, 'Benevolent', 0),
+    -- Question 259
+    (259, 'Joyful', 1),
+    (259, 'Sad', 0),
+    (259, 'Melancholic', 0),
+    (259, 'Unhappy', 0),
+    -- Question 260
+    (260, 'Negative', 1),
+    (260, 'Positive', 0),
+    (260, 'Optimistic', 0),
+    (260, 'Hopeful', 0),
+    -- Question 261
+    (261, 'Stable', 1),
+    (261, 'Fickle', 0),
+    (261, 'Whimsical', 0),
+    (261, 'Unpredictable', 0),
+    -- Question 262
+    (262, 'Diligent', 1),
+    (262, 'Lazy', 0),
+    (262, 'Neglectful', 0),
+    (262, 'Careless', 0),
+    -- Question 263
+    (263, 'Fair', 1),
+    (263, 'Biased', 0),
+    (263, 'Partial', 0),
+    (263, 'Unfair', 0),
+    -- Question 264
+    (264, 'Unfriendly', 1),
+    (264, 'Friendly', 0),
+    (264, 'Amiable', 0),
+    (264, 'Kind', 0),
+    -- Question 265
+    (265, 'All-powerful', 1),
+    (265, 'Weak', 0),
+    (265, 'Powerless', 0),
+    (265, 'Impotent', 0),
+    -- Question 266
+    (266, 'Wisdom', 1),
+    (266, 'Ignorance', 0),
+    (266, 'Foolishness', 0),
+    (266, 'Stupidity', 0),
+    -- Question 267
+    (267, 'Harmonious', 1),
+    (267, 'Discordant', 0),
+    (267, 'Clashing', 0),
+    (267, 'Jarring', 0),
+    -- Question 268
+    (268, 'Outdated', 1),
+    (268, 'Modern', 0),
+    (268, 'New', 0),
+    (268, 'Recent', 0),
+    -- Question 269
+    (269, 'Talented', 1),
+    (269, 'Untalented', 0),
+    (269, 'Inexperienced', 0),
+    (269, 'Unskilled', 0),
+    -- Question 270
+    (270, 'Biased', 1),
+    (270, 'Impartial', 0),
+    (270, 'Fair', 0),
+    (270, 'Just', 0),
+    -- Question 271
+    (271, 'Transitory', 1),
+    (271, 'Permanent', 0),
+    (271, 'Eternal', 0),
+    (271, 'Endless', 0),
+    -- Question 272
+    (272, 'Expertise', 1),
+    (272, 'Incompetence', 0),
+    (272, 'Ineptitude', 0),
+    (272, 'Amateurism', 0),
+    -- Question 273
+    (273, 'Flexible', 1),
+    (273, 'Stubborn', 0),
+    (273, 'Rigid', 0),
+    (273, 'Inflexible', 0),
+    -- Question 274
+    (274, 'Talkative', 1),
+    (274, 'Quiet', 0),
+    (274, 'Silent', 0),
+    (274, 'Reserved', 0),
+    -- Question 275
+    (275, 'Courageous', 1),
+    (275, 'Cowardly', 0),
+    (275, 'Fearful', 0),
+    (275, 'Timid', 0),
+    -- Question 276
+    (276, 'Cheerful', 1),
+    (276, 'Sad', 0),
+    (276, 'Melancholic', 0),
+    (276, 'Gloomy', 0),
+    -- Question 277
+    (277, 'Award', 1),
+    (277, 'Criticism', 0),
+    (277, 'Rebuke', 0),
+    (277, 'Blame', 0),
+    -- Question 278
+    (278, 'Arrogant', 1),
+    (278, 'Humble', 0),
+    (278, 'Modest', 0),
+    (278, 'Unassuming', 0),
+    -- Question 279
+    (279, 'Learned', 1),
+    (279, 'Ignorant', 0),
+    (279, 'Uneducated', 0),
+    (279, 'Uninformed', 0),
+    -- Question 280
+    (280, 'Clear', 1),
+    (280, 'Confusing', 0),
+    (280, 'Obscure', 0),
+    (280, 'Ambiguous', 0),
+    -- Question 281
+    (281, 'Tall', 1),
+    (281, 'Short', 0),
+    (281, 'Small', 0),
+    (281, 'Tiny', 0),
+    -- Question 282
+    (282, 'Thrifty', 1),
+    (282, 'Wasteful', 0),
+    (282, 'Extravagant', 0),
+    (282, 'Lavish', 0),
+    -- Question 283
+    (283, 'Defiant', 1),
+    (283, 'Obedient', 0),
+    (283, 'Submissive', 0),
+    (283, 'Compliant', 0),
+    -- Question 284
+    (284, 'Acclaimed', 1),
+    (284, 'Unknown', 0),
+    (284, 'Unrecognized', 0),
+    (284, 'Obscure', 0),
+    -- Question 285
+    (285, 'Pessimistic', 1),
+    (285, 'Optimistic', 0),
+    (285, 'Hopeful', 0),
+    (285, 'Positive', 0),
+    -- Question 286
+    (286, 'Harmful', 1),
+    (286, 'Beneficial', 0),
+    (286, 'Helpful', 0),
+    (286, 'Advantageous', 0),
+    -- Question 287
+    (287, 'Starlit', 1),
+    (287, 'Cloudy', 0),
+    (287, 'Overcast', 0),
+    (287, 'Gloomy', 0),
+    -- Question 288
+    (288, 'Talkative', 1),
+    (288, 'Silent', 0),
+    (288, 'Quiet', 0),
+    (288, 'Reserved', 0),
+    -- Question 289
+    (289, 'Sneaky', 1),
+    (289, 'Obvious', 0),
+    (289, 'Open', 0),
+    (289, 'Clear', 0),
+    -- Question 290
+    (290, 'Friendly', 1),
+    (290, 'Hostile', 0),
+    (290, 'Unfriendly', 0),
+    (290, 'Mean', 0),
+    -- Question 291
+    (291, 'Agitated', 1),
+    (291, 'Calm', 0),
+    (291, 'Relaxed', 0),
+    (291, 'Peaceful', 0),
+    -- Question 292
+    (292, 'Secretive', 1),
+    (292, 'Open', 0),
+    (292, 'Transparent', 0),
+    (292, 'Obvious', 0),
+    -- Question 293
+    (293, 'Benevolent', 1),
+    (293, 'Malevolent', 0),
+    (293, 'Evil', 0),
+    (293, 'Wicked', 0),
+    -- Question 294
+    (294, 'Tidy', 1),
+    (294, 'Messy', 0),
+    (294, 'Disorganized', 0),
+    (294, 'Chaotic', 0),
+    -- Question 295
+    (295, 'Meticulous', 1),
+    (295, 'Careless', 0),
+    (295, 'Sloppy', 0),
+    (295, 'Haphazard', 0),
+    -- Question 296
+    (296, 'Genuine', 1),
+    (296, 'Fake', 0),
+    (296, 'Insincere', 0),
+    (296, 'Dishonest', 0),
+    -- Question 297
+    (297, 'Grateful', 1),
+    (297, 'Ungrateful', 0),
+    (297, 'Unappreciative', 0),
+    (297, 'Thankless', 0),
+    -- Question 298
+    (298, 'Honest', 1),
+    (298, 'Dishonest', 0),
+    (298, 'Deceitful', 0),
+    (298, 'Untrustworthy', 0),
+    -- Question 299
+    (299, 'Supportive', 1),
+    (299, 'Opposing', 0),
+    (299, 'Critical', 0),
+    (299, 'Unhelpful', 0),
+    -- Question 300
+    (300, 'Respectful', 1),
+    (300, 'Disrespectful', 0),
+    (300, 'Rude', 0),
+    (300, 'Insolent', 0);
+
+
+
+
+INSERT OR IGNORE INTO Image_Questions (question_id, question_img) VALUES
+    (1, 'https://res.cloudinary.com/dy4wv7gh2/image/upload/v1716670611/uploads/289646c5-bc28-46cf-8da0-080bb96b55ca.png'),
+    (2, 'https://res.cloudinary.com/dy4wv7gh2/image/upload/v1716670879/uploads/36207ca7-f794-459a-8c5f-57a12fc89f2c.png'),
+    (3, 'https://res.cloudinary.com/dy4wv7gh2/image/upload/v1716670914/uploads/a751b037-1673-484c-b9d3-ae3b33abc2bf.png'),
+    (4, 'https://res.cloudinary.com/dy4wv7gh2/image/upload/v1716670988/uploads/db717c16-1db4-4c97-9c55-62e56a594d80.png'),
+    (5, 'https://res.cloudinary.com/dy4wv7gh2/image/upload/v1716671015/uploads/a9e7b757-f1f1-4199-b535-ea54cfbbcaf6.png'),
+    (6, 'https://res.cloudinary.com/dy4wv7gh2/image/upload/v1716671067/uploads/7ce06325-12f9-4222-93a0-ba7b6bfd36eb.png'),
+    (7, 'https://res.cloudinary.com/dy4wv7gh2/image/upload/v1716671106/uploads/1be3205e-f719-4994-9549-11bb45ced07c.png'),
+    (8, 'https://res.cloudinary.com/dy4wv7gh2/image/upload/v1716671140/uploads/768f34fd-fe86-4d22-85fd-a5acb1fccfde.png'),
+    (9, 'https://res.cloudinary.com/dy4wv7gh2/image/upload/v1716671168/uploads/430e7c8c-24c0-49c7-bade-ef2f9549c4ce.png'),
+    (10, 'https://res.cloudinary.com/dy4wv7gh2/image/upload/v1716671226/uploads/42744179-da8c-46c5-b422-a669e2b44cc0.png'),
+    (11, 'https://res.cloudinary.com/dy4wv7gh2/image/upload/v1716671257/uploads/a0171358-8d70-402a-8b7e-483c5801c42d.png'),
+    (12, 'https://res.cloudinary.com/dy4wv7gh2/image/upload/v1716671283/uploads/72ba0125-b925-4551-bab6-0ff18f2ac556.png'),
+    (13, 'https://res.cloudinary.com/dy4wv7gh2/image/upload/v1716671310/uploads/c9343334-af79-40bb-9a29-1b637c986760.png'),
+    (14, 'https://res.cloudinary.com/dy4wv7gh2/image/upload/v1716671342/uploads/c81de6e5-1f9f-4ffc-b7f4-7ad7817d8638.png'),
+    (15, 'https://res.cloudinary.com/dy4wv7gh2/image/upload/v1716671382/uploads/22f82720-5e67-4cf0-b493-6454bec3eb09.png'),
+    (16, 'https://res.cloudinary.com/dy4wv7gh2/image/upload/v1716671427/uploads/83e04464-c23c-44f2-9cec-6ce728cc42e6.png'),
+    (17, 'https://res.cloudinary.com/dy4wv7gh2/image/upload/v1716671461/uploads/8011371b-98d5-4691-9908-a8918b0d36b3.png'),
+    (18, 'https://res.cloudinary.com/dy4wv7gh2/image/upload/v1716671488/uploads/17ca67b2-de02-4d9b-ab97-bc3e70992b1a.png'),
+    (19, 'https://res.cloudinary.com/dy4wv7gh2/image/upload/v1716671516/uploads/8b98dbf1-6d6b-4504-b901-ed57eed922c8.png'),
+    (20, 'https://res.cloudinary.com/dy4wv7gh2/image/upload/v1716671545/uploads/eaeac608-2c99-4851-bab5-bb6e344262c3.png'),
+    (21, 'https://res.cloudinary.com/dy4wv7gh2/image/upload/v1716671572/uploads/39c6c26d-a72e-44f1-ac48-fb2e2057aceb.png'),
+    (22, 'https://res.cloudinary.com/dy4wv7gh2/image/upload/v1716671606/uploads/be07e3a6-f7f1-4f67-b179-7da0dc2b2c4f.png'),
+    (23, 'https://res.cloudinary.com/dy4wv7gh2/image/upload/v1716671635/uploads/40d78b5c-7aac-4d70-89b1-7bd07d24cabd.png'),
+    (24, 'https://res.cloudinary.com/dy4wv7gh2/image/upload/v1716671658/uploads/0717bc09-29e4-4a10-b673-9841c90fb16a.png'),
+    (25, 'https://res.cloudinary.com/dy4wv7gh2/image/upload/v1716671684/uploads/4979b1b3-53ff-4955-a794-8785b979d6e5.png'),
+    (26, 'https://res.cloudinary.com/dy4wv7gh2/image/upload/v1716671738/uploads/3074e23c-c5ea-4d9f-8ace-8729aa1c9baf.png'),
+    (27, 'https://res.cloudinary.com/dy4wv7gh2/image/upload/v1716671762/uploads/fc0ac40e-222d-4bbe-ba75-fd971ade572a.png'),
+    (28, 'https://res.cloudinary.com/dy4wv7gh2/image/upload/v1716671788/uploads/dd791023-f7fb-4bee-8e88-6db585f18a0b.png'),
+    (29, 'https://res.cloudinary.com/dy4wv7gh2/image/upload/v1716671845/uploads/18aea0e1-c24a-4d2b-bf62-63963b4e551a.png'),
+    (30, 'https://res.cloudinary.com/dy4wv7gh2/image/upload/v1716671875/uploads/bd19ef50-f9f2-412d-9f18-a4ecd3d7dcf1.png'),
+    (31, 'https://res.cloudinary.com/dy4wv7gh2/image/upload/v1716671903/uploads/9e472a71-8e15-4fa8-9dc6-3642c002c584.png'),
+    (32, 'https://res.cloudinary.com/dy4wv7gh2/image/upload/v1716671935/uploads/c8eb8736-67d0-46c9-b9e8-566f4453373f.png'),
+    (33, 'https://res.cloudinary.com/dy4wv7gh2/image/upload/v1716671966/uploads/a8cd4174-b83b-40e3-9893-3ddd2a17593d.png'),
+    (34, 'https://res.cloudinary.com/dy4wv7gh2/image/upload/v1716672015/uploads/274ba0ae-d3be-4eed-a0f0-ec49f479e5a1.png'),
+    (35, 'https://res.cloudinary.com/dy4wv7gh2/image/upload/v1716672046/uploads/541ae235-3adc-4719-8e5e-7adc2af624a2.png'),
+    (36, 'https://res.cloudinary.com/dy4wv7gh2/image/upload/v1716672156/uploads/585a9eec-8fd2-4661-9547-1cd3b7336d3f.png'),
+    (37, 'https://res.cloudinary.com/dy4wv7gh2/image/upload/v1716672194/uploads/bd12bd97-8c9d-446d-a66b-9d0da3d0ec3c.png'),
+    (38, 'https://res.cloudinary.com/dy4wv7gh2/image/upload/v1716672226/uploads/1bb81a93-c08e-4fd0-bac3-e090143293af.png'),
+    (39, 'https://res.cloudinary.com/dy4wv7gh2/image/upload/v1716672273/uploads/adac0e3b-6e30-4801-8de7-dcde538f3f29.png'),
+    (40, 'https://res.cloudinary.com/dy4wv7gh2/image/upload/v1716672318/uploads/1019c0e8-ddf6-4aa9-9caa-215716d7601b.png'),
+    (41, 'https://res.cloudinary.com/dy4wv7gh2/image/upload/v1716672390/uploads/2ca02ff2-36d8-489e-8dc9-2766a09089a2.png'),
+    (42, 'https://res.cloudinary.com/dy4wv7gh2/image/upload/v1716672452/uploads/eeded054-906e-4c13-b82e-fe8289666e8e.png'),
+    (43, 'https://res.cloudinary.com/dy4wv7gh2/image/upload/v1716672501/uploads/9bec0e35-b0ad-4b2b-b45c-e5303939b1e5.png'),
+    (44, 'https://res.cloudinary.com/dy4wv7gh2/image/upload/v1716672556/uploads/96bf3584-daf9-4340-9195-32effc1be4da.png'),
+    (45, 'https://res.cloudinary.com/dy4wv7gh2/image/upload/v1716672675/uploads/ca2a86b4-b203-4471-a642-53b21ff59923.png'),
+    (46, 'https://res.cloudinary.com/dy4wv7gh2/image/upload/v1716672736/uploads/afc0f70b-b72e-43ae-a977-2a7175696fec.png'),
+    (47, 'https://res.cloudinary.com/dy4wv7gh2/image/upload/v1716672774/uploads/e994be75-f13b-4c07-9896-6fb89e37baaf.png'),
+    (48, 'https://res.cloudinary.com/dy4wv7gh2/image/upload/v1716672804/uploads/5f2e2661-fb52-4cb0-b2b9-39963136eb9d.png'),
+    (49, 'https://res.cloudinary.com/dy4wv7gh2/image/upload/v1716672847/uploads/4701f639-2a5c-416e-b82e-2558bc2b7c4f.png'),
+    (50, 'https://res.cloudinary.com/dy4wv7gh2/image/upload/v1716672884/uploads/32d7163e-dbec-4bcf-9ee5-dc7ce5d7d1c4.png');
+
+INSERT OR IGNORE INTO Image_Options (question_id, option_text, is_correct) VALUES
+(1, 'Set A', 0),
+(1, 'Set B', 1),
+(1, 'neither A and B', 0),
+(1, 'both A and B', 0),
+(2, 'Set A', 1),
+(2, 'Set B', 0),
+(2, 'neither A and B', 0),
+(2, 'both A and B', 0),
+(3, 'Set A', 0),
+(3, 'Set B', 1),
+(3, 'neither A and B', 0),
+(3, 'both A and B', 0),
+(4, 'Set A', 0),
+(4, 'Set B', 1),
+(4, 'neither A and B', 0),
+(4, 'both A and B', 0),
+(5, 'Set A', 0),
+(5, 'Set B', 0),
+(5, 'neither A and B', 1),
+(5, 'both A and B', 0),
+(6, 'Set A', 0),
+(6, 'Set B', 1),
+(6, 'neither A and B', 0),
+(6, 'both A and B', 0),
+(7, 'Set A', 1),
+(7, 'Set B', 0),
+(7, 'neither A and B', 0),
+(7, 'both A and B', 0),
+(8, 'Set A', 1),
+(8, 'Set B', 0),
+(8, 'neither A and B', 0),
+(8, 'both A and B', 0),
+(9, 'Set A', 0),
+(9, 'Set B', 1),
+(9, 'neither A and B', 0),
+(9, 'both A and B', 0),
+(10, 'Set A', 0),
+(10, 'Set B', 0),
+(10, 'neither A and B', 1),
+(10, 'both A and B', 0),
+(11, 'Set A', 0),
+(11, 'Set B', 1),
+(11, 'neither A and B', 0),
+(11, 'both A and B', 0),
+(12, 'Set A', 1),
+(12, 'Set B', 0),
+(12, 'neither A and B', 0),
+(12, 'both A and B', 0),
+(13, 'Set A', 0),
+(13, 'Set B', 0),
+(13, 'neither A and B', 1),
+(13, 'both A and B', 0),
+(14, 'Set A', 1),
+(14, 'Set B', 0),
+(14, 'neither A and B', 0),
+(14, 'both A and B', 0),
+(15, 'Set A', 1),
+(15, 'Set B', 0),
+(15, 'neither A and B', 0),
+(15, 'both A and B', 0),
+(16, 'Set A', 0),
+(16, 'Set B', 1),
+(16, 'neither A and B', 0),
+(16, 'both A and B', 0),
+(17, 'Set A', 1),
+(17, 'Set B', 0),
+(17, 'neither A and B', 0),
+(17, 'both A and B', 0),
+(18, 'Set A', 0),
+(18, 'Set B', 0),
+(18, 'neither A and B', 1),
+(18, 'both A and B', 0),
+(19, 'Set A', 1),
+(19, 'Set B', 0),
+(19, 'neither A and B', 0),
+(19, 'both A and B', 0),
+(20, 'Set A', 1),
+(20, 'Set B', 0),
+(20, 'neither A and B', 0),
+(20, 'both A and B', 0),
+(21, 'Set A', 0),
+(21, 'Set B', 1),
+(21, 'neither A and B', 0),
+(21, 'both A and B', 0),
+(22, 'Set A', 0),
+(22, 'Set B', 1),
+(22, 'neither A and B', 0),
+(22, 'both A and B', 0),
+(23, 'Set A', 1),
+(23, 'Set B', 0),
+(23, 'neither A and B', 0),
+(23, 'both A and B', 0),
+(24, 'Set A', 0),
+(24, 'Set B', 0),
+(24, 'neither A and B', 1),
+(24, 'both A and B', 0),
+(25, 'Set A', 1),
+(25, 'Set B', 0),
+(25, 'neither A and B', 0),
+(25, 'both A and B', 0),
+(26, 'Set A', 1),
+(26, 'Set B', 0),
+(26, 'neither A and B', 0),
+(26, 'both A and B', 0),
+(27, 'Set A', 1),
+(27, 'Set B', 0),
+(27, 'neither A and B', 0),
+(27, 'both A and B', 0),
+(28, 'Set A', 1),
+(28, 'Set B', 0),
+(28, 'neither A and B', 0),
+(28, 'both A and B', 0),
+(29, 'Set A', 0),
+(29, 'Set B', 0),
+(29, 'neither A and B', 1),
+(29, 'both A and B', 0),
+(30, 'Set A', 0),
+(30, 'Set B', 0),
+(30, 'neither A and B', 1),
+(30, 'both A and B', 0),
+(31, 'A', 0),
+(31, 'B', 1),
+(31, 'C', 0),
+(31, 'D', 0),
+(32, 'A', 0),
+(32, 'B', 0),
+(32, 'C', 1),
+(32, 'D', 0),
+(33, 'A', 0),
+(33, 'B', 0),
+(33, 'C', 1),
+(33, 'D', 0),
+(34, 'A', 0),
+(34, 'B', 1),
+(34, 'C', 0),
+(34, 'D', 0),
+(35, 'A', 0),
+(35, 'B', 0),
+(35, 'C', 0),
+(35, 'D', 1),
+(36, 'A', 0),
+(36, 'B', 0),
+(36, 'C', 1),
+(36, 'D', 0),
+(37, 'A', 0),
+(37, 'B', 0),
+(37, 'C', 0),
+(37, 'D', 1),
+(38, 'A', 1),
+(38, 'B', 0),
+(38, 'C', 0),
+(38, 'D', 0),
+(39, 'A', 0),
+(39, 'B', 1),
+(39, 'C', 0),
+(39, 'D', 0),
+(40, 'A', 0),
+(40, 'B', 0),
+(40, 'C', 1),
+(40, 'D', 0),
+(41, 'A', 1),
+(41, 'B', 0),
+(41, 'C', 0),
+(41, 'D', 0),
+(42, 'A', 0),
+(42, 'B', 0),
+(42, 'C', 0),
+(42, 'D', 1),
+(43, 'A', 1),
+(43, 'B', 0),
+(43, 'C', 0),
+(43, 'D', 0),
+(44, 'A', 0),
+(44, 'B', 0),
+(44, 'C', 1),
+(44, 'D', 0),
+(45, 'A', 0),
+(45, 'B', 1),
+(45, 'C', 0),
+(45, 'D', 0),
+(46, 'A', 0),
+(46, 'B', 0),
+(46, 'C', 0),
+(46, 'D', 1),
+(47, 'A', 0),
+(47, 'B', 1),
+(47, 'C', 0),
+(47, 'D', 0),
+(48, 'A', 1),
+(48, 'B', 0),
+(48, 'C', 0),
+(48, 'D', 0),
+(49, 'A', 0),
+(49, 'B', 1),
+(49, 'C', 0),
+(49, 'D', 0),
+(50, 'A', 0),
+(50, 'B', 0),
+(50, 'C', 1),
+(50, 'D', 0);
+
+INSERT OR IGNORE INTO numerical_reasoning_questions (id, question_text, correct_answer, option_a, option_b, option_c, option_d) VALUES
+    (1, 'What is the result of 25 + 37?', 62, 54, 62, 71, 49),
+    (2, 'Calculate 89 - 42.', 47, 51, 47, 33, 58),
+    (3, 'What is 8 multiplied by 9?', 72, 72, 63, 54, 81),
+    (4, 'If 15 is divided by 3, what is the result?', 5, 4, 5, 6, 7),
+    (5, 'Solve: 3 * (6 + 2)', 24, 18, 24, 20, 30),
+    (6, 'What is the square root of 144?', 12, 11, 10, 12, 14),
+    (7, 'Calculate 75 divided by 5.', 15, 10, 15, 20, 25),
+    (8, 'What is 30 percent of 80?', 24, 20, 24, 30, 32),
+    (9, 'If x + 5 = 15, what is the value of x?', 10, 8, 10, 12, 14),
+    (10, 'What is the next number in the series: 2, 5, 8, 11, ?', 14, 12, 14, 16, 18),
+    (11, 'Calculate: 3/4 * 24', 18, 12, 18, 15, 20),
+    (12, 'What is 20% of 150?', 30, 25, 30, 35, 40),
+    (13, 'If a car travels at 60 miles per hour, how many miles will it travel in 3 hours?', 180, 160, 180, 200, 220),
+    (14, 'What is 85% of 200?', 170, 140, 170, 180, 190),
+    (15, 'If x - 8 = 20, what is the value of x?', 28, 26, 28, 30, 32),
+    (16, 'Calculate the area of a rectangle with length 10 units and width 5 units.', 50, 40, 45, 50, 55),
+    (17, 'How many degrees are there in a right angle?', 90, 45, 60, 90, 120),
+    (18, 'If 15 is increased by 25%, what is the result?', 18.75, 19, 18.75, 20, 21),
+    (19, 'What is the average of 12, 18, and 24?', 18, 14, 16, 18, 20),
+    (20, 'If a box contains 24 chocolates and 6 are taken out, how many remain?', 18, 14, 16, 18, 20),
+    (21, 'What is the perimeter of a square with a side length of 6 units?', 24, 20, 24, 30, 36),
+    (22, 'If a person earns $15 per hour and works for 8 hours, how much will they earn?', 120, 90, 105, 120, 135),
+    (23, 'Calculate: 4/5 * 25', 20, 15, 20, 25, 30),
+    (24, 'What is the next number in the series: 3, 6, 9, 12, ?', 15, 14, 15, 16, 18),
+    (25, 'If a book costs $20 and is discounted by 25%, what is the discounted price?', 15, 12, 15, 18, 20),
+    (26, 'What is the cube of 3?', 27, 24, 25, 27, 30),
+    (27, 'If 40% of a number is 48, what is the number?', 120, 96, 108, 120, 132),
+    (28, 'What is the value of π (pi) to two decimal places?', 3.14, 3.12, 3.14, 3.16, 3.18),
+    (29, 'If x + 7 = 15, what is the value of x?', 8, 6, 8, 10, 12),
+    (30, 'What is the next number in the series: 5, 10, 15, 20, ?', 25, 22, 25, 28, 30),
+    (31, 'Calculate: 2/3 * 27', 18, 15, 18, 20, 24),
+    (32, 'What is the result of 7^2?', 49, 42, 45, 49, 56),
+    (33, 'If a train travels at 50 miles per hour for 3 hours, how far does it travel?', 150, 130, 140, 150, 160),
+    (34, 'What is 30% of 120?', 36, 30, 36, 42, 48),
+    (35, 'If 16 is decreased by 25%, what is the result?', 12, 10, 12, 14, 16),
+    (36, 'What is the square of 8?', 64, 56, 60, 64, 72),
+    (37, 'Calculate the area of a circle with radius 5 units (π = 3.14).', 78.5, 50.24, 62.8, 78.5, 94.2),
+    (38, 'What is 15% of 400?', 60, 40, 60, 80, 100),
+    (39, 'If x - 6 = 18, what is the value of x?', 24, 20, 24, 28, 32),
+    (40, 'What is the next number in the series: 1, 4, 9, 16, ?', 25, 24, 25, 36, 49),
+    (41, 'Calculate: 5/6 * 36', 30, 25, 30, 36, 40),
+    (42, 'What is 40% of 250?', 100, 80, 100, 120, 140),
+    (43, 'If a rectangle has a length of 12 units and a width of 8 units, what is its area?', 96, 80, 84, 96, 100),
+    (44, 'What is the perimeter of a rectangle with length 7 units and width 4 units?', 22, 18, 20, 22, 24),
+    (45, 'If 25% of a number is 30, what is the number?', 120, 90, 100, 120, 150),
+    (46, 'Calculate: 7/8 * 56', 49, 42, 49, 54, 63),
+    (47, 'What is the result of 3^3?', 27, 21, 24, 27, 30),
+    (48, 'If a boat travels at 15 knots per hour for 4 hours, how far does it travel?', 60, 45, 50, 60, 75),
+    (49, 'What is 20% of 300?', 60, 50, 60, 70, 80),
+    (50, 'If 40 is increased by 20%, what is the result?', 48, 40, 44, 48, 52);

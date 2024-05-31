@@ -54,37 +54,51 @@ const LoginScreen = () => {
     }
   };
 
+
   const onPressLogin = async () => {
     try {
-      if (!email.includes('@') || !email.includes('.')) {
+      // Email validation
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
         Alert.alert('Invalid Email', 'Please enter a valid email address.');
-      } else if (password.length < 8) {
+        return;
+      }
+  
+      if (password.length < 8) {
         Alert.alert('Invalid Password', 'Password must be at least 8 characters long.');
+        return;
+      }
+      const response = await API_URL.post('/login', {
+        email,
+        password,
+      });
+  
+      if (response.status === 200 && response.data && response.data.message === 'Login successful') {
+        console.log(response.data.message);
+  
+        if (rememberMe) {
+          await saveUserInfo();
+        }
+  
+        const userName = response.data.name;
+  
+        navigation.navigate('Home', { email: email, name: userName });
       } else {
-        const response = await API_URL.post('/login', {
-          email,
-          password,
-        });
-
-        if (response && response.data) {
-          console.log(response.data.message);
-
-          if (rememberMe) {
-            await saveUserInfo();
-          }
-
-          const userName = response.data.name;
-
-          navigation.navigate('Home', { email: email, name: userName });
-        } else {
+          Alert.alert('Error', 'An unexpected error occurred. Please try again later.');
           console.log('Unexpected response:', response);
         }
-      }
     } catch (error) {
-      Alert.alert('Invalid Email or Password', 'Please enter a registered account.');
-      console.log('An unexpected error occurred:', error.message);
+      if (error.response && error.response.status === 401) {
+        Alert.alert('Unauthorized', 'Invalid email or password.');
+      } else if (error.response && error.response.status === 404) {
+        Alert.alert('Not Found', 'Account does not exist.');
+      } else {
+        Alert.alert('Error', 'An unexpected error occurred. Please try again later.');
+        console.log('An unexpected error occurred:', error.message);
+      }
     }
   };
+  
 
   const onPressForgotPassword = () => {
     navigation.navigate('Forgot');
@@ -96,14 +110,15 @@ const LoginScreen = () => {
 
   return (
     <>
+      <View style={styles.container}>
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={{
           position: 'absolute',
-          top: '5%',
+          top: '10%',
           left: 0,
           right: 0,
-          bottom: '60%',
+          bottom: '50%',
           marginBottom: '10%',
           zIndex: 1,
         }}
@@ -116,8 +131,6 @@ const LoginScreen = () => {
         />
 
       </KeyboardAvoidingView>
-
-      <View style={styles.container}>
         <Text style={styles.title}>Login</Text>
 
         <View style={styles.inputView}>

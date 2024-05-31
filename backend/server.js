@@ -17,7 +17,7 @@ const app = express();
 app.use(bodyParser.json());
 
 const corsOptions = {
-    origin: '*', // Replace with your actual Expo client address
+    origin: '*', 
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
     optionsSuccessStatus: 204,
@@ -33,16 +33,92 @@ const initializeDatabase = () => {
 
     db.serialize(() => {
         db.run(
-            'CREATE TABLE IF NOT EXISTS registered_accounts (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, email TEXT, password TEXT, profile_picture BLOB);'
+            'CREATE TABLE IF NOT EXISTS registered_accounts (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, email TEXT, password TEXT, profile_picture BLOB, age INTEGER);'
         );
 
         db.run(
-            'CREATE TABLE IF NOT EXISTS registered_accounts_with_google (email TEXT PRIMARY KEY, name TEXT, profile_picture BLOB);'
-        );
+            'CREATE TABLE IF NOT EXISTS registered_accounts_with_google (id INTEGER PRIMARY KEY AUTOINCREMENT,email TEXT, name TEXT, profile_picture BLOB, age INTEGER);'
+        );        
 
         db.run(
             'CREATE TABLE IF NOT EXISTS registered_accounts_reset (email TEXT, verification_code TEXT);'
         );
+        db.run(
+            'CREATE TABLE IF NOT EXISTS scores (id INTEGER PRIMARY KEY AUTOINCREMENT, user_id INTEGER, score INTEGER, FOREIGN KEY(user_id) REFERENCES registered_accounts(id));'
+        );
+        db.run(
+            'CREATE TABLE IF NOT EXISTS google_scores (id INTEGER PRIMARY KEY AUTOINCREMENT, user_id INTEGER, score INTEGER, FOREIGN KEY(user_id) REFERENCES registered_accounts_with_google(id));'
+        );
+        db.run(`
+        CREATE TABLE IF NOT EXISTS attempted_categories (
+          email TEXT NOT NULL,
+          category TEXT NOT NULL,
+          PRIMARY KEY (email, category),
+          FOREIGN KEY (email) REFERENCES registered_accounts(email) ON DELETE CASCADE
+        );
+      `);
+      
+      // Table for attempted categories for Google users
+      db.run(`
+        CREATE TABLE IF NOT EXISTS attempted_categories_google (
+          email TEXT NOT NULL,
+          category TEXT NOT NULL,
+          PRIMARY KEY (email, category),
+          FOREIGN KEY (email) REFERENCES registered_accounts_with_google(email) ON DELETE CASCADE
+        );
+      `);
+      
+      // Table for category scores for normal users
+      db.run(`
+        CREATE TABLE IF NOT EXISTS category_scores (
+          email TEXT NOT NULL,
+          category TEXT NOT NULL,
+          score INTEGER NOT NULL,
+          PRIMARY KEY (email, category),
+          FOREIGN KEY (email) REFERENCES registered_accounts(email) ON DELETE CASCADE
+        );
+      `);
+      
+      // Table for category scores for Google users
+      db.run(`
+        CREATE TABLE IF NOT EXISTS category_scores_google (
+          email TEXT NOT NULL,
+          category TEXT NOT NULL,
+          score INTEGER NOT NULL,
+          PRIMARY KEY (email, category),
+          FOREIGN KEY (email) REFERENCES registered_accounts_with_google(email) ON DELETE CASCADE
+        );
+      `);
+
+      db.run(`
+    CREATE TABLE IF NOT EXISTS iq_scores (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        email TEXT NOT NULL,
+        verbal_reasoning INTEGER NOT NULL,
+        logical INTEGER NOT NULL,
+        numerical_reasoning INTEGER NOT NULL,
+        abstract_reasoning INTEGER NOT NULL,
+        iq REAL NOT NULL,
+        timestamp TEXT NOT NULL,
+        FOREIGN KEY (email) REFERENCES registered_accounts(email) ON DELETE CASCADE
+    );
+`);
+
+// IQ model for Google users
+db.run(`
+    CREATE TABLE IF NOT EXISTS iq_scores_google (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        email TEXT NOT NULL,
+        verbal_reasoning INTEGER NOT NULL,
+        logical INTEGER NOT NULL,
+        numerical_reasoning INTEGER NOT NULL,
+        abstract_reasoning INTEGER NOT NULL,
+        iq REAL NOT NULL,
+        timestamp TEXT NOT NULL,
+        FOREIGN KEY (email) REFERENCES registered_accounts_with_google(email) ON DELETE CASCADE
+    );
+`);
+        
 
         db.exec(sqlStatements, (err) => {
             if (err) {
@@ -97,7 +173,7 @@ app.post('/login', async (req, res) => {
         if (err) {
             return res.status(500).json({ error: 'Error checking account existence' });
         } else if (!row) {
-            return res.status(401).json({ error: 'Invalid email or password' });
+            return res.status(404).json({ error: 'Account Doesnot Exist' });
         }
 
         // Email exists, check the password
@@ -313,7 +389,7 @@ app.post('/user_details', async (req, res) => {
 
     try {
         // Check if the email exists in the database
-        db.get('SELECT * FROM registered_accounts WHERE email = ?;', [email], async (err, row) => {
+        db.get('SELECT name, age FROM registered_accounts WHERE email = ?;', [email], async (err, row) => {
             if (err) {
                 return res.status(500).json({ error: 'Error checking account existence' });
             } else if (!row) {
@@ -321,7 +397,7 @@ app.post('/user_details', async (req, res) => {
             }
 
             // Send the user details (name) as a response
-            res.status(200).json({ name: row.name });
+            res.status(200).json({ name: row.name, age: row.age });
         });
     } catch (error) {
         console.error('An unexpected error occurred:', error.message);
@@ -334,7 +410,7 @@ app.post('/user_details_google', async (req, res) => {
 
     try {
         // Check if the email exists in the Google sign-in table
-        db.get('SELECT * FROM registered_accounts_with_google WHERE email = ?;', [email], async (err, row) => {
+        db.get('SELECT name, age FROM registered_accounts_with_google WHERE email = ?;', [email], async (err, row) => {
             if (err) {
                 return res.status(500).json({ error: 'Error checking account existence' });
             } else if (!row) {
@@ -342,7 +418,7 @@ app.post('/user_details_google', async (req, res) => {
             }
 
             // Send the user details (name) as a response
-            res.status(200).json({ name: row.name });
+            res.status(200).json({ name: row.name,age: row.age });
         });
     } catch (error) {
         console.error('An unexpected error occurred:', error.message);
@@ -350,35 +426,78 @@ app.post('/user_details_google', async (req, res) => {
     }
 });
 
-app.post('/update-name', async (req, res) => {
-    const { email, newName } = req.body;
 
-    // Update the user's name in the database for regular accounts
-    db.run('UPDATE registered_accounts SET name = ? WHERE email = ?;', [newName, email], async (err) => {
+app.post('/update-details', async (req, res) => {
+    const { email, newName, newAge } = req.body;
+
+    // Prepare the update query and parameters
+    let query = 'UPDATE registered_accounts SET ';
+    let params = [];
+    if (newName) {
+        query += 'name = ?, ';
+        params.push(newName);
+    }
+    if (newAge) {
+        query += 'age = ?, ';
+        params.push(newAge);
+    }
+    query = query.slice(0, -2); // Remove the last comma and space
+    query += ' WHERE email = ?;';
+    params.push(email);
+
+    if (params.length === 1) { // Only email is in params, nothing to update
+        return res.status(400).json({ error: 'No fields to update' });
+    }
+
+    // Update the user's details in the database
+    db.run(query, params, async (err) => {
         if (err) {
-            console.error('Error updating name:', err);
-            return res.status(500).json({ error: 'Error updating name' });
+            console.error('Error updating details:', err);
+            return res.status(500).json({ error: 'Error updating details' });
         }
 
-        // Successfully updated the name
-        res.status(200).json({ message: 'Name updated successfully' });
+        // Successfully updated the details
+        res.status(200).json({ message: 'Details updated successfully' });
     });
 });
 
-app.post('/update-name-google', async (req, res) => {
-    const { email, newName } = req.body;
 
-    // Update the user's name in the database for Google accounts
-    db.run('UPDATE registered_accounts_with_google SET name = ? WHERE email = ?;', [newName, email], async (err) => {
+app.post('/update-details-google', async (req, res) => {
+    const { email, newName, newAge } = req.body;
+
+    // Prepare the update query and parameters
+    let query = 'UPDATE registered_accounts_with_google SET ';
+    let params = [];
+    if (newName) {
+        query += 'name = ?, ';
+        params.push(newName);
+    }
+    if (newAge) {
+        query += 'age = ?, ';
+        params.push(newAge);
+    }
+    query = query.slice(0, -2); // Remove the last comma and space
+    query += ' WHERE email = ?;';
+    params.push(email);
+
+    if (params.length === 1) { // Only email is in params, nothing to update
+        return res.status(400).json({ error: 'No fields to update' });
+    }
+
+    // Update the user's details in the database for Google accounts
+    db.run(query, params, async (err) => {
         if (err) {
-            console.error('Error updating name for Google account:', err);
-            return res.status(500).json({ error: 'Error updating name for Google account' });
+            console.error('Error updating details for Google account:', err);
+            return res.status(500).json({ error: 'Error updating details for Google account' });
         }
 
-        // Successfully updated the name for Google account
-        res.status(200).json({ message: 'Name updated successfully for Google account' });
+        // Successfully updated the details for Google account
+        res.status(200).json({ message: 'Details updated successfully for Google account' });
     });
 });
+
+
+
 
 
 app.post('/mcqs', (req, res) => {
@@ -396,6 +515,109 @@ app.post('/mcqs', (req, res) => {
         }
     });
 });
+
+
+app.post('/verbal-mcqs', (req, res) => {
+    // First, select a random question
+    db.get('SELECT * FROM Verbal_Questions ORDER BY RANDOM() LIMIT 1;', (err, questionRow) => {
+        if (err) {
+            console.error(err);
+            res.status(500).json({ error: 'Internal Server Error' });
+            return;
+        }
+
+        if (questionRow) {
+            const questionId = questionRow.question_id;
+
+            // Then, select the options for the chosen question
+            db.all('SELECT option_text, is_correct FROM Verbal_Options WHERE question_id = ?;', [questionId], (err, optionRows) => {
+                if (err) {
+                    console.error(err);
+                    res.status(500).json({ error: 'Internal Server Error' });
+                    return;
+                }
+
+                if (optionRows.length > 0) {
+                    res.json({
+                        question: questionRow,
+                        options: optionRows
+                    });
+                } else {
+                    res.status(404).json({ error: 'No options available for the selected question' });
+                }
+            });
+        } else {
+            res.status(404).json({ error: 'No questions available' });
+        }
+    });
+});
+
+app.post('/image-mcqs', (req, res) => {
+    // First, select a random question
+    db.get('SELECT * FROM Image_Questions ORDER BY RANDOM() LIMIT 1;', (err, questionRow) => {
+        if (err) {
+            console.error(err);
+            res.status(500).json({ error: 'Internal Server Error' });
+            return;
+        }
+
+        if (questionRow) {
+            const questionId = questionRow.question_id;
+
+            // Then, select the options for the chosen question
+            db.all('SELECT option_text, is_correct FROM Image_Options WHERE question_id = ?;', [questionId], (err, optionRows) => {
+                if (err) {
+                    console.error(err);
+                    res.status(500).json({ error: 'Internal Server Error' });
+                    return;
+                }
+
+                if (optionRows.length > 0) {
+                    res.json({
+                        question: questionRow,
+                        options: optionRows
+                    });
+                } else {
+                    res.status(404).json({ error: 'No options available for the selected question' });
+                }
+            });
+        } else {
+            res.status(404).json({ error: 'No questions available' });
+        }
+    });
+});
+
+
+app.post('/numerical-reasoning-mcqs', (req, res) => {
+    // Select a random question from the database
+    db.get('SELECT * FROM numerical_reasoning_questions ORDER BY RANDOM() LIMIT 1;', (err, questionRow) => {
+        if (err) {
+            console.error(err);
+            res.status(500).json({ error: 'Internal Server Error' });
+            return;
+        }
+
+        if (questionRow) {
+            // Prepare the response object with the question and its options
+            const question = {
+                id: questionRow.id,
+                question_text: questionRow.question_text,
+                is_correct: questionRow.correct_answer,
+                options: {
+                    option_a: questionRow.option_a,
+                    option_b: questionRow.option_b,
+                    option_c: questionRow.option_c,
+                    option_d: questionRow.option_d,
+                }
+            };
+
+            res.json(question);
+        } else {
+            res.status(404).json({ error: 'No questions available' });
+        }
+    });
+});
+
 
 app.post('/upload/:email', upload.single('image'), async (req, res) => {
     try {
@@ -531,6 +753,627 @@ app.get('/get_profile_picture_google/:email', async (req, res) => {
         res.status(500).json({ error: 'Internal Server Error' });
     }
 });
+
+app.post('/scores/:email', async (req, res) => {
+    const { email } = req.params;
+    const { score } = req.body;
+
+    // Get the user's ID from the registered_accounts table
+    db.get('SELECT id FROM registered_accounts WHERE email = ?', [email], (err, row) => {
+        if (err) {
+            console.error('Error fetching user ID:', err);
+            res.status(500).json({ error: 'Failed to fetch user ID' });
+            return;
+        }
+
+        if (!row) {
+            res.status(404).json({ error: 'User not found' });
+            return;
+        }
+
+        const userId = row.id;
+
+        // Insert the new score into the scores table
+        db.run(
+            'INSERT INTO scores (user_id, score) VALUES (?, ?)',
+            [userId, score],
+            (err) => {
+                if (err) {
+                    console.error('Error inserting score:', err);
+                    res.status(500).json({ error: 'Failed to insert score' });
+                } else {
+                    res.status(200).json({ message: 'Score added successfully' });
+                }
+            }
+        );
+    });
+});
+
+app.post('/google-scores/:email', async (req, res) => {
+    const { email } = req.params;
+    const { score } = req.body;
+
+    // Get the user's ID from the registered_accounts table
+    db.get('SELECT id FROM registered_accounts_with_google WHERE email = ?', [email], (err, row) => {
+        if (err) {
+            console.error('Error fetching user ID:', err);
+            res.status(500).json({ error: 'Failed to fetch user ID' });
+            return;
+        }
+
+        if (!row) {
+            res.status(404).json({ error: 'User not found' });
+            return;
+        }
+
+        const userId = row.id;
+
+        // Insert the new score into the scores table
+        db.run(
+            'INSERT INTO google_scores (user_id, score) VALUES (?, ?)',
+            [userId, score],
+            (err) => {
+                if (err) {
+                    console.error('Error inserting score:', err);
+                    res.status(500).json({ error: 'Failed to insert score' });
+                } else {
+                    res.status(200).json({ message: 'Score added successfully' });
+                }
+            }
+        );
+    });
+});
+// app.get('/top-scores/:email', async (req, res) => {
+//     const { email } = req.params;
+
+//     try {
+//         const row = await new Promise((resolve, reject) => {
+//             db.get('SELECT id FROM registered_accounts WHERE email = ?', [email], (err, row) => {
+//                 if (err) {
+//                     reject(err);
+//                 } else {
+//                     resolve(row);
+//                 }
+//             });
+//         });
+
+//         if (!row) {
+//             res.status(404).json({ error: 'User not found' });
+//             return;
+//         }
+
+//         const userId = row.id;
+
+//         // Fetch top 5 scores for the user from the scores table
+//         const topScores = await new Promise((resolve, reject) => {
+//             db.all('SELECT * FROM scores WHERE user_id = ? ORDER BY score DESC LIMIT 5', userId, (err, rows) => {
+//                 if (err) {
+//                     reject(err);
+//                 } else {
+//                     resolve(rows);
+//                 }
+//             });
+//         });
+
+//         res.json({ topScores });
+//         console.log('User ID:', userId);
+//         console.log('Top Scores:', topScores);
+//     } catch (error) {
+//         console.error('Error fetching top scores:', error);
+//         res.status(500).json({ message: 'Internal server error' });
+//     }
+// });
+
+app.get('/top-scores/:email', async (req, res) => {
+    const { email } = req.params;
+
+    try {
+        const userData = await new Promise((resolve, reject) => {
+            db.get('SELECT id, name FROM registered_accounts WHERE email = ?', [email], (err, row) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(row);
+                }
+            });
+        });
+
+        if (!userData) {
+            res.status(404).json({ error: 'User not found' });
+            return;
+        }
+
+        const userId = userData.id;
+        const userName = userData.name;
+
+        // Fetch top 5 scores for the user from the scores table
+        const topScores = await new Promise((resolve, reject) => {
+            db.all('SELECT * FROM scores WHERE user_id = ? ORDER BY score DESC LIMIT 5', userId, (err, rows) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(rows);
+                }
+            });
+        });
+        const Scoresdata = topScores.map(score => ({ ...score, userName }));
+
+        res.json(Scoresdata);
+        console.log('User ID:', userId);
+        console.log('User Name:', userName);
+        console.log('Top Scores:', Scoresdata);
+    } catch (error) {
+        console.error('Error fetching top scores:', error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+});
+
+app.get('/top-scores-google/:email', async (req, res) => {
+    const { email } = req.params;
+
+    try {
+        const userData = await new Promise((resolve, reject) => {
+            db.get('SELECT id, name FROM registered_accounts_with_google WHERE email = ?', [email], (err, row) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(row);
+                }
+            });
+        });
+
+        if (!userData) {
+            res.status(404).json({ error: 'User not found' });
+            return;
+        }
+
+        const userId = userData.id;
+        const userName = userData.name;
+
+        // Fetch top 5 scores for the user from the scores table
+        const topScores = await new Promise((resolve, reject) => {
+            db.all('SELECT * FROM google_scores WHERE user_id = ? ORDER BY score DESC LIMIT 5', userId, (err, rows) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(rows);
+                }
+            });
+        });
+        const Scoresdata = topScores.map(score => ({ ...score, userName }));
+
+        res.json(Scoresdata);
+        console.log('User ID:', userId);
+        console.log('User Name:', userName);
+        console.log('Top Scores:', Scoresdata);
+    } catch (error) {
+        console.error('Error fetching top scores:', error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+});
+app.get('/recent-score/:email', async (req, res) => {
+    const { email } = req.params;
+
+    try {
+        const userData = await new Promise((resolve, reject) => {
+            db.get('SELECT id, name FROM registered_accounts WHERE email = ?', [email], (err, row) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(row);
+                }
+            });
+        });
+
+        if (!userData) {
+            res.status(404).json({ error: 'User not found' });
+            return;
+        }
+
+        const userId = userData.id;
+        const userName = userData.name;
+
+        // Fetch the most recent score for the user from the scores table
+        const recentScore = await new Promise((resolve, reject) => {
+            db.get('SELECT * FROM scores WHERE user_id = ? ORDER BY id DESC LIMIT 1', userId, (err, row) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(row);
+                }
+            });
+        });
+
+        if (!recentScore) {
+            res.status(404).json({ error: 'Scores not found' });;
+        } else {
+            res.json({ userName, score: recentScore.score });
+        }
+
+        console.log('User ID:', userId);
+        console.log('User Name:', userName);
+        console.log('Recent Score:', recentScore);
+    } catch (error) {
+        console.error('Error fetching recent score:', error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+});
+
+app.get('/recent-score-google/:email', async (req, res) => {
+    const { email } = req.params;
+
+    try {
+        const userData = await new Promise((resolve, reject) => {
+            db.get('SELECT id, name FROM registered_accounts_with_google WHERE email = ?', [email], (err, row) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(row);
+                }
+            });
+        });
+
+        if (!userData) {
+            res.status(404).json({ error: 'User not found' });
+            return;
+        }
+
+        const userId = userData.id;
+        const userName = userData.name;
+
+        // Fetch the most recent score for the user from the scores table
+        const recentScore = await new Promise((resolve, reject) => {
+            db.get('SELECT * FROM google_scores WHERE user_id = ? ORDER BY id DESC LIMIT 1', userId, (err, row) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(row);
+                }
+            });
+        });
+
+        if (!recentScore) {
+            res.status(404).json({ error: 'Scores not found' });;
+        } else {
+            res.json({ userName, score: recentScore.score });
+        }
+
+        console.log('User ID:', userId);
+        console.log('User Name:', userName);
+        console.log('Recent Score:', recentScore);
+    } catch (error) {
+        console.error('Error fetching recent score:', error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+});
+
+app.get('/user-age/:email', (req, res) => {
+    const { email } = req.params;
+    // Check if email is provided
+    if (!email) {
+        return res.status(400).json({ error: 'Email is required' });
+    }
+
+    // Fetch user's age from the database
+    db.get('SELECT age FROM registered_accounts WHERE email = ?', [email], (err, row) => {
+        if (err) {
+            console.error('Error fetching user age:', err);
+            return res.status(500).json({ error: 'Internal Server Error' });
+        }
+
+        // Check if user's age is found
+        if (!row) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        res.json({ age: row.age });
+    });
+});
+
+app.get('/user-age-google/:email', (req, res) => {
+    const { email } = req.params;
+    // Check if email is provided
+    if (!email) {
+        return res.status(400).json({ error: 'Email is required' });
+    }
+
+    // Fetch user's age from the database
+    db.get('SELECT age FROM registered_accounts_with_google WHERE email = ?', [email], (err, row) => {
+        if (err) {
+            console.error('Error fetching user age:', err);
+            return res.status(500).json({ error: 'Internal Server Error' });
+        }
+
+        // Check if user's age is found
+        if (!row) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        res.json({ age: row.age });
+    });
+});
+
+app.post('/update-user-age/:email', (req, res) => {
+    const { email } = req.params;
+    const { age } = req.body;
+    // Check if email and age are provided
+    if (!email || !age) {
+        return res.status(400).json({ error: 'Email and age are required' });
+    }
+
+    // Update user's age in the database
+    db.run('UPDATE registered_accounts SET age = ? WHERE email = ?', [age, email], function(err) {
+        if (err) {
+            console.error('Error updating user age:', err);
+            return res.status(500).json({ error: 'Internal Server Error' });
+        }
+
+        // Check if any rows were affected
+        if (this.changes === 0) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        res.json({ message: 'User age updated successfully' });
+    });
+});
+
+app.post('/update-user-age-google/:email', (req, res) => {
+    const { email } = req.params;
+    const { age } = req.body;
+    // Check if email and age are provided
+    if (!email || !age) {
+        return res.status(400).json({ error: 'Email and age are required' });
+    }
+
+    // Update user's age in the database
+    db.run('UPDATE registered_accounts_with_google SET age = ? WHERE email = ?', [age, email], function(err) {
+        if (err) {
+            console.error('Error updating user age:', err);
+            return res.status(500).json({ error: 'Internal Server Error' });
+        }
+
+        // Check if any rows were affected
+        if (this.changes === 0) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        res.json({ message: 'User age updated successfully' });
+    });
+});
+
+const calculateIQ = (rawScores, means, stdDevs) => {
+    // Calculate Z-Scores for each category
+    const zScores = rawScores.map((score, index) => {
+      return (score - means[index]) / stdDevs[index];
+    });
+  
+    // Calculate combined Z-Score (average)
+    const zCombined = zScores.reduce((sum, z) => sum + z, 0) / zScores.length;
+  
+    // Convert to IQ
+    const iq = 100 + (zCombined * 15);
+  
+    return iq;
+  };
+  
+ // API endpoint for calculating and storing IQ scores for normal users
+app.post('/calculate-IQ', (req, res) => {
+    const { email,verbal_reasoning, logical, numerical_reasoning, abstract_reasoning } = req.body;
+    const timestamp = new Date().toLocaleString();
+
+    console.log('Scores Being Passed inside body to iq controller',abstract_reasoning, logical, numerical_reasoning,verbal_reasoning)
+    
+    if (verbal_reasoning === undefined || logical === undefined || numerical_reasoning === undefined || abstract_reasoning === undefined) {
+        return res.status(400).json({ error: 'All scores are required' });
+    }
+    const rawScores = [parseFloat(verbal_reasoning), parseFloat(logical), parseFloat(numerical_reasoning), parseFloat(abstract_reasoning)];
+    const means = [15, 10, 18, 15];
+    const stdDevs = [3, 2, 4, 3];
+  
+    const iq = calculateIQ(rawScores, means, stdDevs);
+  
+    const query = `INSERT INTO iq_scores (email, verbal_reasoning, logical, numerical_reasoning, abstract_reasoning,timestamp,iq) VALUES (?, ?, ?, ?, ?, ?, ?)`;
+    db.run(query, [email, verbal_reasoning, logical, numerical_reasoning, abstract_reasoning,timestamp,iq], (err) => {
+        if (err) {
+            console.error('Error storing IQ score:', err);
+            return res.status(500).json({ error: 'Failed to store IQ score' });
+        }
+        return res.status(200).json({ iq });
+    });
+});
+
+// API endpoint for calculating and storing IQ scores for Google users
+app.post('/calculate-IQ-google', (req, res) => {
+    const { email,verbal_reasoning, logical, numerical_reasoning, abstract_reasoning } = req.body;
+    const timestamp = new Date().toLocaleString();
+
+    
+    console.log('Scores being passed in body to IQ Controller',abstract_reasoning, logical,numerical_reasoning, verbal_reasoning)
+  
+    if (verbal_reasoning === undefined || logical === undefined || numerical_reasoning === undefined || abstract_reasoning === undefined) {
+        return res.status(400).json({ error: 'All scores are required' });
+    }
+  
+    const rawScores = [parseFloat(verbal_reasoning), parseFloat(logical), parseFloat(numerical_reasoning), parseFloat(abstract_reasoning)];
+    const means = [15, 10, 18, 15];
+    const stdDevs = [3, 2, 4, 3];
+    const iq = calculateIQ(rawScores, means, stdDevs);
+  
+    const query = `INSERT INTO iq_scores_google (email, verbal_reasoning, logical, numerical_reasoning, abstract_reasoning,timestamp,iq) VALUES (?, ?, ?, ?, ?, ?, ?)`;
+    db.run(query, [email, verbal_reasoning, logical, numerical_reasoning, abstract_reasoning,timestamp,iq], (err) => {
+        if (err) {
+            console.error('Error storing IQ score:', err);
+            return res.status(500).json({ error: 'Failed to store IQ score' });
+        }
+        return res.status(200).json({ iq });
+    });
+});
+
+  
+// Fetch attempted categories for normal users
+app.get('/attempted-categories/:email', (req, res) => {
+    const { email } = req.params;
+    db.all('SELECT category FROM attempted_categories WHERE email = ?', [email], (err, rows) => {
+      if (err) {
+        return res.status(500).json({ error: err.message });
+      }
+      res.json({ attemptedCategories: rows.map(row => row.category) });
+    });
+  });
+  
+  // Update attempted categories for normal users
+  app.post('/update-attempted-categories/:email', (req, res) => {
+    const { email } = req.params;
+    const { category, reset } = req.body;
+    const query = reset ? 'DELETE FROM attempted_categories WHERE email = ?' : 'INSERT INTO attempted_categories (email, category) VALUES (?, ?)';
+    const params = reset ? [email] : [email, category];
+    db.run(query, params, function (err) {
+      if (err) {
+        return res.status(500).json({ error: err.message });
+      }
+      res.json({ updated: this.changes });
+    });
+  });
+  
+  // Fetch category scores for normal users
+  app.get('/category-scores/:email', (req, res) => {
+    const { email } = req.params;
+    db.all('SELECT category, score FROM category_scores WHERE email = ?', [email], (err, rows) => {
+      if (err) {
+        return res.status(500).json({ error: err.message });
+      }
+      res.json({ scores: rows });
+    });
+  });
+  
+  // Update category score for normal users
+  app.post('/update-category-score/:email', async (req, res) => {
+    const { email } = req.params;
+    const { category, score, reset } = req.body;
+
+    if (reset !== undefined && reset) {
+        try {
+            await db.run(`DELETE FROM category_scores WHERE email = ?`, [email]);
+            res.json({ message: 'Scores deleted successfully' });
+        } catch (error) {
+            console.error('Error deleting scores:', error);
+            res.status(500).json({ error: 'Failed to delete scores' });
+        }
+    } else {
+        try {
+            db.run(`INSERT INTO category_scores (email, category, score) 
+                VALUES (?, ?, ?) `, [email, category, score], function (err) {
+                if (err) {
+                    return res.status(500).json({ error: err.message });
+                }
+                res.json({ updated: this.changes });
+            });
+        } catch (error) {
+            console.error('Error updating score:', error);
+            res.status(500).json({ error: 'Failed to update score' });
+        }
+    }
+});
+
+
+  // Fetch attempted categories for Google users
+app.get('/attempted-categories-google/:email', (req, res) => {
+    const { email } = req.params;
+    db.all('SELECT category FROM attempted_categories_google WHERE email = ?', [email], (err, rows) => {
+      if (err) {
+        return res.status(500).json({ error: err.message });
+      }
+      res.json({ attemptedCategories: rows.map(row => row.category) });
+    });
+  });
+  
+  // Update attempted categories for Google users
+  app.post('/update-attempted-categories-google/:email', (req, res) => {
+    const { email } = req.params;
+    const { category, reset } = req.body;
+    const query = reset ? 'DELETE FROM attempted_categories_google WHERE email = ?' : 'INSERT INTO attempted_categories_google (email, category) VALUES (?, ?)';
+    const params = reset ? [email] : [email, category];
+    db.run(query, params, function (err) {
+      if (err) {
+        return res.status(500).json({ error: err.message });
+      }
+      res.json({ updated: this.changes });
+    });
+  });
+
+
+  
+  app.post('/delete-attempted-category/:email', (req, res) => {
+    const { email } = req.params;
+    const { category } = req.body;
+  
+    const query = 'DELETE FROM attempted_categories WHERE email = ? AND category = ?';
+    const params = [email, category];
+  
+    db.run(query, params, function (err) {
+      if (err) {
+        return res.status(500).json({ error: err.message });
+      }
+      res.json({ deleted: this.changes });
+    });
+  });
+  
+  app.post('/delete-attempted-category-google/:email', (req, res) => {
+    const { email } = req.params;
+    const { category } = req.body;
+  
+    const query = 'DELETE FROM attempted_categories_google WHERE email = ? AND category = ?';
+    const params = [email, category];
+  
+    db.run(query, params, function (err) {
+      if (err) {
+        return res.status(500).json({ error: err.message });
+      }
+      res.json({ deleted: this.changes });
+    });
+  });
+  
+  
+  // Fetch category scores for Google users
+  app.get('/category-scores-google/:email', (req, res) => {
+    const { email } = req.params;
+    db.all('SELECT category, score FROM category_scores_google WHERE email = ?', [email], (err, rows) => {
+      if (err) {
+        return res.status(500).json({ error: err.message });
+      }
+      res.json({ scores: rows });
+    });
+  });
+  
+  // Update category score for Google users
+  app.post('/update-category-score-google/:email', async (req, res) => {
+    const { email } = req.params;
+    const { category, score, reset } = req.body;
+
+    if (reset !== undefined && reset) {
+        try {
+            await db.run(`DELETE FROM category_scores_google WHERE email = ?`, [email]);
+            res.json({ message: 'Scores deleted successfully' });
+        } catch (error) {
+            console.error('Error deleting scores:', error);
+            res.status(500).json({ error: 'Failed to delete scores' });
+        }
+    } else {
+        try {
+            db.run(`INSERT INTO category_scores_google (email, category, score) 
+                VALUES (?, ?, ?)`, [email, category, score], function (err) {
+                if (err) {
+                    return res.status(500).json({ error: err.message });
+                }
+                res.json({ updated: this.changes });
+            });
+        } catch (error) {
+            console.error('Error updating score:', error);
+            res.status(500).json({ error: 'Failed to update score' });
+        }
+    }
+});
+
 
 
 

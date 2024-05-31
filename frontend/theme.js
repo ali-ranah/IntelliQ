@@ -12,7 +12,6 @@ const styles = StyleSheet.create({
         position: 'absolute',
         flexDirection: 'row',
         zIndex: 1,
-
     },
     l_scontainer: {
         flex: 1,
@@ -25,6 +24,7 @@ const styles = StyleSheet.create({
         bottom: 90,
     },
     content: {
+        backgroundColor: 'white',
         justifyContent: 'center',
         alignItems: 'center',
     },
@@ -33,6 +33,11 @@ const styles = StyleSheet.create({
         padding: 10,
         borderRadius: 5,
         marginRight: 10,
+    },
+    questionImage: {
+        width: '100%' , // Adjust the width as needed
+        height: 200 , // Adjust the height as needed
+        resizeMode: 'contain',
     },
     switchButtonText: {
         color: 'white',
@@ -71,6 +76,33 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         padding: 20,
     },
+    card: {
+        display:'flex',
+        flexDirection: 'row',
+        justifyContent:'space-between',
+        width: '46%',
+        height: 100,
+        backgroundColor: '#fb5b5a',
+        borderRadius: 10,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 20,
+        marginBottom: 20,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 10,
+      },
+      disabledCard: {
+        backgroundColor: '#d3d3d3', // Light grey color to indicate the category is disabled
+      },
+      cardText: {
+        color: '#fff',
+        fontSize: 16,
+        fontWeight: 'bold',
+        textAlign: 'center',
+      },
     drawerHeaderText: {
         fontWeight: "bold",
         textAlign: 'center',
@@ -125,8 +157,12 @@ const styles = StyleSheet.create({
         fontSize: 18,
     },
     checkboxLabel: {
-        color: '#000',
-        fontSize: 16,
+        alignItems: "center",
+        justifyContent: "center",
+        fontWeight: "500",
+        fontSize: 12,
+        color: "#000",
+        marginBottom: 5,
     },
     inputText: {
         height: 50,
@@ -134,8 +170,12 @@ const styles = StyleSheet.create({
         fontWeight: 'bold'
     },
     forgotAndSignUpText: {
-        color: "black",
-        fontSize: 11,
+        alignItems: "center",
+        justifyContent: "center",
+        fontWeight: "400",
+        fontSize: 12,
+        color: "#000",
+        marginBottom: 5,
     },
     p_container: {
         backgroundColor: 'white',
@@ -179,6 +219,11 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.25,
         shadowRadius: 3.84,
         elevation: 10,
+    },
+    cardView:{
+            display: 'flex',
+            alignItems: 'start',
+            justifyContent: 'center',
     },
     updateButton: {
         backgroundColor: '#fb5b5a',
@@ -244,6 +289,17 @@ const styles = StyleSheet.create({
         marginTop: 40,
         marginBottom: 10,
     },
+    timerContainer: {
+        flexDirection: 'row',
+        justifyContent:'center',
+        alignItems: 'center',
+        marginBottom: 20 ,
+    },
+    timerText: {
+        marginLeft: 5,
+        fontSize: 18,
+        fontWeight: 'bold',
+    },
     text: {
         fontWeight: "500",
         fontSize: 15,
@@ -256,6 +312,27 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
+    resultContainer: {
+        width: '80%',
+        height: 70,
+        backgroundColor: '#fb5b5a',
+        borderRadius: 16,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 20,
+        marginBottom: 20,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 10,
+},
+resultText: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color:'white'
+},
+
     googlebtn: {
         width: "80%",
         borderRadius: 25,
@@ -296,12 +373,12 @@ const styles = StyleSheet.create({
     },
     question_con_prop: {
         flex: 1,
-        marginBottom: 10,
-        padding: 50,
+        marginBottom: 20,
+        padding: 40,
         alignContent: 'center',
         backgroundColor: 'white',
         borderRadius: 10,
-        height: '55%',
+        height: '80%',
         width: '90%',
         shadowColor: 'black',
         shadowOffset: {
@@ -318,6 +395,11 @@ const styles = StyleSheet.create({
         color: "black",
         marginBottom: 40,
     },
+    row:{
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    },
     scrollContainer: {
         flexGrow: 1,
         padding: 0,
@@ -328,6 +410,16 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
+    },
+    screen_title: {
+        fontWeight: "bold",
+        fontSize: 40,
+        justifyContent: 'center',
+        alignContent: 'center',
+        color: "#fb5b5a",
+        marginBottom: 10,
+        marginTop: '10%',
+
     },
 });
 

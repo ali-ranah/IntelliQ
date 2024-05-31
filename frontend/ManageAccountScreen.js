@@ -76,7 +76,7 @@ const ManageAccount = ({ route }) => {
             </KeyboardAvoidingView>
 
             <View style={styles.container}>
-                <Text style={styles.app_title}>Account</Text>
+                <Text style={styles.screen_title}>Account</Text>
                 <TouchableOpacity style={styles.btn} onPress={handleProfile}><Text style={styles.btn_text}>Profile</Text></TouchableOpacity>
                 <TouchableOpacity style={styles.btn} onPress={handlePass}><Text style={styles.btn_text}>Change Password</Text></TouchableOpacity>
                 <TouchableOpacity style={styles.btn} onPress={handleLogout}><Text style={styles.btn_text}>Logout</Text></TouchableOpacity >

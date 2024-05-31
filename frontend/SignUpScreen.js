@@ -28,7 +28,7 @@ const SignUp = () => {
     const [googleName, setGoogleName] = useState('');
 
     GoogleSignin.configure({
-        webClientId: '461073606547-r8he1hgd9sivv78md8kerh248crghk4u.apps.googleusercontent.com', // Replace with your actual Web Client ID
+        webClientId: '461073606547-r8he1hgd9sivv78md8kerh248crghk4u.apps.googleusercontent.com', 
     });
 
     const onPressSignUp = async () => {
@@ -104,6 +104,7 @@ const SignUp = () => {
 
     return (
         <>
+            <View style={styles.container}>
             <KeyboardAvoidingView
                 behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
                 style={{
@@ -111,7 +112,7 @@ const SignUp = () => {
                     top: '5%',
                     left: 0,
                     right: 0,
-                    bottom: '60%',
+                    bottom: '58%',
                     marginBottom: '10%',
                     zIndex: 1,
                 }}
@@ -124,7 +125,6 @@ const SignUp = () => {
                 />
 
             </KeyboardAvoidingView>
-            <View style={styles.container}>
                 <Text style={styles.title}>Sign Up</Text>
                 <View style={styles.inputView}>
                     <TextInput

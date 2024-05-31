@@ -17,6 +17,7 @@ const ProfileScreen = () => {
 
     const [currentName, setCurrentName] = useState(name);
     const [isLoading, setIsLoading] = useState(true);
+    const [UserAge, setUserAge] = useState(null);
     const [profilePicture, setProfilePicture] = useState(null);
 
     useEffect(() => {
@@ -24,10 +25,6 @@ const ProfileScreen = () => {
         fetchData();
     }, [route.params]);
 
-    useEffect(() => {
-        // Automatically update profile picture when it changes
-        fetchProfilePicture();
-    }, [profilePicture]);
 
     const handleUpdateName = () => {
         navigation.navigate('UpdateName', { email, currentName, isGoogleSignedIn });
@@ -52,6 +49,9 @@ const ProfileScreen = () => {
             const endpoint = isGoogleSignedIn ? '/user_details_google' : '/user_details';
             const response = await API_URL.post(endpoint, { email });
             setCurrentName(response.data.name);
+            if (response.data.age) {
+                setUserAge(response.data.age);
+            }
         } catch (error) {
             console.log('An unexpected error occurred while fetching user details:', error.message);
         }
@@ -120,7 +120,7 @@ const ProfileScreen = () => {
             ) : (
                 <>
                     <View>
-                        <Text style={styles.app_title}>Profile</Text>
+                        <Text style={styles.screen_title}>Profile</Text>
                     </View>
                     <Card containerStyle={styles.cardContainer}>
 
@@ -137,9 +137,14 @@ const ProfileScreen = () => {
                                 <Text style={styles.p_label}>Name:</Text>
                                 <Text style={styles.p_text}>{currentName}</Text>
                             </View>
+                            
+                            <View style={styles.profilePictureContainer}>
+                                <Text style={styles.p_label}>Age:</Text>
+                                <Text style={styles.p_text}>{UserAge}</Text>
+                            </View>
                             <View style={styles.profilePictureContainer}>
                                 <TouchableOpacity style={styles.btn} onPress={handleUpdateName}>
-                                    <Text style={styles.updatebuttonText}>Update Name</Text>
+                                    <Text style={styles.updatebuttonText}>Update Details</Text>
                                 </TouchableOpacity>
                                 <TouchableOpacity style={styles.btn} onPress={handleUploadProfilePicture}>
                                     <Text style={styles.updatebuttonText}>Upload Profile Picture</Text>
