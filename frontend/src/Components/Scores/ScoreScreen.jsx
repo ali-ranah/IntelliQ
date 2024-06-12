@@ -17,6 +17,10 @@ const ScoreScreen = ({route}) => {
     navigation.navigate('RecentScores',{email,name,isGoogleSignedIn});
   };
 
+  const handleIQScoresPress =()=>{
+    navigation.navigate('IQScores',{email,name,isGoogleSignedIn});
+  }
+
   return (
     <>
     <View style={styles.container}>
@@ -26,6 +30,9 @@ const ScoreScreen = ({route}) => {
       </TouchableOpacity>
       <TouchableOpacity style={styles.btn} onPress={handleRecentScoresPress}>
         <Text style={styles.cardText}>Recent Scores</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.btn} onPress={handleIQScoresPress}>
+        <Text style={styles.cardText}>IQ Scores</Text>
       </TouchableOpacity>
     </View>
     </>
