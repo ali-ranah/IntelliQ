@@ -25,13 +25,15 @@ const Category = ({ route }) => {
     'numerical_reasoning'
   ];
 
+  
   useEffect(() => {
     const fetchUserDetails = async () => {
+      setIsLoading(true);
       try {
         const ageEndpoint = isGoogleSignedIn ? `/user-age-google/${email}` : `/user-age/${email}`;
         const categoriesEndpoint = isGoogleSignedIn ? `/attempted-categories-google/${email}` : `/attempted-categories/${email}`;
         const scoresEndpoint = isGoogleSignedIn ? `/category-scores-google/${email}` : `/category-scores/${email}`;
-  
+        
         const [ageResponse, categoriesResponse, scoresResponse] = await Promise.all([
           API_URL.get(ageEndpoint),
           API_URL.get(categoriesEndpoint),
@@ -83,7 +85,7 @@ const Category = ({ route }) => {
               await API_URL.post(updateEndpoint, { category });
             })
         );
-  
+        
       } catch (error) {
         let errorMessage = 'Failed to fetch user details. Please try again later.';
         if (error.response && error.response.data && error.response.data.error) {
@@ -94,14 +96,16 @@ const Category = ({ route }) => {
           text1: 'Error',
           text2: errorMessage,
         });
+      } finally {
+        setIsLoading(false);
       }
     };
   
     fetchUserDetails();
   }, [email, isGoogleSignedIn, isFocused]);
   
-  
     
+  console.log('User Age',userAge);
   
 
   useEffect(() => {
@@ -168,7 +172,7 @@ const Category = ({ route }) => {
       if (reset) {
         await API_URL.post(endpoint, { reset });
       }
-      navigation.navigate(route, { email, isGoogleSignedIn });
+      navigation.navigate(route, { email, isGoogleSignedIn,userAge });
     } catch (error) {
       console.error('Error updating attempted category:', error);
       Toast.show({
@@ -188,7 +192,7 @@ const Category = ({ route }) => {
     }
 
     try {
-      await API_URL.post(`/update-age/${email}`, { age: inputAge });
+      await API_URL.post(isGoogleSignedIn?`/update-user-age-google`:`/update-user-age/${email}`, { age: inputAge });
       setUserAge(inputAge);
       setShowAgeInput(false);
     } catch (error) {
@@ -230,6 +234,7 @@ const Category = ({ route }) => {
       ) : (
         <>
           <Text style={styles.screen_title}>Select a Category</Text>
+          <Text style={styles.screen_title}>For {userAge<=14 ?'Kids':'Adults'}</Text>
           {categories.map((category, index) => (
             <TouchableOpacity
               key={category}

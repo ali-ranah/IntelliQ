@@ -1374,6 +1374,79 @@ app.get('/attempted-categories-google/:email', (req, res) => {
     }
 });
 
+const MINIMUM_AVERAGE_IQ = 70; // Minimum average human IQ
+
+app.get('/user-iq-scores/:email', (req, res) => {
+    const { email } = req.params;
+    const isGoogleSignedIn = req.query.google === 'true';
+  
+    const tableName = isGoogleSignedIn ? 'iq_scores_google' : 'iq_scores';
+  
+    const query = `SELECT verbal_reasoning, logical, numerical_reasoning, abstract_reasoning, iq, timestamp FROM ${tableName} WHERE email = ?`;
+  
+    db.all(query, [email], (err, rows) => {
+      if (err) {
+        res.status(500).json({ error: err.message });
+        return;
+      }
+  
+      if (rows.length === 0) {
+        res.status(404).json({ error: 'User not found' });
+        return;
+      }
+  
+      const iqScores = rows.map(row => ({
+        email,
+        verbalReasoning: row.verbal_reasoning,
+        logical: row.logical,
+        numericalReasoning: row.numerical_reasoning,
+        abstractReasoning: row.abstract_reasoning,
+        iq: row.iq,
+        timestamp: row.timestamp,
+      }));
+
+      const totalScores = iqScores.reduce((acc, score) => {
+        acc.verbalReasoning += score.verbalReasoning;
+        acc.logical += score.logical;
+        acc.numericalReasoning += score.numericalReasoning;
+        acc.abstractReasoning += score.abstractReasoning;
+        acc.iq += score.iq;
+        return acc;
+      }, { verbalReasoning: 0, logical: 0, numericalReasoning: 0, abstractReasoning: 0, iq: 0 });
+
+      const totalCount = iqScores.length;
+
+      const averageScores = {
+        verbalReasoning: {
+            obtained: totalScores.verbalReasoning,
+            percentage: totalScores.verbalReasoning / (totalCount * 100),
+        },
+        logical: {
+            obtained: totalScores.logical,
+            percentage: totalScores.logical / (totalCount * 100),
+        },
+        numericalReasoning: {
+            obtained: totalScores.numericalReasoning,
+            percentage: totalScores.numericalReasoning / (totalCount * 100),
+        },
+        abstractReasoning: {
+            obtained: totalScores.abstractReasoning,
+            percentage: totalScores.abstractReasoning / (totalCount * 100),
+        },
+        count: totalCount,
+    };
+
+
+      let averageIq = totalScores.iq / totalCount;
+      averageIq = Math.max(averageIq, MINIMUM_AVERAGE_IQ); // Adjust average if below minimum
+
+      res.json({ iqScores, averageScores, averageIq });
+    });
+  });
+
+  
+  
+
 
 
 

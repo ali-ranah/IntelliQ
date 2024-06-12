@@ -411,6 +411,30 @@ resultText: {
         justifyContent: 'center',
         alignItems: 'center',
     },
+    chartContainer: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginVertical: 10,
+        width: '100%',
+      },
+      lineContainer: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        display:'flex',
+        flexDirection:'column',
+        marginVertical: 10,
+        width: '100%',
+      },
+      chart: {
+        borderRadius: 16,
+      },
+  noDataText: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: 'red',
+    textAlign: 'center',
+    marginTop: 50,
+  },
     screen_title: {
         fontWeight: "bold",
         fontSize: 40,
@@ -421,6 +445,12 @@ resultText: {
         marginTop: '10%',
 
     },
+    IQScoreText: {
+        fontSize: 16,
+        fontWeight: 'bold',
+        color: 'grey',
+        marginTop:10
+      },
 });
 
 export { styles };

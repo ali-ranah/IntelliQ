@@ -22,6 +22,7 @@ import AbstractReasoning from './src/Components/Categories/AbstractReasoning';
 import VerbalReasoning from './src/Components/Categories/VerbalReasoning';
 import NumericalReasoning from './src/Components/Categories/NumericalReasoning';
 import Logical from './src/Components/Categories/Logical';
+import IQScoresChart from './src/Components/IQScoresChart/IQScoresChart';
 
 const Stack = createStackNavigator();
 
@@ -36,6 +37,7 @@ const Navigation = () => {
         <Stack.Screen name="ScoreScreen" component={ScoreScreen} options={{ headerShown: false }} />
         <Stack.Screen name="AllScores" component={AllScores} options={{ headerShown: false }} />
         <Stack.Screen name="RecentScores" component={RecentScores} options={{ headerShown: false }} />
+        <Stack.Screen name="IQScores" component={IQScoresChart} options={{ headerShown: false }} />
         <Stack.Screen name="Manage" component={ManageAccountScreen} options={{ headerShown: false }} />
         <Stack.Screen name="Forgot" component={ForgotPasswordScreen} options={{ headerShown: false }} />
         <Stack.Screen name="ResetPassword" component={ResetPassword} options={{ headerShown: false }} />

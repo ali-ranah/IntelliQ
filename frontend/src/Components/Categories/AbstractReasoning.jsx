@@ -9,6 +9,7 @@ import { useNavigation } from '@react-navigation/native';
 const AbstractReasoning = ({ route }) => {
     const email = route.params ? route.params.email : 'No email provided';
     const isGoogleSignedIn = route.params ? route.params.isGoogleSignedIn : 'Not Signed In';
+    const age = route.params ? route.params.userAge:'Age not passed in params';
     const [mcqData, setMCQData] = useState(null);
     const [selectedOption, setSelectedOption] = useState(null);
     const [isFetching, setIsFetching] = useState(true);
