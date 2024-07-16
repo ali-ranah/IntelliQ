@@ -17,7 +17,7 @@ const app = express();
 app.use(bodyParser.json());
 
 const corsOptions = {
-    origin: '*', 
+    origin: 'http://equipped-pleasing-crow.ngrok-free.app',
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
     optionsSuccessStatus: 204,
@@ -517,9 +517,141 @@ app.post('/mcqs', (req, res) => {
 });
 
 
+// app.post('/verbal-mcqs', (req, res) => {
+//     // First, select a random question
+//     db.get('SELECT * FROM Verbal_Questions ORDER BY RANDOM() LIMIT 1;', (err, questionRow) => {
+//         if (err) {
+//             console.error(err);
+//             res.status(500).json({ error: 'Internal Server Error' });
+//             return;
+//         }
+
+//         if (questionRow) {
+//             const questionId = questionRow.question_id;
+
+//             // Then, select the options for the chosen question
+//             db.all('SELECT option_text, is_correct FROM Verbal_Options WHERE question_id = ?;', [questionId], (err, optionRows) => {
+//                 if (err) {
+//                     console.error(err);
+//                     res.status(500).json({ error: 'Internal Server Error' });
+//                     return;
+//                 }
+
+//                 if (optionRows.length > 0) {
+//                     res.json({
+//                         question: questionRow,
+//                         options: optionRows
+//                     });
+//                 } else {
+//                     res.status(404).json({ error: 'No options available for the selected question' });
+//                 }
+//             });
+//         } else {
+//             res.status(404).json({ error: 'No questions available' });
+//         }
+//     });
+// });
+
+// app.post('/verbal-mcqs-kids', (req, res) => {
+//     // First, select a random question
+//     db.get('SELECT * FROM Verbal_Questions_Kids ORDER BY RANDOM() LIMIT 1;', (err, questionRow) => {
+//         if (err) {
+//             console.error(err);
+//             res.status(500).json({ error: 'Internal Server Error' });
+//             return;
+//         }
+    
+//             if (questionRow) {
+//                 // Prepare the response object with the question and its options
+//                 const question = {
+//                     id: questionRow.id,
+//                     question_text: questionRow.question_text,
+//                     is_correct: questionRow.correct_answer,
+//                     options: {
+//                         option_a: questionRow.option_a,
+//                         option_b: questionRow.option_b,
+//                         option_c: questionRow.option_c,
+//                         option_d: questionRow.option_d,
+//                     }
+//                 };
+    
+//                 res.json(question);
+//             } else {
+//                 res.status(404).json({ error: 'No questions available' });
+//             }
+//         });
+// });
+
 app.post('/verbal-mcqs', (req, res) => {
+    // First, check age from request or use a default value for testing
+    const age = req.body.age || 18; // Default age is set to 18 for testing
+
+    if (age <= 14) {
+        // If age is less than or equal to 14, fetch kids' verbal MCQs
+        db.get('SELECT * FROM Verbal_Questions_Kids ORDER BY RANDOM() LIMIT 1;', (err, questionRow) => {
+            if (err) {
+                console.error(err);
+                res.status(500).json({ error: 'Internal Server Error' });
+                return;
+            }
+
+            if (questionRow) {
+                // Prepare the response object with the question and its options
+                const question = {
+                    id: questionRow.id,
+                    question_text: questionRow.question_text,
+                    is_correct: questionRow.correct_answer,
+                    options: {
+                        option_a: questionRow.option_a,
+                        option_b: questionRow.option_b,
+                        option_c: questionRow.option_c,
+                        option_d: questionRow.option_d,
+                    }
+                };
+
+                res.json(question);
+            } else {
+                res.status(404).json({ error: 'No questions available' });
+            }
+        });
+    } else {
+        // For adults (age > 14), fetch regular verbal MCQs
+        db.get('SELECT * FROM Verbal_Questions ORDER BY RANDOM() LIMIT 1;', (err, questionRow) => {
+            if (err) {
+                console.error(err);
+                res.status(500).json({ error: 'Internal Server Error' });
+                return;
+            }
+
+            if (questionRow) {
+                const questionId = questionRow.question_id;
+
+                // Then, select the options for the chosen question
+                db.all('SELECT option_text, is_correct FROM Verbal_Options WHERE question_id = ?;', [questionId], (err, optionRows) => {
+                    if (err) {
+                        console.error(err);
+                        res.status(500).json({ error: 'Internal Server Error' });
+                        return;
+                    }
+
+                    if (optionRows.length > 0) {
+                        res.json({
+                            question: questionRow,
+                            options: optionRows
+                        });
+                    } else {
+                        res.status(404).json({ error: 'No options available for the selected question' });
+                    }
+                });
+            } else {
+                res.status(404).json({ error: 'No questions available' });
+            }
+        });
+    }
+});
+app.post('/logical-mcqs', (req, res) => {
     // First, select a random question
-    db.get('SELECT * FROM Verbal_Questions ORDER BY RANDOM() LIMIT 1;', (err, questionRow) => {
+    db.get('SELECT * FROM Logical_Questions ORDER BY RANDOM() LIMIT 1;', (err, questionRow) => {
         if (err) {
             console.error(err);
             res.status(500).json({ error: 'Internal Server Error' });
@@ -530,7 +662,7 @@ app.post('/verbal-mcqs', (req, res) => {
             const questionId = questionRow.question_id;
 
             // Then, select the options for the chosen question
-            db.all('SELECT option_text, is_correct FROM Verbal_Options WHERE question_id = ?;', [questionId], (err, optionRows) => {
+            db.all('SELECT option_text, is_correct FROM Logical_Options WHERE question_id = ?;', [questionId], (err, optionRows) => {
                 if (err) {
                     console.error(err);
                     res.status(500).json({ error: 'Internal Server Error' });
@@ -546,6 +678,36 @@ app.post('/verbal-mcqs', (req, res) => {
                     res.status(404).json({ error: 'No options available for the selected question' });
                 }
             });
+        } else {
+            res.status(404).json({ error: 'No questions available' });
+        }
+    });
+});
+
+app.post('/logical-mcqs-kids', (req, res) => {
+    // First, select a random question
+    db.get('SELECT * FROM Logical_Questions_Kids ORDER BY RANDOM() LIMIT 1;', (err, questionRow) => {
+        if (err) {
+            console.error(err);
+            res.status(500).json({ error: 'Internal Server Error' });
+            return;
+        }
+
+        if (questionRow) {
+            // Prepare the response object with the question and its options
+            const question = {
+                id: questionRow.id,
+                question_text: questionRow.question_text,
+                is_correct: questionRow.correct_answer,
+                options: {
+                    option_a: questionRow.option_a,
+                    option_b: questionRow.option_b,
+                    option_c: questionRow.option_c,
+                    option_d: questionRow.option_d,
+                }
+            };
+
+            res.json(question);
         } else {
             res.status(404).json({ error: 'No questions available' });
         }
@@ -587,10 +749,75 @@ app.post('/image-mcqs', (req, res) => {
     });
 });
 
+app.post('/image-mcqs-kids', (req, res) => {
+    // First, select a random question
+    db.get('SELECT * FROM Kids_Image_Questions ORDER BY RANDOM() LIMIT 1;', (err, questionRow) => {
+        if (err) {
+            console.error(err);
+            res.status(500).json({ error: 'Internal Server Error' });
+            return;
+        }
+
+        if (questionRow) {
+            const questionId = questionRow.question_id;
+
+            // Then, select the options for the chosen question
+            db.all('SELECT option_text, is_correct FROM Kids_Image_Options WHERE question_id = ?;', [questionId], (err, optionRows) => {
+                if (err) {
+                    console.error(err);
+                    res.status(500).json({ error: 'Internal Server Error' });
+                    return;
+                }
+
+                if (optionRows.length > 0) {
+                    res.json({
+                        question: questionRow,
+                        options: optionRows
+                    });
+                } else {
+                    res.status(404).json({ error: 'No options available for the selected question' });
+                }
+            });
+        } else {
+            res.status(404).json({ error: 'No questions available' });
+        }
+    });
+});
+
 
 app.post('/numerical-reasoning-mcqs', (req, res) => {
     // Select a random question from the database
     db.get('SELECT * FROM numerical_reasoning_questions ORDER BY RANDOM() LIMIT 1;', (err, questionRow) => {
+        if (err) {
+            console.error(err);
+            res.status(500).json({ error: 'Internal Server Error' });
+            return;
+        }
+
+        if (questionRow) {
+            // Prepare the response object with the question and its options
+            const question = {
+                id: questionRow.id,
+                question_text: questionRow.question_text,
+                is_correct: questionRow.correct_answer,
+                options: {
+                    option_a: questionRow.option_a,
+                    option_b: questionRow.option_b,
+                    option_c: questionRow.option_c,
+                    option_d: questionRow.option_d,
+                }
+            };
+
+            res.json(question);
+        } else {
+            res.status(404).json({ error: 'No questions available' });
+        }
+    });
+});
+
+app.post('/numerical-reasoning-mcqs-kids', (req, res) => {
+    // Select a random question from the database
+    db.get('SELECT * FROM numerical_reasoning_questions_kids ORDER BY RANDOM() LIMIT 1;', (err, questionRow) => {
         if (err) {
             console.error(err);
             res.status(500).json({ error: 'Internal Server Error' });
@@ -1141,6 +1368,196 @@ app.post('/update-user-age-google/:email', (req, res) => {
     });
 });
 
+// const fetchRandomQuestionWithOptions = (tableName, optionsTableName) => {
+//     return new Promise((resolve, reject) => {
+//         const query = `SELECT * FROM ${tableName} ORDER BY RANDOM() LIMIT 1;`;
+//         db.get(query, (err, questionRow) => {
+//             if (err) {
+//                 console.error(`Error fetching random question from ${tableName}:`, err);
+//                 reject(err);
+//             } else if (questionRow) {
+//                 const questionId = questionRow.question_id;
+//                 if (optionsTableName) {
+//                     const optionsQuery = `SELECT * FROM ${optionsTableName} WHERE question_id = ?;`;
+//                     db.all(optionsQuery, [questionId], (err, optionRows) => {
+//                         if (err) {
+//                             console.error(`Error fetching options for question ${questionId} from ${optionsTableName}:`, err);
+//                             reject(err);
+//                         } else {
+//                             resolve({ question: questionRow, options: optionRows });
+//                         }
+//                     });
+//                 } else {
+//                     // Example structure for tables where options are columns in the same table
+//                     const { id, question_text, correct_answer, option_a, option_b, option_c, option_d } = questionRow;
+//                     const options = [
+//                         { option_id: 1, option_text: option_a, is_correct: correct_answer === option_a },
+//                         { option_id: 2, option_text: option_b, is_correct: correct_answer === option_b },
+//                         { option_id: 3, option_text: option_c, is_correct: correct_answer === option_c },
+//                         { option_id: 4, option_text: option_d, is_correct: correct_answer === option_d }
+//                     ];
+//                     resolve({ question: { id, question_text }, options });
+//                 }
+//             } else {
+//                 reject(`No questions available in ${tableName}`);
+//             }
+//         });
+//     });
+// };
+
+
+
+// // Endpoint controller function
+// app.get('/fetch-general', async (req, res) => {
+//     try {
+//         const verbalQuestionPromise = fetchRandomQuestionWithOptions('Verbal_Questions', 'Verbal_Options');
+//         const numericalQuestionPromise = fetchRandomQuestionWithOptions('numerical_reasoning_questions');
+//         const imageQuestionPromise = fetchRandomQuestionWithOptions('Image_Questions', 'Image_Options');
+//         const logicalQuestionPromise = fetchRandomQuestionWithOptions('Logical_Questions', 'Logical_Options');
+
+//         // Wait for all promises to resolve
+//         const [
+//             verbalQuestion,
+//             numericalQuestion,
+//             imageQuestion,
+//             logicalQuestion
+//         ] = await Promise.all([
+//             verbalQuestionPromise,
+//             numericalQuestionPromise,
+//             imageQuestionPromise,
+//             logicalQuestionPromise
+//         ]);
+
+//         // Prepare response object
+//         const response = {
+//             verbalQuestion,
+//             numericalQuestion,
+//             imageQuestion,
+//             logicalQuestion
+//         };
+
+//         console.log('Fetched random questions:', response);
+//         res.json(response);
+//     } catch (error) {
+//         console.error('Error fetching random questions:', error);
+//         res.status(500).json({ error: 'Internal Server Error' });
+//     }
+// });
+
+
+const fetchRandomQuestionWithOptions = (tableName) => {
+    return new Promise((resolve, reject) => {
+        let query;
+        let optionsQuery;
+
+        switch (tableName) {
+            case 'Verbal_Questions':
+                query = `SELECT * FROM Verbal_Questions ORDER BY RANDOM() LIMIT 1;`;
+                optionsQuery = `SELECT * FROM Verbal_Options WHERE question_id = ?;`;
+                break;
+            case 'numerical_reasoning_questions':
+                query = `SELECT * FROM numerical_reasoning_questions ORDER BY RANDOM() LIMIT 1;`;
+                break;
+            case 'Image_Questions':
+                query = `SELECT * FROM Image_Questions ORDER BY RANDOM() LIMIT 1;`;
+                optionsQuery = `SELECT * FROM Image_Options WHERE question_id = ?;`;
+                break;
+            case 'Logical_Questions':
+                query = `SELECT * FROM Logical_Questions ORDER BY RANDOM() LIMIT 1;`;
+                optionsQuery = `SELECT * FROM Logical_Options WHERE question_id = ?;`;
+                break;
+            default:
+                return reject(`Unsupported table name: ${tableName}`);
+        }
+
+        db.get(query, (err, questionRow) => {
+            if (err) {
+                console.error(`Error fetching random question from ${tableName}:`, err);
+                reject(err);
+            } else if (questionRow) {
+                const questionId = questionRow.question_id;
+                if (optionsQuery) {
+                    db.all(optionsQuery, [questionId], (err, optionRows) => {
+                        if (err) {
+                            console.error(`Error fetching options for question ${questionId} from ${tableName}:`, err);
+                            reject(err);
+                        } else {
+                            resolve({ question: questionRow, options: optionRows });
+                        }
+                    });
+                } else {
+                    // For tables like numerical_reasoning_questions with options in the same table
+                    const { id, question_text, correct_answer, option_a, option_b, option_c, option_d } = questionRow;
+                    const options = [
+                        { option_id: 1, option_text: option_a, is_correct: correct_answer === option_a },
+                        { option_id: 2, option_text: option_b, is_correct: correct_answer === option_b },
+                        { option_id: 3, option_text: option_c, is_correct: correct_answer === option_c },
+                        { option_id: 4, option_text: option_d, is_correct: correct_answer === option_d }
+                    ];
+                    resolve({ question: { id, question_text }, options });
+                }
+            } else {
+                reject(`No questions available in ${tableName}`);
+            }
+        });
+    });
+};
+
+// Endpoint controller function
+app.get('/fetch-general/:tableName', async (req, res) => {
+    const { tableName } = req.params;
+
+    try {
+        const { question, options } = await fetchRandomQuestionWithOptions(tableName);
+
+        // Prepare response object
+        const response = {
+            question,
+            options
+        };
+
+        console.log(`Fetched random question from ${tableName}:`, response);
+        res.json(response);
+    } catch (error) {
+        console.error(`Error fetching random question from ${tableName}:`, error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+
+
+const calculateIQGeneral = (rawScore, mean, stdDev) => {
+    const zScore = (rawScore - mean) / stdDev;
+    const iq = 100 + (zScore * 15);
+    return iq;
+  };
+
+
+  app.post('/calculate-IQ-General', (req, res) => {
+    const { email, score, age } = req.body;
+    const timestamp = new Date().toLocaleString();
+
+    console.log('Score Being Passed inside body to iq controller', score);
+
+    // Check if score is provided
+    if (score === undefined) {
+        return res.status(400).json({ error: 'Score is required' });
+    }
+
+    // Convert score to float
+    const rawScore = parseFloat(score);
+    const mean = 15; // Example mean for all categories
+    const stdDev = 3; // Example standard deviation for all categories
+
+
+    // Calculate IQ
+    const iq = calculateIQGeneral(rawScore, mean, stdDev);
+
+        return res.status(200).json({ iq });
+});
+
+
+
 const calculateIQ = (rawScores, means, stdDevs) => {
     // Calculate Z-Scores for each category
     const zScores = rawScores.map((score, index) => {
@@ -1156,24 +1573,34 @@ const calculateIQ = (rawScores, means, stdDevs) => {
     return iq;
   };
   
- // API endpoint for calculating and storing IQ scores for normal users
+
 app.post('/calculate-IQ', (req, res) => {
-    const { email,verbal_reasoning, logical, numerical_reasoning, abstract_reasoning } = req.body;
+    const { email, verbal_reasoning, logical, numerical_reasoning, abstract_reasoning, age } = req.body;
     const timestamp = new Date().toLocaleString();
 
-    console.log('Scores Being Passed inside body to iq controller',abstract_reasoning, logical, numerical_reasoning,verbal_reasoning)
-    
+    console.log('Scores Being Passed inside body to iq controller', abstract_reasoning, logical, numerical_reasoning, verbal_reasoning);
+
+    // Check if all scores are provided
     if (verbal_reasoning === undefined || logical === undefined || numerical_reasoning === undefined || abstract_reasoning === undefined) {
         return res.status(400).json({ error: 'All scores are required' });
     }
+
+    // Convert scores to float
     const rawScores = [parseFloat(verbal_reasoning), parseFloat(logical), parseFloat(numerical_reasoning), parseFloat(abstract_reasoning)];
     const means = [15, 10, 18, 15];
     const stdDevs = [3, 2, 4, 3];
-  
+
+    // Calculate IQ
     const iq = calculateIQ(rawScores, means, stdDevs);
-  
-    const query = `INSERT INTO iq_scores (email, verbal_reasoning, logical, numerical_reasoning, abstract_reasoning,timestamp,iq) VALUES (?, ?, ?, ?, ?, ?, ?)`;
-    db.run(query, [email, verbal_reasoning, logical, numerical_reasoning, abstract_reasoning,timestamp,iq], (err) => {
+
+    // Check if age is less than or equal to 14
+    if (age <= 14) {
+        return res.status(200).json({ message: 'Scores not saved for age below or equal to 14',iq });
+    }
+
+    // Otherwise, save the scores and IQ
+    const query = `INSERT INTO iq_scores (email, verbal_reasoning, logical, numerical_reasoning, abstract_reasoning, timestamp, iq) VALUES (?, ?, ?, ?, ?, ?, ?)`;
+    db.run(query, [email, verbal_reasoning, logical, numerical_reasoning, abstract_reasoning, timestamp, iq], (err) => {
         if (err) {
             console.error('Error storing IQ score:', err);
             return res.status(500).json({ error: 'Failed to store IQ score' });
@@ -1182,9 +1609,10 @@ app.post('/calculate-IQ', (req, res) => {
     });
 });
 
+
 // API endpoint for calculating and storing IQ scores for Google users
 app.post('/calculate-IQ-google', (req, res) => {
-    const { email,verbal_reasoning, logical, numerical_reasoning, abstract_reasoning } = req.body;
+    const { email,verbal_reasoning, logical, numerical_reasoning, abstract_reasoning,age } = req.body;
     const timestamp = new Date().toLocaleString();
 
     
@@ -1197,7 +1625,74 @@ app.post('/calculate-IQ-google', (req, res) => {
     const rawScores = [parseFloat(verbal_reasoning), parseFloat(logical), parseFloat(numerical_reasoning), parseFloat(abstract_reasoning)];
     const means = [15, 10, 18, 15];
     const stdDevs = [3, 2, 4, 3];
+
     const iq = calculateIQ(rawScores, means, stdDevs);
+
+    if (age <= 14) {
+        return res.status(200).json({ message: 'Scores not saved for age below or equal to 14',iq });
+    }
+  
+    const query = `INSERT INTO iq_scores_google (email, verbal_reasoning, logical, numerical_reasoning, abstract_reasoning,timestamp,iq) VALUES (?, ?, ?, ?, ?, ?, ?)`;
+    db.run(query, [email, verbal_reasoning, logical, numerical_reasoning, abstract_reasoning,timestamp,iq], (err) => {
+        if (err) {
+            console.error('Error storing IQ score:', err);
+            return res.status(500).json({ error: 'Failed to store IQ score' });
+        }
+        return res.status(200).json({ iq });
+    });
+});
+
+
+app.post('/calculate-child-IQ', (req, res) => {
+    const { email, verbal_reasoning, logical, numerical_reasoning, abstract_reasoning, age } = req.body;
+    const timestamp = new Date().toLocaleString();
+
+    console.log('Scores Being Passed inside body to iq controller', abstract_reasoning, logical, numerical_reasoning, verbal_reasoning);
+
+    // Check if all scores are provided
+    if (verbal_reasoning === undefined || logical === undefined || numerical_reasoning === undefined || abstract_reasoning === undefined) {
+        return res.status(400).json({ error: 'All scores are required' });
+    }
+
+    // Convert scores to float
+    const rawScores = [parseFloat(verbal_reasoning), parseFloat(logical), parseFloat(numerical_reasoning), parseFloat(abstract_reasoning)];
+    const means = [15, 10, 18, 15];
+    const stdDevs = [3, 2, 4, 3];
+
+    // Calculate IQ
+    const iq = calculateIQ(rawScores, means, stdDevs);
+
+
+    // Otherwise, save the scores and IQ
+    const query = `INSERT INTO iq_scores (email, verbal_reasoning, logical, numerical_reasoning, abstract_reasoning, timestamp, iq) VALUES (?, ?, ?, ?, ?, ?, ?)`;
+    db.run(query, [email, verbal_reasoning, logical, numerical_reasoning, abstract_reasoning, timestamp, iq], (err) => {
+        if (err) {
+            console.error('Error storing IQ score:', err);
+            return res.status(500).json({ error: 'Failed to store IQ score' });
+        }
+        return res.status(200).json({ iq });
+    });
+});
+
+
+// API endpoint for calculating and storing IQ scores for Google users
+app.post('/calculate-child-IQ-google', (req, res) => {
+    const { email,verbal_reasoning, logical, numerical_reasoning, abstract_reasoning,age } = req.body;
+    const timestamp = new Date().toLocaleString();
+
+    
+    console.log('Scores being passed in body to IQ Controller',abstract_reasoning, logical,numerical_reasoning, verbal_reasoning)
+  
+    if (verbal_reasoning === undefined || logical === undefined || numerical_reasoning === undefined || abstract_reasoning === undefined) {
+        return res.status(400).json({ error: 'All scores are required' });
+    }
+  
+    const rawScores = [parseFloat(verbal_reasoning), parseFloat(logical), parseFloat(numerical_reasoning), parseFloat(abstract_reasoning)];
+    const means = [15, 10, 18, 15];
+    const stdDevs = [3, 2, 4, 3];
+
+    const iq = calculateIQ(rawScores, means, stdDevs);
+
   
     const query = `INSERT INTO iq_scores_google (email, verbal_reasoning, logical, numerical_reasoning, abstract_reasoning,timestamp,iq) VALUES (?, ?, ?, ?, ?, ?, ?)`;
     db.run(query, [email, verbal_reasoning, logical, numerical_reasoning, abstract_reasoning,timestamp,iq], (err) => {
@@ -1374,75 +1869,81 @@ app.get('/attempted-categories-google/:email', (req, res) => {
     }
 });
 
-const MINIMUM_AVERAGE_IQ = 70; // Minimum average human IQ
 
 app.get('/user-iq-scores/:email', (req, res) => {
     const { email } = req.params;
-    const isGoogleSignedIn = req.query.google === 'true';
   
-    const tableName = isGoogleSignedIn ? 'iq_scores_google' : 'iq_scores';
+    const tableName = 'iq_scores';
   
-    const query = `SELECT verbal_reasoning, logical, numerical_reasoning, abstract_reasoning, iq, timestamp FROM ${tableName} WHERE email = ?`;
+    const query = `SELECT verbal_reasoning, logical, numerical_reasoning, abstract_reasoning, iq, timestamp FROM ${tableName} WHERE email = ? ORDER BY id DESC`;
   
     db.all(query, [email], (err, rows) => {
-      if (err) {
-        res.status(500).json({ error: err.message });
-        return;
-      }
+        if (err) {
+            res.status(500).json({ error: err.message });
+            return;
+        }
   
-      if (rows.length === 0) {
-        res.status(404).json({ error: 'User not found' });
-        return;
-      }
+        if (rows.length === 0) {
+            res.status(404).json({ error: 'User not found' });
+            return;
+        }
   
-      const iqScores = rows.map(row => ({
-        email,
-        verbalReasoning: row.verbal_reasoning,
-        logical: row.logical,
-        numericalReasoning: row.numerical_reasoning,
-        abstractReasoning: row.abstract_reasoning,
-        iq: row.iq,
-        timestamp: row.timestamp,
-      }));
+        // Prepare arrays to store scores for averaging
+        const verbalReasoningScores = [];
+        const logicalScores = [];
+        const numericalReasoningScores = [];
+        const abstractReasoningScores = [];
+        const iqScores = [];
 
-      const totalScores = iqScores.reduce((acc, score) => {
-        acc.verbalReasoning += score.verbalReasoning;
-        acc.logical += score.logical;
-        acc.numericalReasoning += score.numericalReasoning;
-        acc.abstractReasoning += score.abstractReasoning;
-        acc.iq += score.iq;
-        return acc;
-      }, { verbalReasoning: 0, logical: 0, numericalReasoning: 0, abstractReasoning: 0, iq: 0 });
+        // Extract scores and IQ from rows
+        rows.forEach(row => {
+            verbalReasoningScores.push(row.verbal_reasoning || 0); // Default to zero if undefined
+            logicalScores.push(row.logical || 0);
+            numericalReasoningScores.push(row.numerical_reasoning || 0);
+            abstractReasoningScores.push(row.abstract_reasoning || 0);
+            iqScores.push(row.iq || 0);
+        });
 
-      const totalCount = iqScores.length;
+        // Calculate total scores
+        const totalVerbalReasoning = verbalReasoningScores.reduce((acc, score) => acc + score, 0);
+        const totalLogical = logicalScores.reduce((acc, score) => acc + score, 0);
+        const totalNumericalReasoning = numericalReasoningScores.reduce((acc, score) => acc + score, 0);
+        const totalAbstractReasoning = abstractReasoningScores.reduce((acc, score) => acc + score, 0);
 
-      const averageScores = {
-        verbalReasoning: {
-            obtained: totalScores.verbalReasoning,
-            percentage: totalScores.verbalReasoning / (totalCount * 100),
-        },
-        logical: {
-            obtained: totalScores.logical,
-            percentage: totalScores.logical / (totalCount * 100),
-        },
-        numericalReasoning: {
-            obtained: totalScores.numericalReasoning,
-            percentage: totalScores.numericalReasoning / (totalCount * 100),
-        },
-        abstractReasoning: {
-            obtained: totalScores.abstractReasoning,
-            percentage: totalScores.abstractReasoning / (totalCount * 100),
-        },
-        count: totalCount,
-    };
+        // Calculate average IQ
+        const averageIq = iqScores.length > 0 ? iqScores.reduce((acc, iq) => acc + iq, 0) / iqScores.length : 0;
+        
+        // Get the most recent IQ score
+        const recentIq = rows[0].iq || 0; // Assuming the most recent score is the first row based on DESC order
 
+        // Prepare average scores object
+        const averageScores = {
+            verbalReasoning: {
+                obtained: totalVerbalReasoning,
+                average: totalVerbalReasoning / verbalReasoningScores.length,
+            },
+            logical: {
+                obtained: totalLogical,
+                average: totalLogical / logicalScores.length,
+            },
+            numericalReasoning: {
+                obtained: totalNumericalReasoning,
+                average: totalNumericalReasoning / numericalReasoningScores.length,
+            },
+            abstractReasoning: {
+                obtained: totalAbstractReasoning,
+                average: totalAbstractReasoning / abstractReasoningScores.length,
+            },
+            count: iqScores.length,
+        };
 
-      let averageIq = totalScores.iq / totalCount;
-      averageIq = Math.max(averageIq, MINIMUM_AVERAGE_IQ); // Adjust average if below minimum
+        // Adjust average if below minimum
 
-      res.json({ iqScores, averageScores, averageIq });
+        res.json({ iqScores, averageScores, averageIq, recentIq });
     });
-  });
+});
+
+
 
   
   

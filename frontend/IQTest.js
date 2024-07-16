@@ -19,6 +19,10 @@ const Test = ({ route }) => {
         navigation.navigate('Category',{ email,isGoogleSignedIn })
     }
 
+    // const handleGeneralTest = () => {
+    //     navigation.navigate('General',{ email,isGoogleSignedIn })
+    // }
+
 
 
     return (
@@ -30,7 +34,7 @@ const Test = ({ route }) => {
                     top: '10%',
                     left: 0,
                     right: 0,
-                    bottom: '55%',
+                    bottom: '60%',
                     zIndex: 1,
                     marginBottom: '10%'
                 }}
@@ -49,6 +53,9 @@ const Test = ({ route }) => {
                 <TouchableOpacity style={styles.btn} onPress={handleIQTest}>
                     <Text style={styles.btn_text}>Start IQ Test</Text>
                 </TouchableOpacity>
+                {/* <TouchableOpacity style={styles.btn} onPress={handleGeneralTest}>
+                    <Text style={styles.btn_text}>Start General Test Practice</Text>
+                </TouchableOpacity> */}
             </View>
         </>
     );

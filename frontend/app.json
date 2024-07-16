@@ -2,7 +2,7 @@
   "expo": {
     "name": "IntelliQ",
     "slug": "intelliq",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/app__icon.png",
     "splash": {
@@ -17,18 +17,20 @@
     ],
     "ios": {
       "bundleIdentifier": "com.comsats.IntelliQ",
-      "buildNumber": "1.0.0"
+      "buildNumber": "2"
     },
     "android": {
       "adaptiveIcon": {
         "backgroundColor": "#FFFFFF"
       },
-      "package": "com.comsats.IntelliQ"
+      "package": "com.comsats.IntelliQ",
+      "versionCode": 2
     },
     "extra": {
       "eas": {
-        "projectId": "59065672-9eeb-42c8-8bfa-c61ea050a8dc"
+        "projectId": "26ae9dfa-79fa-43eb-94f3-12e5ce5389bf"
       }
-    }
+    },
+    "owner": "alii_rana"
   }
 }

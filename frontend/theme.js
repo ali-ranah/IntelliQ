@@ -7,6 +7,21 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
+    optionButton: {
+        backgroundColor: '#f0f0f0',
+        padding: 10,
+        marginVertical: 5,
+        borderRadius: 5,
+    },
+    selectedOption: {
+        backgroundColor: '#a0c0ff', // Example color for selected option background
+    },
+    optionText: {
+        fontSize: 16,
+    },
+    selectedOptionText: {
+        color: '#fff', // Example color for selected option text
+    },
     switchButtonsContainer: {
         flex: 1,
         position: 'absolute',

@@ -16,7 +16,7 @@ const AbstractReasoning = ({ route }) => {
     const [questionCount, setQuestionCount] = useState(0);
     const [questionScores, setQuestionScores] = useState(Array(20).fill(0)); // Array to store scores for each question
     const [testEnded, setTestEnded] = useState(false);
-    const [timeLeft, setTimeLeft] = useState(100);
+    const [timeLeft, setTimeLeft] = useState(1200);
     const [isImageLoaded, setIsImageLoaded] = useState(false);
     const navigation = useNavigation();
 
@@ -40,14 +40,17 @@ const AbstractReasoning = ({ route }) => {
 
     const fetchRandomMCQ = () => {
         setIsFetching(true);
-
+      let endpoint = '/image-mcqs';
+      if (age<=14){
+        endpoint = '/image-mcqs-kids'
+      }
         API_URL
-            .post('/image-mcqs')
+            .post(endpoint)
             .then((response) => {
                 setMCQData(response.data);
                 setIsImageLoaded(false);
             })
-            .catch((error) => console.error('Error fetching MCQ data:', error))
+            .catch((error) => console.log('Error fetching MCQ data:', error))
             .finally(() => setIsFetching(false));
     };
 

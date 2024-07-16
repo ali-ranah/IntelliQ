@@ -5,6 +5,7 @@ import { styles } from "../../../theme";
 import { API_URL } from "../../../Api";
 import Toast from 'react-native-toast-message';
 import Loading from "../../../LoadingScreen";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Category = ({ route }) => {
   const email = route.params ? route.params.email : 'No email provided';
@@ -17,6 +18,8 @@ const Category = ({ route }) => {
   const [attemptedCategories, setAttemptedCategories] = useState([]);
   const [scores, setScores] = useState({});
   const [isLoading, setIsLoading] = useState(false);
+  const isChild = AsyncStorage.getItem?.('isChild')==='true';
+
 
   const categories = [
     'verbal_reasoning',
@@ -30,6 +33,7 @@ const Category = ({ route }) => {
     const fetchUserDetails = async () => {
       setIsLoading(true);
       try {
+        console.log(isChild);
         const ageEndpoint = isGoogleSignedIn ? `/user-age-google/${email}` : `/user-age/${email}`;
         const categoriesEndpoint = isGoogleSignedIn ? `/attempted-categories-google/${email}` : `/attempted-categories/${email}`;
         const scoresEndpoint = isGoogleSignedIn ? `/category-scores-google/${email}` : `/category-scores/${email}`;
@@ -122,14 +126,19 @@ const Category = ({ route }) => {
       const attemptedCategoriesCount = Object.keys(fetchedScores).length;
       if (attemptedCategoriesCount === 4) {
         setIsLoading(true);
-        const iqEndpoint = isGoogleSignedIn ? `/calculate-IQ-google` : `/calculate-IQ`;
+        let iqEndpoint = isGoogleSignedIn ? `/calculate-IQ-google` : `/calculate-IQ`;
+        if(isChild){
+          iqEndpoint = isGoogleSignedIn ? `/calculate-child-IQ-google` : `/calculate-child-IQ`;
+        }
+
         try {
           const iqResponse = await API_URL.post(iqEndpoint, {
             verbal_reasoning: fetchedScores.verbal_reasoning,
             logical: fetchedScores.logical,
             abstract_reasoning: fetchedScores.abstract_reasoning,
             numerical_reasoning: fetchedScores.numerical_reasoning,
-            email
+            email,
+            age:userAge
           });
           const { iq } = iqResponse.data;
 
@@ -192,6 +201,9 @@ const Category = ({ route }) => {
     }
 
     try {
+      if(inputAge<=14){
+        AsyncStorage.setItem('isChild','true');
+      }
       await API_URL.post(isGoogleSignedIn?`/update-user-age-google`:`/update-user-age/${email}`, { age: inputAge });
       setUserAge(inputAge);
       setShowAgeInput(false);
@@ -243,7 +255,7 @@ const Category = ({ route }) => {
               disabled={attemptedCategories.includes(category)}
             >
               <Text style={styles.cardText}>{category.split('_').map(word => word[0].toUpperCase() + word.slice(1)).join(' ')}</Text>
-              {attemptedCategories.includes(category) && <Text style={styles.attemptedText}>Attempted</Text>}
+              {attemptedCategories.includes(category)}
             </TouchableOpacity>
           ))}
         </>

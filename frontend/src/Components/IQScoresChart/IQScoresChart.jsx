@@ -12,6 +12,7 @@ const IQScoresChart = ({ route }) => {
   const [iqScores, setIqScores] = useState([]);
   const [averageScores, setAverageScores] = useState({});
   const [averageIq, setAverageIq] = useState(0);
+  const [recentIq, setRecentIq] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const email = route.params ? route.params.email : 'No email provided';
   const name = route.params ? route.params.name : 'No name provided';
@@ -29,6 +30,7 @@ const IQScoresChart = ({ route }) => {
         if (data.iqScores.length > 0) {
           setIqScores(data.iqScores);
           setAverageScores(data.averageScores);
+          setRecentIq(data.recentIq);
           setAverageIq(data.averageIq);
         } else {
           throw new Error('No Data Found');
@@ -160,10 +162,11 @@ const IQScoresChart = ({ route }) => {
           </View>
         </ScrollView>
       </View>
-      <Text style={styles.IQScoreText}>Average IQ : {averageIq.toFixed(2)}</Text>
-      <Text style={styles.IQScoreText}>Total Test Attempted : {averageScores.count}</Text>
+      <Text style={styles.IQScoreText}>Recent IQ : {recentIq.toFixed(2)}</Text>
+      <Text style={styles.IQScoreText}>Total Test Attempted : {averageScores.count-1}</Text>
     </ScrollView>
   );
 };
 
 export default IQScoresChart;
+

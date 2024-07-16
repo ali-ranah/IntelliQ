@@ -12,11 +12,12 @@ const VerbalReasoning = ({ route }) => {
     const isGoogleSignedIn = route.params ? route.params.isGoogleSignedIn : 'Not Signed In';
     const [mcqData, setMCQData] = useState(null);
     const [selectedOption, setSelectedOption] = useState(null);
+    const age = route.params ? route.params.userAge : 'Age not passed in params';
     const [isFetching, setIsFetching] = useState(true);
     const [questionCount, setQuestionCount] = useState(0);
     const [questionScores, setQuestionScores] = useState(Array(20).fill(0)); // Array to store scores for each question
     const [testEnded, setTestEnded] = useState(false);
-    const [timeLeft, setTimeLeft] = useState(100);
+    const [timeLeft, setTimeLeft] = useState(1200); // 20 minutes timer (1200 seconds)
     const navigation = useNavigation();
 
 
@@ -40,13 +41,14 @@ const VerbalReasoning = ({ route }) => {
 
     const fetchRandomMCQ = () => {
         setIsFetching(true);
+        const endpoint = age <= 14 ? '/verbal-mcqs-kids' : '/verbal-mcqs';
 
         API_URL
-            .post('/verbal-mcqs')
+            .post(endpoint)
             .then((response) => {
                 setMCQData(response.data);
             })
-            .catch((error) => console.error('Error fetching MCQ data:', error))
+            .catch((error) => console.log('Error fetching MCQ data:', error))
             .finally(() => setIsFetching(false));
     };
 

@@ -13,10 +13,11 @@ const NumericalReasoning = ({ route }) => {
     const [mcqData, setMCQData] = useState(null);
     const [selectedOption, setSelectedOption] = useState(null);
     const [isFetching, setIsFetching] = useState(true);
+    const age = route.params ? route.params.userAge:'Age not passed in params';
     const [questionCount, setQuestionCount] = useState(0);
     const [questionScores, setQuestionScores] = useState(Array(25).fill(0)); // Array to store scores for each question
     const [testEnded, setTestEnded] = useState(false);
-    const [timeLeft, setTimeLeft] = useState(100);
+    const [timeLeft, setTimeLeft] = useState(1600);
     const navigation = useNavigation();
 
 
@@ -41,13 +42,16 @@ const NumericalReasoning = ({ route }) => {
 
     const fetchRandomMCQ = () => {
         setIsFetching(true);
-
+        let endpoint = '/numerical-reasoning-mcqs';
+        if(age<=14){
+            endpoint = '/numerical-reasoning-mcqs-kids';
+        }
         API_URL
-            .post('/numerical-reasoning-mcqs')
+            .post(endpoint)
             .then((response) => {
                 setMCQData(response.data);
             })
-            .catch((error) => console.error('Error fetching MCQ data:', error))
+            .catch((error) => console.log('Error fetching MCQ data:', error))
             .finally(() => setIsFetching(false));
     };
 
