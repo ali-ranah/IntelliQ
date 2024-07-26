@@ -1368,83 +1368,6 @@ app.post('/update-user-age-google/:email', (req, res) => {
     });
 });
 
-// const fetchRandomQuestionWithOptions = (tableName, optionsTableName) => {
-//     return new Promise((resolve, reject) => {
-//         const query = `SELECT * FROM ${tableName} ORDER BY RANDOM() LIMIT 1;`;
-//         db.get(query, (err, questionRow) => {
-//             if (err) {
-//                 console.error(`Error fetching random question from ${tableName}:`, err);
-//                 reject(err);
-//             } else if (questionRow) {
-//                 const questionId = questionRow.question_id;
-//                 if (optionsTableName) {
-//                     const optionsQuery = `SELECT * FROM ${optionsTableName} WHERE question_id = ?;`;
-//                     db.all(optionsQuery, [questionId], (err, optionRows) => {
-//                         if (err) {
-//                             console.error(`Error fetching options for question ${questionId} from ${optionsTableName}:`, err);
-//                             reject(err);
-//                         } else {
-//                             resolve({ question: questionRow, options: optionRows });
-//                         }
-//                     });
-//                 } else {
-//                     // Example structure for tables where options are columns in the same table
-//                     const { id, question_text, correct_answer, option_a, option_b, option_c, option_d } = questionRow;
-//                     const options = [
-//                         { option_id: 1, option_text: option_a, is_correct: correct_answer === option_a },
-//                         { option_id: 2, option_text: option_b, is_correct: correct_answer === option_b },
-//                         { option_id: 3, option_text: option_c, is_correct: correct_answer === option_c },
-//                         { option_id: 4, option_text: option_d, is_correct: correct_answer === option_d }
-//                     ];
-//                     resolve({ question: { id, question_text }, options });
-//                 }
-//             } else {
-//                 reject(`No questions available in ${tableName}`);
-//             }
-//         });
-//     });
-// };
-
-
-
-// // Endpoint controller function
-// app.get('/fetch-general', async (req, res) => {
-//     try {
-//         const verbalQuestionPromise = fetchRandomQuestionWithOptions('Verbal_Questions', 'Verbal_Options');
-//         const numericalQuestionPromise = fetchRandomQuestionWithOptions('numerical_reasoning_questions');
-//         const imageQuestionPromise = fetchRandomQuestionWithOptions('Image_Questions', 'Image_Options');
-//         const logicalQuestionPromise = fetchRandomQuestionWithOptions('Logical_Questions', 'Logical_Options');
-
-//         // Wait for all promises to resolve
-//         const [
-//             verbalQuestion,
-//             numericalQuestion,
-//             imageQuestion,
-//             logicalQuestion
-//         ] = await Promise.all([
-//             verbalQuestionPromise,
-//             numericalQuestionPromise,
-//             imageQuestionPromise,
-//             logicalQuestionPromise
-//         ]);
-
-//         // Prepare response object
-//         const response = {
-//             verbalQuestion,
-//             numericalQuestion,
-//             imageQuestion,
-//             logicalQuestion
-//         };
-
-//         console.log('Fetched random questions:', response);
-//         res.json(response);
-//     } catch (error) {
-//         console.error('Error fetching random questions:', error);
-//         res.status(500).json({ error: 'Internal Server Error' });
-//     }
-// });
-
-
 const fetchRandomQuestionWithOptions = (tableName) => {
     return new Promise((resolve, reject) => {
         let query;
@@ -1534,8 +1457,7 @@ const calculateIQGeneral = (rawScore, mean, stdDev) => {
 
 
   app.post('/calculate-IQ-General', (req, res) => {
-    const { email, score, age } = req.body;
-    const timestamp = new Date().toLocaleString();
+    const { score } = req.body;
 
     console.log('Score Being Passed inside body to iq controller', score);
 

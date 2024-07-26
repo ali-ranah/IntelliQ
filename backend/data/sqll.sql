@@ -12974,26 +12974,6 @@ INSERT OR IGNORE INTO Logical_Questions (question_id, question_text) VALUES
     (198, 'In a code language, if ‘GREAT’ is written as ‘HSFBU’, how is ‘SMALL’ written in that code?'),
     (199, 'Which word can be rearranged to form the name of a fruit? A) NAMGO B) NEMOLA C) AEPRL D) ULBP'),
     (200, 'If ‘TRAIN’ is written as ‘UQBOJ’, how is ‘PLANE’ written in that code?'),
-       (201, 'Which one of the following is least like the others? A) Copper B) Iron C) Silver D) Gold'),
-    (202, 'What comes next in the series: 4, 9, 16, 25, ?'),
-    (203, 'In a code language, if ‘BOOK’ is written as ‘DQQM’, how is ‘PAGE’ written?'),
-    (204, 'Which number does not belong to the series: 3, 9, 27, 81, 162, 243?'),
-    (205, 'If Tom is older than Jim and Jim is older than Tim, who is the youngest?'),
-    (206, 'Which word can be arranged to form the name of a country? A) CLAPRA B) TAPERA C) PALREA D) LAPERA'),
-    (207, 'If ‘FIRE’ is coded as ‘GJFS’, how is ‘WATER’ coded?'),
-    (208, 'Find the odd one out: A) Rectangle B) Square C) Circle D) Triangle'),
-    (209, 'What comes next in the series: 1, 4, 9, 16, 25, ?'),
-    (210, 'In a code language, if ‘TABLE’ is written as ‘UBCMF’, how is ‘CHAIR’ written?'),
-    (211, 'Which one of the following does not belong in the group? A) Mars B) Jupiter C) Sun D) Pluto'),
-    (212, 'If ‘MOUSE’ is written as ‘NPVTF’, how is ‘RAT’ written in that code?'),
-    (213, 'What comes next in the series: 1, 2, 4, 8, 16, ?'),
-    (214, 'Which number is the odd one out? A) 7 B) 14 C) 28 D) 42'),
-    (215, 'If a certain code, ‘WIND’ is written as ‘XJEO’, how is ‘RAIN’ written in that code?'),
-    (216, 'Which of the following is not a reptile? A) Snake B) Lizard C) Turtle D) Frog'),
-    (217, 'Find the odd one out: A) Pen B) Pencil C) Eraser D) Brush'),
-    (218, 'What comes next in the sequence: 3, 6, 12, 24, 48, ?'),
-    (219, 'In a code language, if ‘GREAT’ is written as ‘HSFBU’, how is ‘SMALL’ written?'),
-    (220, 'Which word can be rearranged to form the name of a fruit? A) LEMON B) MANGO C) ORANGE D) GRAPE'),
     (221, 'If ‘HOUSE’ is written as ‘ITVTF’, how is ‘ROOM’ written in that code?'),
     (222, 'What comes next in the series: 2, 5, 10, 17, 26, ?'),
     (223, 'In a code language, if ‘DOG’ is written as ‘EPH’, how is ‘CAT’ written in that code?'),
@@ -13024,8 +13004,6 @@ INSERT OR IGNORE INTO Logical_Questions (question_id, question_text) VALUES
     (248, 'Find the odd one out: A) Rectangle B) Square C) Circle D) Triangle'),
     (249, 'What comes next in the series: 1, 4, 9, 16, 25, ?'),
     (250, 'In a code language, if ‘TABLE’ is written as ‘UBCMF’, how is ‘CHAIR’ written?'),
-
-
     (251, 'Which word does not belong with the others? A) Apple B) Orange C) Banana D) Carrot'),
     (252, 'What comes next in the sequence: 5, 10, 20, 40, ?'),
     (253, 'In a code language, if ‘CHART’ is written as ‘IDBSU’, how is ‘GRAPH’ written in that code?'),
@@ -13076,7 +13054,6 @@ INSERT OR IGNORE INTO Logical_Questions (question_id, question_text) VALUES
     (298, 'Which of the following is not a mammal? A) Dolphin B) Seal C) Shark D) Penguin'),
     (299, 'Find the odd one out: A) Spring B) Summer C) Autumn D) Morning'),
     (300, 'What comes next in the sequence: 2, 6, 12, 20, 30, ?'),
-
     (301, 'Which word does not belong with the others? A) Chicken B) Duck C) Cow D) Goose'),
     (302, 'What comes next in the sequence: 3, 9, 27, 81, ?'),
     (303, 'In a code language, if ‘HOUSE’ is written as ‘IVTDF’, how is ‘HOME’ written in that code?'),
@@ -13127,7 +13104,6 @@ INSERT OR IGNORE INTO Logical_Questions (question_id, question_text) VALUES
     (348, 'Which of the following is not a mammal? A) Dolphin B) Seal C) Shark D) Penguin'),
     (349, 'Find the odd one out: A) Morning B) Spring C) Summer D) Autumn'),
     (350, 'What comes next in the sequence: 3, 9, 19, 33, ?'),
-
     (351, 'Which number is the odd one out? A) 21 B) 28 C) 35 D) 42'),
     (352, 'If a certain code, ‘EAGLE’ is written as ‘FBHMF’, how is ‘HAWK’ written in that code?'),
     (353, 'What comes next in the sequence: 9, 15, 24, 36, ?'),
@@ -13178,7 +13154,6 @@ INSERT OR IGNORE INTO Logical_Questions (question_id, question_text) VALUES
     (398, 'In a code language, if ‘TIGER’ is written as ‘UJHFS’, how is ‘LEOPARD’ written?'),
     (399, 'Which one of the following does not belong in the group? A) Square B) Circle C) Oval D) Triangle'),
     (400, 'What comes next in the series: 77, 98, 120, 143, ?'),
-
     (401, 'If all the letters in the word "DREAM" are arranged in alphabetical order, which letter will be in the middle?'),
     (402, 'What is the missing number in the sequence: 2, 5, 10, 17, ?'),
     (403, 'Which number should come next in the series: 4, 11, 21, 34, ?'),
@@ -13229,7 +13204,6 @@ INSERT OR IGNORE INTO Logical_Questions (question_id, question_text) VALUES
     (448, 'Which one of the following does not belong in the group? A) Square B) Circle C) Oval D) Rectangle'),
     (449, 'What comes next in the series: 14, 31, 50, 71, ?'),
     (450, 'If a certain code, ‘EARTH’ is written as ‘GBSUI’, how is ‘MARS’ written in that code?'),
-
     (451, 'What is the next number in the sequence: 17, 36, 57, 80, ?'),
     (452, 'In a code language, if ‘TABLE’ is written as ‘XEMJF’, how is ‘CHAIR’ written in that code?'),
     (453, 'Which word does not belong with the others? A) January B) March C) Tuesday D) July'),
@@ -13280,7 +13254,6 @@ INSERT OR IGNORE INTO Logical_Questions (question_id, question_text) VALUES
     (498, 'If all the letters in the word "CHAIR" are arranged in alphabetical order, which letter will be in the middle?'),
     (499, 'Which number should come next in the series: 6, 13, 22, 33, ?'),
     (500, 'Find the odd one out: A) 9 B) 16 C) 25 D) 36'),
-
     (501, 'What is the missing number in the sequence: 4, 7, 12, 19, ?'),
     (502, 'If a certain code, ‘FLOWER’ is written as ‘KQVTGJ’, how is ‘GARDEN’ written in that code?'),
     (503, 'Which word does not belong with the others? A) Potato B) Carrot C) Onion D) Tomato'),
@@ -13331,7 +13304,6 @@ INSERT OR IGNORE INTO Logical_Questions (question_id, question_text) VALUES
     (548, 'If all the letters in the word "CHAIR" are arranged in alphabetical order, which letter will be in the middle?'),
     (549, 'Which number should come next in the series: 6, 13, 22, 33, ?'),
     (550, 'Find the odd one out: A) 9 B) 16 C) 25 D) 36'),
-
     (551, 'What is the missing number in the sequence: 2, 5, 10, 17, ?'),
     (552, 'If a certain code, ‘FRIEND’ is written as ‘KUJQEM’, how is ‘ENEMY’ written in that code?'),
     (553, 'Which word does not belong with the others? A) Oak B) Maple C) Pine D) Cherry'),
@@ -13382,7 +13354,6 @@ INSERT OR IGNORE INTO Logical_Questions (question_id, question_text) VALUES
     (598, 'If all the letters in the word "CHAIR" are arranged in alphabetical order, which letter will be in the middle?'),
     (599, 'Which number should come next in the series: 6, 13, 22, 33, ?'),
     (600, 'Find the odd one out: A) 9 B) 16 C) 25 D) 36'),
-
     (601, 'What number should replace the question mark? 5, 10, 20, 40, ?'),
     (602, 'If a certain code, ‘HOUSE’ is written as ‘LUWVB’, how is ‘GARDEN’ written in that code?'),
     (603, 'Which word does not belong with the others? A) Lion B) Elephant C) Snake D) Tiger'),
@@ -13433,7 +13404,6 @@ INSERT OR IGNORE INTO Logical_Questions (question_id, question_text) VALUES
     (648, 'Which word does not belong with the others? A) Dog B) Cat C) Mouse D) Car'),
     (649, 'What comes next in the sequence: 4, 11, 21, 34, ?'),
     (650, 'If a certain code, ‘WATER’ is written as ‘BDYKB’, how is ‘FIRE’ written in that code?'),
-
     (651, 'What is the next number in the sequence: 5, 12, 22, 35, ?'),
     (652, 'If a certain code, ‘APPLE’ is written as ‘CSRFK’, how is ‘ORANGE’ written in that code?'),
     (653, 'Which word does not belong with the others? A) Horse B) Dog C) Lion D) Cow'),
@@ -13484,7 +13454,6 @@ INSERT OR IGNORE INTO Logical_Questions (question_id, question_text) VALUES
     (698, 'Find the odd one out: A) Tulip B) Lily C) Daisy D) Dog'),
     (699, 'What comes next in the sequence: 6, 15, 28, 45, ?'),
     (700, 'If a certain code, ‘PENCIL’ is written as ‘RGETKU’, how is ‘PEN’ written in that code?'),
-
     (701, 'What is the next number in the sequence: 9, 21, 39, 63, ?'),
     (702, 'If a certain code, ‘APPLE’ is written as ‘CSRFK’, how is ‘ORANGE’ written in that code?'),
     (703, 'Which word does not belong with the others? A) Horse B) Dog C) Lion D) Cow'),
@@ -13535,7 +13504,6 @@ INSERT OR IGNORE INTO Logical_Questions (question_id, question_text) VALUES
     (748, 'Find the odd one out: A) Tulip B) Lily C) Daisy D) Dog'),
     (749, 'What comes next in the sequence: 6, 15, 28, 45, ?'),
     (750, 'If a certain code, ‘PENCIL’ is written as ‘RGETKU’, how is ‘PEN’ written in that code?'),
-
     (751, 'What is the missing number in the sequence: 3, 8, 15, 24, ?'),
     (752, 'If a certain code, ‘APPLE’ is written as ‘BMMRF’, how is ‘ORANGE’ written in that code?'),
     (753, 'Which word does not belong with the others? A) Elephant B) Lion C) Tiger D) Zebra'),
@@ -13586,7 +13554,6 @@ INSERT OR IGNORE INTO Logical_Questions (question_id, question_text) VALUES
     (798, 'Find the odd one out: A) Tulip B) Lily C) Daisy D) Dog'),
     (799, 'What comes next in the sequence: 6, 15, 28, 45, ?'),
     (800, 'If a certain code, ‘PENCIL’ is written as ‘RGETLU’, how is ‘PEN’ written in that code?'),
-
     (801, 'What is the next number in the sequence: 7, 19, 33, 49, ?'),
     (802, 'If a certain code, ‘ELEPHANT’ is written as ‘HOSPKDQG’, how is ‘TIGER’ written in that code?'),
     (803, 'Which word does not belong with the others? A) Pear B) Banana C) Orange D) Cherry'),
@@ -13637,7 +13604,6 @@ INSERT OR IGNORE INTO Logical_Questions (question_id, question_text) VALUES
     (848, 'Find the odd one out: A) Pear B) Mango C) Banana D) Carrot'),
     (849, 'What comes next in the series: 7, 17, 30, 46, ?'),
     (850, 'If a certain code, ‘PENCIL’ is written as ‘RJNHOU’, how is ‘PEN’ written in that code?'),
-
     (851, 'What is the missing number in the sequence: 4, 13, 25, 40, ?'),
     (852, 'If a certain code, ‘DOG’ is written as ‘GRJ’, how is ‘CAT’ written in that code?'),
     (853, 'Which word does not belong with the others? A) Pineapple B) Watermelon C) Lemon D) Orange'),
@@ -13688,7 +13654,6 @@ INSERT OR IGNORE INTO Logical_Questions (question_id, question_text) VALUES
     (898, 'Find the odd one out: A) Pear B) Mango C) Banana D) Carrot'),
     (899, 'What comes next in the series: 7, 17, 30, 46, ?'),
     (900, 'If a certain code, ‘PENCIL’ is written as ‘RJNHOU’, how is ‘PEN’ written in that code?'),
-
     (901, 'What is the missing number in the sequence: 6, 17, 31, 48, ?'),
     (902, 'If a certain code, ‘ZEBRA’ is written as ‘CDXUD’, how is ‘LION’ written in that code?'),
     (903, 'Which word does not belong with the others? A) Blue B) Red C) Yellow D) Green'),
@@ -13739,7 +13704,6 @@ INSERT OR IGNORE INTO Logical_Questions (question_id, question_text) VALUES
     (948, 'Find the odd one out: A) Pear B) Mango C) Banana D) Carrot'),
     (949, 'What comes next in the series: 7, 17, 30, 46, ?'),
     (950, 'If a certain code, ‘PENCIL’ is written as ‘RJNHOU’, how is ‘PEN’ written in that code?'),
-
     (951, 'What is the missing number in the sequence: 10, 23, 39, 58, ?'),
     (952, 'If a certain code, ‘ZEBRA’ is written as ‘EFICD’, how is ‘TIGER’ written in that code?'),
     (953, 'Which word does not belong with the others? A) Heart B) Brain C) Liver D) Bone'),
@@ -14794,7 +14758,8 @@ INSERT OR IGNORE INTO Logical_Options (question_id, option_text, is_correct) VAL
     (200, 'QMBOE', 0),
     (200, 'PMAOD', 0),
     (200, 'QLAOD', 0),
-     (221, 'SPFN', 1),
+    
+    (221, 'SPFN', 1),
     (221, 'TQGO', 0),
     (221, 'URHP', 0),
     (221, 'VSIQ', 0),

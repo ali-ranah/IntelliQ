@@ -38,7 +38,10 @@ const NumericalReasoning = ({ route }) => {
         fetchRandomMCQ();
     }, []);
 
+    const handleBack=()=>{
+        navigation.navigate('Category');
 
+    }
 
     const fetchRandomMCQ = () => {
         setIsFetching(true);
@@ -171,7 +174,7 @@ const NumericalReasoning = ({ route }) => {
                                             marginBottom: '5%',
                                             padding: 10,
                                             marginVertical: 5,
-                                            backgroundColor: selectedOption === key ? 'gray' : '#DDDDDD',
+                                            backgroundColor: selectedOption === key ? '#a0c0ff' : '#DDDDDD',
                                         }}
                                         onPress={() => handleOptionSelect(key)}
                                     >
@@ -181,7 +184,7 @@ const NumericalReasoning = ({ route }) => {
                             ))}
                         </View>
                         <TouchableOpacity
-                            style={styles.btn}
+                            style={styles.nextButton}
                             onPress={handleNextQuestion}
                             disabled={selectedOption === null}
                         >
@@ -189,9 +192,19 @@ const NumericalReasoning = ({ route }) => {
                         </TouchableOpacity>
                     </>
                 ) : testEnded ? (
-<Text style={styles.resultText}>
+                    <View style={styles.container_for_result}>
+                                            <View style={styles.resultContainer}>
+                                                <Text style={styles.resultText}>
     Your score is: {questionScores.reduce((acc, score) => acc + score, 0)} out of 25
 </Text>
+</View>
+<TouchableOpacity
+                                style={styles.nextButton}
+                                onPress={handleBack}
+                            >
+                                <Text style={{ color: 'white' }}>Back</Text>
+                            </TouchableOpacity>
+</View>
                 ) : (
                     console.log('Loading Question')
                 )}

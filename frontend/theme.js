@@ -7,6 +7,13 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
+    container_for_result: {
+        display: 'flex',
+        flexDirection:'column',
+        backgroundColor: 'white',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
     optionButton: {
         backgroundColor: '#f0f0f0',
         padding: 10,
@@ -328,9 +335,9 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     resultContainer: {
-        width: '80%',
+        width: 300,
         height: 70,
-        backgroundColor: '#fb5b5a',
+        backgroundColor: '#007BFF',
         borderRadius: 16,
         justifyContent: 'center',
         alignItems: 'center',
@@ -425,6 +432,20 @@ resultText: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
+    },
+    nextButton: {
+        marginTop: 20,
+        padding: 10,
+        backgroundColor: '#007BFF',
+        width: 120,
+        borderRadius: 5,
+        justifyContent:'center',
+        alignItems: 'center',
+    },
+    nextButtonText: {
+        color: '#FFFFFF',
+        fontSize: 16,
+        fontWeight: 'bold',
     },
     chartContainer: {
         alignItems: 'center',

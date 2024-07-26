@@ -19,9 +19,9 @@ const Test = ({ route }) => {
         navigation.navigate('Category',{ email,isGoogleSignedIn })
     }
 
-    // const handleGeneralTest = () => {
-    //     navigation.navigate('General',{ email,isGoogleSignedIn })
-    // }
+    const handleGeneralTest = () => {
+        navigation.navigate('General',{ email,isGoogleSignedIn })
+    }
 
 
 
@@ -53,9 +53,9 @@ const Test = ({ route }) => {
                 <TouchableOpacity style={styles.btn} onPress={handleIQTest}>
                     <Text style={styles.btn_text}>Start IQ Test</Text>
                 </TouchableOpacity>
-                {/* <TouchableOpacity style={styles.btn} onPress={handleGeneralTest}>
+                <TouchableOpacity style={styles.btn} onPress={handleGeneralTest}>
                     <Text style={styles.btn_text}>Start General Test Practice</Text>
-                </TouchableOpacity> */}
+                </TouchableOpacity>
             </View>
         </>
     );
