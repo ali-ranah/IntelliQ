@@ -1448,15 +1448,95 @@ app.get('/fetch-general/:tableName', async (req, res) => {
 });
 
 
+const fetchRandomQuestionWithOptionsKids = (tableName) => {
+    return new Promise((resolve, reject) => {
+        let query;
+        let optionsQuery;
 
-const calculateIQGeneral = (rawScore, mean, stdDev) => {
+        switch (tableName) {
+            case 'kids_verbal_questions':
+                query = `SELECT * FROM Verbal_Questions_Kids ORDER BY RANDOM() LIMIT 1;`;
+                optionsQuery = `SELECT * FROM Verbal_Options WHERE question_id = ?;`;
+                break;
+            case 'kids_numerical_questions':
+                query = `SELECT * FROM numerical_reasoning_questions_kids ORDER BY RANDOM() LIMIT 1;`;
+                break;
+            case 'kids_image_questions':
+                query = `SELECT * FROM Kids_Image_Questions ORDER BY RANDOM() LIMIT 1;`;
+                optionsQuery = `SELECT * FROM Kids_Image_Options WHERE question_id = ?;`;
+                break;
+            case 'kids_logical_questions':
+                query = `SELECT * FROM Logical_Questions_Kids ORDER BY RANDOM() LIMIT 1;`;
+                break;
+            default:
+                return reject(`Unsupported table name: ${tableName}`);
+        }
+
+        db.get(query, (err, questionRow) => {
+            if (err) {
+                console.error(`Error fetching random question from ${tableName}:`, err);
+                reject(err);
+            } else if (questionRow) {
+                const questionId = questionRow.id || questionRow.question_id; // Adjusted to handle different ID names
+                if (optionsQuery) {
+                    db.all(optionsQuery, [questionId], (err, optionRows) => {
+                        if (err) {
+                            console.error(`Error fetching options for question ${questionId} from ${tableName}:`, err);
+                            reject(err);
+                        } else {
+                            resolve({ question: questionRow, options: optionRows });
+                        }
+                    });
+                } else {
+                    // For tables like numerical_reasoning_questions_kids with options in the same table
+                    const { id, question_text, correct_answer, option_a, option_b, option_c, option_d } = questionRow;
+                    const options = [
+                        { option_id: 1, option_text: option_a, is_correct: correct_answer === option_a },
+                        { option_id: 2, option_text: option_b, is_correct: correct_answer === option_b },
+                        { option_id: 3, option_text: option_c, is_correct: correct_answer === option_c },
+                        { option_id: 4, option_text: option_d, is_correct: correct_answer === option_d }
+                    ];
+                    resolve({ question: { id, question_text }, options });
+                }
+            } else {
+                reject(`No questions available in ${tableName}`);
+            }
+        });
+    });
+};
+
+// Endpoint controller function
+app.get('/fetch-general-kids/:tableName', async (req, res) => {
+    const { tableName } = req.params;
+
+    try {
+        const { question, options } = await fetchRandomQuestionWithOptionsKids(tableName);
+
+        // Prepare response object
+        const response = {
+            question,
+            options
+        };
+
+        console.log(`Fetched random question from ${tableName}:`, response);
+        res.json(response);
+    } catch (error) {
+        console.error(`Error fetching random question from ${tableName}:`, error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+
+
+
+const calculateIQSpecific = (rawScore, mean, stdDev) => {
     const zScore = (rawScore - mean) / stdDev;
     const iq = 100 + (zScore * 15);
     return iq;
   };
 
 
-  app.post('/calculate-IQ-General', (req, res) => {
+  app.post('/calculate-IQ-Specific', (req, res) => {
     const { score } = req.body;
 
     console.log('Score Being Passed inside body to iq controller', score);
@@ -1473,11 +1553,117 @@ const calculateIQGeneral = (rawScore, mean, stdDev) => {
 
 
     // Calculate IQ
-    const iq = calculateIQGeneral(rawScore, mean, stdDev);
+    const iq = calculateIQSpecific(rawScore, mean, stdDev);
 
         return res.status(200).json({ iq });
 });
 
+
+
+
+
+const calculateIQGeneral = (rawScores, means, stdDevs) => {
+    // Calculate Z-Scores for each category
+    const zScores = rawScores.map((score, index) => {
+      return (score - means[index]) / stdDevs[index];
+    });
+  
+    // Calculate combined Z-Score (average)
+    const zCombined = zScores.reduce((sum, z) => sum + z, 0) / zScores.length;
+  
+    // Convert to IQ
+    const iq = 100 + (zCombined * 15);
+  
+    return iq;
+};
+
+// Calculate IQ API Endpoint
+app.post('/calculate-IQ-General', (req, res) => {
+    const { totalScore } = req.body;
+
+    console.log('Scores Being Passed inside body to iq controller', totalScore);
+
+    // Ensure totalScore is an object with required properties
+    if (typeof totalScore !== 'object' || !totalScore) {
+        return res.status(400).json({ error: 'totalScore must be an object containing scores for each category' });
+    }
+
+    // Extract scores from the totalScore object
+    const rawScores = [
+        parseFloat(totalScore.Verbal_Questions) || 0,
+        parseFloat(totalScore.numerical_reasoning_questions) || 0,
+        parseFloat(totalScore.Image_Questions) || 0,
+        parseFloat(totalScore.Logical_Questions) || 0
+    ];
+
+    // Ensure all scores are numbers
+    if (rawScores.some(isNaN)) {
+        return res.status(400).json({ error: 'All scores must be valid numbers' });
+    }
+
+    // Define means and standard deviations
+    const means = [15, 18, 15, 10]; // Adjust means based on your categories
+    const stdDevs = [3, 4, 3, 2]; // Adjust stdDevs based on your categories
+
+    // Calculate IQ
+    const iq = calculateIQGeneral(rawScores, means, stdDevs);
+
+    // Check if age is less than or equal to 14
+   
+        return res.status(200).json({ iq });
+});
+
+
+// const calculateIQ = (rawScores, means, stdDevs) => {
+//     // Calculate Z-Scores for each category
+//     const zScores = rawScores.map((score, index) => {
+//       return (score - means[index]) / stdDevs[index];
+//     });
+  
+//     // Calculate combined Z-Score (average)
+//     const zCombined = zScores.reduce((sum, z) => sum + z, 0) / zScores.length;
+  
+//     // Convert to IQ
+//     const iq = 100 + (zCombined * 15);
+  
+//     return iq;
+//   };
+  
+
+// app.post('/calculate-IQ', (req, res) => {
+//     const { email, verbal_reasoning, logical, numerical_reasoning, abstract_reasoning, age } = req.body;
+//     const timestamp = new Date().toLocaleString();
+
+//     console.log('Scores Being Passed inside body to iq controller', abstract_reasoning, logical, numerical_reasoning, verbal_reasoning);
+
+//     // Check if all scores are provided
+//     if (verbal_reasoning === undefined || logical === undefined || numerical_reasoning === undefined || abstract_reasoning === undefined) {
+//         return res.status(400).json({ error: 'All scores are required' });
+//     }
+
+//     // Convert scores to float
+//     const rawScores = [parseFloat(verbal_reasoning), parseFloat(logical), parseFloat(numerical_reasoning), parseFloat(abstract_reasoning)];
+//     const means = [15, 10, 18, 15];
+//     const stdDevs = [3, 2, 4, 3];
+
+//     // Calculate IQ
+//     const iq = calculateIQ(rawScores, means, stdDevs);
+
+//     // Check if age is less than or equal to 14
+//     if (age <= 14) {
+//         return res.status(200).json({ message: 'Scores not saved for age below or equal to 14',iq });
+//     }
+
+//     // Otherwise, save the scores and IQ
+//     const query = `INSERT INTO iq_scores (email, verbal_reasoning, logical, numerical_reasoning, abstract_reasoning, timestamp, iq) VALUES (?, ?, ?, ?, ?, ?, ?)`;
+//     db.run(query, [email, verbal_reasoning, logical, numerical_reasoning, abstract_reasoning, timestamp, iq], (err) => {
+//         if (err) {
+//             console.error('Error storing IQ score:', err);
+//             return res.status(500).json({ error: 'Failed to store IQ score' });
+//         }
+//         return res.status(200).json({ iq });
+//     });
+// });
 
 
 const calculateIQ = (rawScores, means, stdDevs) => {
@@ -1493,36 +1679,48 @@ const calculateIQ = (rawScores, means, stdDevs) => {
     const iq = 100 + (zCombined * 15);
   
     return iq;
-  };
-  
+};
 
+// Calculate IQ API Endpoint
 app.post('/calculate-IQ', (req, res) => {
-    const { email, verbal_reasoning, logical, numerical_reasoning, abstract_reasoning, age } = req.body;
+    const { email, totalScore, age } = req.body;
     const timestamp = new Date().toLocaleString();
 
-    console.log('Scores Being Passed inside body to iq controller', abstract_reasoning, logical, numerical_reasoning, verbal_reasoning);
+    console.log('Scores Being Passed inside body to iq controller', totalScore);
 
-    // Check if all scores are provided
-    if (verbal_reasoning === undefined || logical === undefined || numerical_reasoning === undefined || abstract_reasoning === undefined) {
-        return res.status(400).json({ error: 'All scores are required' });
+    // Ensure totalScore is an object with required properties
+    if (typeof totalScore !== 'object' || !totalScore) {
+        return res.status(400).json({ error: 'totalScore must be an object containing scores for each category' });
     }
 
-    // Convert scores to float
-    const rawScores = [parseFloat(verbal_reasoning), parseFloat(logical), parseFloat(numerical_reasoning), parseFloat(abstract_reasoning)];
-    const means = [15, 10, 18, 15];
-    const stdDevs = [3, 2, 4, 3];
+    // Extract scores from the totalScore object
+    const rawScores = [
+        parseFloat(totalScore.Verbal_Questions) || 0,
+        parseFloat(totalScore.numerical_reasoning_questions) || 0,
+        parseFloat(totalScore.Image_Questions) || 0,
+        parseFloat(totalScore.Logical_Questions) || 0
+    ];
+
+    // Ensure all scores are numbers
+    if (rawScores.some(isNaN)) {
+        return res.status(400).json({ error: 'All scores must be valid numbers' });
+    }
+
+    // Define means and standard deviations
+    const means = [15, 18, 15, 10]; // Adjust means based on your categories
+    const stdDevs = [3, 4, 3, 2]; // Adjust stdDevs based on your categories
 
     // Calculate IQ
     const iq = calculateIQ(rawScores, means, stdDevs);
 
     // Check if age is less than or equal to 14
     if (age <= 14) {
-        return res.status(200).json({ message: 'Scores not saved for age below or equal to 14',iq });
+        return res.status(200).json({ message: 'Scores not saved for age below or equal to 14', iq });
     }
 
     // Otherwise, save the scores and IQ
-    const query = `INSERT INTO iq_scores (email, verbal_reasoning, logical, numerical_reasoning, abstract_reasoning, timestamp, iq) VALUES (?, ?, ?, ?, ?, ?, ?)`;
-    db.run(query, [email, verbal_reasoning, logical, numerical_reasoning, abstract_reasoning, timestamp, iq], (err) => {
+    const query = `INSERT INTO iq_scores (email, verbal_reasoning, numerical_reasoning, abstract_reasoning, logical, timestamp, iq) VALUES (?, ?, ?, ?, ?, ?, ?)`;
+    db.run(query, [email, ...rawScores, timestamp, iq], (err) => {
         if (err) {
             console.error('Error storing IQ score:', err);
             return res.status(500).json({ error: 'Failed to store IQ score' });
@@ -1534,28 +1732,44 @@ app.post('/calculate-IQ', (req, res) => {
 
 // API endpoint for calculating and storing IQ scores for Google users
 app.post('/calculate-IQ-google', (req, res) => {
-    const { email,verbal_reasoning, logical, numerical_reasoning, abstract_reasoning,age } = req.body;
+    const { email, totalScore, age } = req.body;
     const timestamp = new Date().toLocaleString();
 
-    
-    console.log('Scores being passed in body to IQ Controller',abstract_reasoning, logical,numerical_reasoning, verbal_reasoning)
-  
-    if (verbal_reasoning === undefined || logical === undefined || numerical_reasoning === undefined || abstract_reasoning === undefined) {
-        return res.status(400).json({ error: 'All scores are required' });
-    }
-  
-    const rawScores = [parseFloat(verbal_reasoning), parseFloat(logical), parseFloat(numerical_reasoning), parseFloat(abstract_reasoning)];
-    const means = [15, 10, 18, 15];
-    const stdDevs = [3, 2, 4, 3];
+    console.log('Scores Being Passed inside body to iq controller', totalScore);
 
+    // Ensure totalScore is an object with required properties
+    if (typeof totalScore !== 'object' || !totalScore) {
+        return res.status(400).json({ error: 'totalScore must be an object containing scores for each category' });
+    }
+
+    // Extract scores from the totalScore object
+    const rawScores = [
+        parseFloat(totalScore.Verbal_Questions) || 0,
+        parseFloat(totalScore.numerical_reasoning_questions) || 0,
+        parseFloat(totalScore.Image_Questions) || 0,
+        parseFloat(totalScore.Logical_Questions) || 0
+    ];
+
+    // Ensure all scores are numbers
+    if (rawScores.some(isNaN)) {
+        return res.status(400).json({ error: 'All scores must be valid numbers' });
+    }
+
+    // Define means and standard deviations
+    const means = [15, 18, 15, 10]; // Adjust means based on your categories
+    const stdDevs = [3, 4, 3, 2]; // Adjust stdDevs based on your categories
+
+    // Calculate IQ
     const iq = calculateIQ(rawScores, means, stdDevs);
 
+    // Check if age is less than or equal to 14
     if (age <= 14) {
-        return res.status(200).json({ message: 'Scores not saved for age below or equal to 14',iq });
+        return res.status(200).json({ message: 'Scores not saved for age below or equal to 14', iq });
     }
-  
+
+    // Otherwise, save the scores and IQ
     const query = `INSERT INTO iq_scores_google (email, verbal_reasoning, logical, numerical_reasoning, abstract_reasoning,timestamp,iq) VALUES (?, ?, ?, ?, ?, ?, ?)`;
-    db.run(query, [email, verbal_reasoning, logical, numerical_reasoning, abstract_reasoning,timestamp,iq], (err) => {
+    db.run(query, [email, ...rawScores, timestamp, iq], (err) => {
         if (err) {
             console.error('Error storing IQ score:', err);
             return res.status(500).json({ error: 'Failed to store IQ score' });

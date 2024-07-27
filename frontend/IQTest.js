@@ -16,7 +16,7 @@ const Test = ({ route }) => {
 
 
     const handleIQTest = () => {
-        navigation.navigate('Category',{ email,isGoogleSignedIn })
+        navigation.navigate('TestSelection',{ email,isGoogleSignedIn })
     }
 
     const handleGeneralTest = () => {

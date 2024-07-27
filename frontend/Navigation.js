@@ -24,6 +24,7 @@ import NumericalReasoning from './src/Components/Categories/NumericalReasoning';
 import Logical from './src/Components/Categories/Logical';
 import IQScoresChart from './src/Components/IQScoresChart/IQScoresChart';
 import GeneralTest from './src/Components/GeneralTest/GeneralTest';
+import TestSelection from './src/Components/TestSelection/TestSelection';
 
 const Stack = createStackNavigator();
 
@@ -51,6 +52,7 @@ const Navigation = () => {
         <Stack.Screen name="verbal_reasoning" component={VerbalReasoning} options={{ headerShown: false }} />
         <Stack.Screen name="numerical_reasoning" component={NumericalReasoning} options={{ headerShown: false }} />
         <Stack.Screen name="Category" component={Category} options={{ headerShown: false }} />
+        <Stack.Screen name="TestSelection" component={TestSelection} options={{ headerShown: false }} />
         <Stack.Screen name="General" component={GeneralTest} options={{ headerShown: false }} />
         <Stack.Screen name="Loading" component={Loading} options={{ headerShown: false }} />
         <Stack.Screen name="Logout" component={Logout} options={{ headerShown: false }} />
