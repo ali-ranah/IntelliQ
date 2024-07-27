@@ -443,7 +443,8 @@ const Category = ({ route }) => {
       setTestEnded(true);
       try {
           setIsLoading(true);
-          const response = await API_URL.post('/calculate-IQ', {
+          const endpoint = isGoogleSignedIn ? '/calculate-IQ-google' : '/calculate-IQ'
+          const response = await API_URL.post(endpoint, {
             email:email,
             totalScore: totalScore,
             age: parseInt(inputAge, 10)

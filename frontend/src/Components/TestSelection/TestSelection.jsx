@@ -10,9 +10,10 @@ const TestSelection = ({route}) => {
 
   return (
     <View style={styles.container}>
+      <View></View>
       <TouchableOpacity
         style={styles.btn}
-        onPress={() => navigation.navigate('SpecificTest')}
+        onPress={() => navigation.navigate('SpecificTest',{ email,isGoogleSignedIn })}
       >
         <Text style={styles.btn_text}>Specific Test</Text>
       </TouchableOpacity>

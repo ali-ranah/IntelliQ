@@ -100,9 +100,9 @@ const styles = StyleSheet.create({
     },
     card: {
         display:'flex',
-        flexDirection: 'row',
+        flexDirection: 'column',
         justifyContent:'space-between',
-        width: '46%',
+        width: 200,
         height: 100,
         backgroundColor: '#fb5b5a',
         borderRadius: 10,
@@ -474,6 +474,16 @@ resultText: {
     screen_title: {
         fontWeight: "bold",
         fontSize: 40,
+        justifyContent: 'center',
+        alignContent: 'center',
+        color: "#fb5b5a",
+        marginBottom: 10,
+        marginTop: '10%',
+
+    },
+    specific_title: {
+        fontWeight: "bold",
+        fontSize: 30,
         justifyContent: 'center',
         alignContent: 'center',
         color: "#fb5b5a",

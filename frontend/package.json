@@ -43,7 +43,7 @@
     "semver": "^7.5.4"
   },
   "scripts": {
-    "start": "concurrently \"npm run start-server\" \"npx expo start\"",
+    "start": "npx expo start",
     "start-server": "node server.js",
     "android": "expo run:android",
     "ios": "expo run:ios"
