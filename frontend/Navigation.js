@@ -26,6 +26,7 @@ import IQScoresChart from './src/Components/IQScoresChart/IQScoresChart';
 import GeneralTest from './src/Components/GeneralTest/GeneralTest';
 import TestSelection from './src/Components/TestSelection/TestSelection';
 import SpecificTest from './src/Components/SpecificTest/SpecificTest';
+import GeneralPractice from './src/Components/GeneralPractice/GeneralPractice';
 
 const Stack = createStackNavigator();
 
@@ -56,6 +57,7 @@ const Navigation = () => {
         <Stack.Screen name="Category" component={Category} options={{ headerShown: false }} />
         <Stack.Screen name="TestSelection" component={TestSelection} options={{ headerShown: false }} />
         <Stack.Screen name="General" component={GeneralTest} options={{ headerShown: false }} />
+        <Stack.Screen name="GeneralPractice" component={GeneralPractice} options={{ headerShown: false }} />
         <Stack.Screen name="Loading" component={Loading} options={{ headerShown: false }} />
         <Stack.Screen name="Logout" component={Logout} options={{ headerShown: false }} />
       </Stack.Navigator>

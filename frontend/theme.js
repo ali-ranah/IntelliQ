@@ -488,7 +488,17 @@ resultText: {
         alignContent: 'center',
         color: "#fb5b5a",
         marginBottom: 10,
-        marginTop: '10%',
+        marginTop: '20%',
+
+    },
+    score_title: {
+        fontWeight: "bold",
+        fontSize: 30,
+        justifyContent: 'center',
+        alignContent: 'center',
+        color: "#fb5b5a",
+        marginBottom: 10,
+        marginTop: '50%',
 
     },
     IQScoreText: {

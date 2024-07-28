@@ -10,6 +10,7 @@ import { useNavigation } from '@react-navigation/native';
 const NumericalReasoning = ({ route }) => {
     const email = route.params ? route.params.email : 'No email provided';
     const isGoogleSignedIn = route.params ? route.params.isGoogleSignedIn : 'Not Signed In';
+    const generalTest = route.params? route.params.generalTest : false;
     const [mcqData, setMCQData] = useState(null);
     const [selectedOption, setSelectedOption] = useState(null);
     const [iq, setIQ] = useState(null);
@@ -116,7 +117,14 @@ const NumericalReasoning = ({ route }) => {
     const sendScore = async (score) => {
         setIsFetching(true);
         try {
-            const endpoint = isGoogleSignedIn ? '/calculate-IQ-Specific-google' : '/calculate-IQ-Specific';
+            let endpoint;
+
+            if (generalTest) {
+                endpoint = isGoogleSignedIn ? '/calculate-IQ-Specific-Practice-google' : '/calculate-IQ-Specific-Practice';
+            } else {
+                endpoint = isGoogleSignedIn ? '/calculate-IQ-Specific-google' : '/calculate-IQ-Specific';
+            }
+            console.log('Iq endpoint choosen',endpoint)
             const response = await API_URL.post(endpoint, {
                 score:score,
                 category: 'numerical',

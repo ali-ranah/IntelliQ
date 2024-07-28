@@ -7,7 +7,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 
 const VerbalReasoning = ({ route }) => {
-    const { email, isGoogleSignedIn, userAge } = route.params || {};
+    const { email, isGoogleSignedIn, userAge,generalTest} = route.params || {};
     const [mcqData, setMCQData] = useState(null);
     const [selectedOption, setSelectedOption] = useState(null);
     const [iq, setIQ] = useState(null);
@@ -135,7 +135,14 @@ const VerbalReasoning = ({ route }) => {
     const sendScore = async (score) => {
         setIsFetching(true);
         try {
-            const endpoint = isGoogleSignedIn ? '/calculate-IQ-Specific-google' : '/calculate-IQ-Specific';
+            let endpoint;
+
+            if (generalTest) {
+                endpoint = isGoogleSignedIn ? '/calculate-IQ-Specific-Practice-google' : '/calculate-IQ-Specific-Practice';
+            } else {
+                endpoint = isGoogleSignedIn ? '/calculate-IQ-Specific-google' : '/calculate-IQ-Specific';
+            }
+            console.log('Iq endpoint choosen',endpoint)
             const response = await API_URL.post(endpoint, {
                 score,
                 category: 'verbal',

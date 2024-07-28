@@ -28,7 +28,7 @@ const SignUp = () => {
     const [googleName, setGoogleName] = useState('');
 
     GoogleSignin.configure({
-        webClientId: '461073606547-r8he1hgd9sivv78md8kerh248crghk4u.apps.googleusercontent.com', 
+        androidClientId: '461073606547-m953lmaap165ev8frka3a5id5ejtqmco.apps.googleusercontent.com', 
     });
 
     const onPressSignUp = async () => {

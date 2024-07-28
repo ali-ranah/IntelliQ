@@ -13,6 +13,8 @@ const IQScoresChart = ({ route }) => {
   const [averageScores, setAverageScores] = useState({});
   const [averageIq, setAverageIq] = useState(0);
   const [recentIq, setRecentIq] = useState(0);
+  const [topIQ, setTopIQ] = useState(0);
+  const [specificCategoryIq, setSpecificCategoryIq] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const email = route.params ? route.params.email : 'No email provided';
   const name = route.params ? route.params.name : 'No name provided';
@@ -32,6 +34,8 @@ const IQScoresChart = ({ route }) => {
           setAverageScores(data.averageScores);
           setRecentIq(data.recentIq);
           setAverageIq(data.averageIq);
+          setTopIQ(data.topIq);
+          setSpecificCategoryIq(data.specificCategoryIq);
         } else {
           throw new Error('No Data Found');
         }
@@ -61,36 +65,22 @@ const IQScoresChart = ({ route }) => {
     return <Text style={styles.noDataText}>No Data Available</Text>;
   }
 
+  const findCategoryIq = (category) => {
+    const categoryIq = specificCategoryIq.find(item => item.category === category);
+    return categoryIq ? parseFloat(categoryIq.iq.toFixed(2)) : 0; // Fix to 2 decimal places
+  };
+
   const pieData = [
-    { name: 'Verbal', score: averageScores.verbalReasoning.obtained },
-    { name: 'Logical', score: averageScores.logical.obtained },
-    { name: 'Numerical', score: averageScores.numericalReasoning.obtained },
-    { name: 'Abstract', score: averageScores.abstractReasoning.obtained }
+    { name: 'IQ in Verbal', score: findCategoryIq('verbal_reasoning')},
+    { name: 'IQ in Logical', score: findCategoryIq('logical') },
+    { name: 'IQ in Numerical', score: findCategoryIq('numerical_reasoning') },
+    { name: 'IQ in Abstract', score: findCategoryIq('abstract_reasoning') }
   ].map((data, index) => ({
     ...data,
     color: `rgba(0, 0, 255, ${1 - index / 4})`,
     legendFontColor: '#7F7F7F',
-    legendFontSize: 15,
+    legendFontSize: 12,
   }));
-
-  const additionalData = [
-    {
-      label: 'Total Obtained Score in Verbal',
-      data: [averageScores.verbalReasoning.obtained],
-    },
-    {
-      label: 'Total Obtained Score in Logical',
-      data: [averageScores.logical.obtained],
-    },
-    {
-      label: 'Total Obtained Score in Numerical',
-      data: [averageScores.numericalReasoning.obtained],
-    },
-    {
-      label: 'Total Obtained Score in Abstract',
-      data: [averageScores.abstractReasoning.obtained],
-    },
-  ];
 
   const chartConfig = {
     backgroundColor: '#ffffff',
@@ -109,7 +99,9 @@ const IQScoresChart = ({ route }) => {
     },
     labelRotation: 45, // Rotate labels by 45 degrees
   };
- 
+
+  const topIq = Math.max(...iqScores.map(score => score.iq));
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <Text style={styles.screen_title}>{name ? name : 'User'} IQ Scores</Text>
@@ -130,28 +122,22 @@ const IQScoresChart = ({ route }) => {
           <View style={styles.chartContainer}>
             <LineChart
               data={{
-                labels: ['Verbal', 'Logical', 'Numerical', 'Abstract'],
+                labels: ['IQ in Verbal', 'IQ in Logical', 'IQ in Numerical', 'IQ in Abstract'],
                 datasets: [
                   {
                     data: [
-                      averageScores.verbalReasoning.obtained,
-                      averageScores.logical.obtained,
-                      averageScores.numericalReasoning.obtained,
-                      averageScores.abstractReasoning.obtained
+                      findCategoryIq('verbal_reasoning'),
+                      findCategoryIq('logical'),
+                      findCategoryIq('numerical_reasoning'),
+                      findCategoryIq('abstract_reasoning')
                     ],
                     strokeWidth: 2,
                     color: (opacity = 1) => `rgba(0, 0, 255, ${opacity})`, // Blue color for lineData
                     label: 'IQ Scores',
-                  },
-                  ...additionalData.map((data, index) => ({
-                    data: [data.data[0]],
-                    strokeWidth: 2,
-                    color: (opacity = 1) => `rgba(255, 165, 0, ${opacity})`, // Orange color for additionalData
-                    label: data.label,
-                  })),
+                  }
                 ],
               }}
-              width={additionalData.length * 120} // Adjust width based on additional data length
+              width={screenWidth * 2} // Adjust width based on additional data length
               height={220}
               chartConfig={chartConfig}
               bezier
@@ -162,11 +148,11 @@ const IQScoresChart = ({ route }) => {
           </View>
         </ScrollView>
       </View>
-      <Text style={styles.IQScoreText}>Recent IQ : {recentIq.toFixed(2)}</Text>
-      <Text style={styles.IQScoreText}>Total Test Attempted : {averageScores.count-1}</Text>
+      <Text style={styles.IQScoreText}>Top IQ Ever: {topIQ.toFixed(2)}</Text>
+      <Text style={styles.IQScoreText}>Recent IQ: {recentIq.toFixed(2)}</Text>
+      <Text style={styles.IQScoreText}>Average IQ: {averageIq.toFixed(2)}</Text>
     </ScrollView>
   );
 };
 
 export default IQScoresChart;
-

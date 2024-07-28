@@ -1091,9 +1091,9 @@ app.get('/top-scores/:email', async (req, res) => {
         const userId = userData.id;
         const userName = userData.name;
 
-        // Fetch top 5 scores for the user from the scores table
+        // Fetch top 5 IQ scores for the user
         const topScores = await new Promise((resolve, reject) => {
-            db.all('SELECT * FROM scores WHERE user_id = ? ORDER BY score DESC LIMIT 5', userId, (err, rows) => {
+            db.all('SELECT iq, timestamp FROM iq_scores WHERE email = ? ORDER BY iq DESC LIMIT 5', [email], (err, rows) => {
                 if (err) {
                     reject(err);
                 } else {
@@ -1101,17 +1101,20 @@ app.get('/top-scores/:email', async (req, res) => {
                 }
             });
         });
-        const Scoresdata = topScores.map(score => ({ ...score, userName }));
 
-        res.json(Scoresdata);
-        console.log('User ID:', userId);
-        console.log('User Name:', userName);
-        console.log('Top Scores:', Scoresdata);
+        if (!topScores || topScores.length === 0) {
+            res.status(404).json({ error: 'No scores found' });
+        } else {
+            res.json({ userName, topScores });
+        }
+
     } catch (error) {
         console.error('Error fetching top scores:', error);
         res.status(500).json({ message: 'Internal server error' });
     }
 });
+
+
 
 app.get('/top-scores-google/:email', async (req, res) => {
     const { email } = req.params;
@@ -1135,9 +1138,9 @@ app.get('/top-scores-google/:email', async (req, res) => {
         const userId = userData.id;
         const userName = userData.name;
 
-        // Fetch top 5 scores for the user from the scores table
+        // Fetch top 5 IQ scores for the user
         const topScores = await new Promise((resolve, reject) => {
-            db.all('SELECT * FROM google_scores WHERE user_id = ? ORDER BY score DESC LIMIT 5', userId, (err, rows) => {
+            db.all('SELECT iq, timestamp FROM iq_scores_google WHERE email = ? ORDER BY iq DESC LIMIT 5', [email], (err, rows) => {
                 if (err) {
                     reject(err);
                 } else {
@@ -1145,12 +1148,13 @@ app.get('/top-scores-google/:email', async (req, res) => {
                 }
             });
         });
-        const Scoresdata = topScores.map(score => ({ ...score, userName }));
 
-        res.json(Scoresdata);
-        console.log('User ID:', userId);
-        console.log('User Name:', userName);
-        console.log('Top Scores:', Scoresdata);
+        if (!topScores || topScores.length === 0) {
+            res.status(404).json({ error: 'No scores found' });
+        } else {
+            res.json({ userName, topScores });
+        }
+
     } catch (error) {
         console.error('Error fetching top scores:', error);
         res.status(500).json({ message: 'Internal server error' });
@@ -1160,6 +1164,7 @@ app.get('/recent-score/:email', async (req, res) => {
     const { email } = req.params;
 
     try {
+        // Fetch user details
         const userData = await new Promise((resolve, reject) => {
             db.get('SELECT id, name FROM registered_accounts WHERE email = ?', [email], (err, row) => {
                 if (err) {
@@ -1178,9 +1183,9 @@ app.get('/recent-score/:email', async (req, res) => {
         const userId = userData.id;
         const userName = userData.name;
 
-        // Fetch the most recent score for the user from the scores table
+        // Fetch the most recent IQ score for the user
         const recentScore = await new Promise((resolve, reject) => {
-            db.get('SELECT * FROM scores WHERE user_id = ? ORDER BY id DESC LIMIT 1', userId, (err, row) => {
+            db.get('SELECT verbal_reasoning, logical, numerical_reasoning, abstract_reasoning, iq, timestamp FROM iq_scores WHERE email = ? ORDER BY id DESC LIMIT 1', [email], (err, row) => {
                 if (err) {
                     reject(err);
                 } else {
@@ -1190,9 +1195,9 @@ app.get('/recent-score/:email', async (req, res) => {
         });
 
         if (!recentScore) {
-            res.status(404).json({ error: 'Scores not found' });;
+            res.status(404).json({ error: 'Scores not found' });
         } else {
-            res.json({ userName, score: recentScore.score });
+            res.json({ userName, score: recentScore.iq,timestamp : recentScore.timestamp});
         }
 
         console.log('User ID:', userId);
@@ -1205,51 +1210,52 @@ app.get('/recent-score/:email', async (req, res) => {
 });
 
 app.get('/recent-score-google/:email', async (req, res) => {
-    const { email } = req.params;
-
-    try {
-        const userData = await new Promise((resolve, reject) => {
-            db.get('SELECT id, name FROM registered_accounts_with_google WHERE email = ?', [email], (err, row) => {
-                if (err) {
-                    reject(err);
-                } else {
-                    resolve(row);
-                }
+        const { email } = req.params;
+    
+        try {
+            // Fetch user details
+            const userData = await new Promise((resolve, reject) => {
+                db.get('SELECT id, name FROM registered_accounts_with_google WHERE email = ?', [email], (err, row) => {
+                    if (err) {
+                        reject(err);
+                    } else {
+                        resolve(row);
+                    }
+                });
             });
-        });
-
-        if (!userData) {
-            res.status(404).json({ error: 'User not found' });
-            return;
-        }
-
-        const userId = userData.id;
-        const userName = userData.name;
-
-        // Fetch the most recent score for the user from the scores table
-        const recentScore = await new Promise((resolve, reject) => {
-            db.get('SELECT * FROM google_scores WHERE user_id = ? ORDER BY id DESC LIMIT 1', userId, (err, row) => {
-                if (err) {
-                    reject(err);
-                } else {
-                    resolve(row);
-                }
+    
+            if (!userData) {
+                res.status(404).json({ error: 'User not found' });
+                return;
+            }
+    
+            const userId = userData.id;
+            const userName = userData.name;
+    
+            // Fetch the most recent IQ score for the user
+            const recentScore = await new Promise((resolve, reject) => {
+                db.get('SELECT verbal_reasoning, logical, numerical_reasoning, abstract_reasoning, iq, timestamp FROM iq_scores_google WHERE email = ? ORDER BY id DESC LIMIT 1', [email], (err, row) => {
+                    if (err) {
+                        reject(err);
+                    } else {
+                        resolve(row);
+                    }
+                });
             });
-        });
-
-        if (!recentScore) {
-            res.status(404).json({ error: 'Scores not found' });;
-        } else {
-            res.json({ userName, score: recentScore.score });
-        }
-
-        console.log('User ID:', userId);
-        console.log('User Name:', userName);
-        console.log('Recent Score:', recentScore);
-    } catch (error) {
-        console.error('Error fetching recent score:', error);
-        res.status(500).json({ message: 'Internal server error' });
-    }
+    
+            if (!recentScore) {
+                res.status(404).json({ error: 'Scores not found' });
+            } else {
+                res.json({ userName, score: recentScore.iq,timestamp : recentScore.timestamp  });
+            }
+    
+            console.log('User ID:', userId);
+            console.log('User Name:', userName);
+            console.log('Recent Score:', recentScore);
+        } catch (error) {
+            console.error('Error fetching recent score:', error);
+            res.status(500).json({ message: 'Internal server error' });
+        }    
 });
 
 app.get('/user-age/:email', (req, res) => {
@@ -1571,7 +1577,7 @@ app.post('/calculate-IQ-Specific', (req, res) => {
 
     // Save the scores to the database
     const query = `INSERT INTO iq_scores (email, verbal_reasoning, numerical_reasoning, abstract_reasoning, logical, timestamp, iq) VALUES (?, ?, ?, ?, ?, ?, ?)`;
-    const timestamp = new Date().toISOString();
+    const timestamp = new Date().toLocaleString();
 
     db.run(query, [email, scores.verbal_reasoning, scores.numerical_reasoning, scores.abstract_reasoning, scores.logical, timestamp, iq], function(err) {
         if (err) {
@@ -1581,6 +1587,97 @@ app.post('/calculate-IQ-Specific', (req, res) => {
 
         return res.status(200).json({ iq });
     });
+});
+
+
+app.post('/calculate-IQ-Specific-Practice', (req, res) => {
+    const { score, category} = req.body;
+
+    console.log('Score being passed inside body to IQ controller', score);
+    console.log('Category being passed inside body to IQ controller', category);
+
+    // Check if score, category, and email are provided
+    if (score === undefined || !category) {
+        return res.status(400).json({ error: 'Score and category are required' });
+    }
+
+    // Convert score to float
+    const rawScore = parseFloat(score);
+
+    // Set mean and standard deviation based on the category
+    let mean;
+    let stdDev;
+    switch (category.toLowerCase()) {
+        case 'verbal':
+            mean = 15;
+            stdDev = 3;
+            break;
+        case 'numerical':
+            mean = 18;
+            stdDev = 4;
+            break;
+        case 'abstract':
+            mean = 15;
+            stdDev = 3;
+            break;
+        case 'logical':
+            mean = 10;
+            stdDev = 2;
+            break;
+        default:
+            return res.status(400).json({ error: 'Invalid category' });
+    }
+
+    // Calculate IQ
+    const iq = calculateIQSpecific(rawScore, mean, stdDev);
+
+
+        return res.status(200).json({ iq });
+});
+
+app.post('/calculate-IQ-Specific-Practice-google', (req, res) => {
+    const { score, category} = req.body;
+
+    console.log('Score being passed inside body to IQ controller', score);
+    console.log('Category being passed inside body to IQ controller', category);
+
+    // Check if score, category, and email are provided
+    if (score === undefined || !category) {
+        return res.status(400).json({ error: 'Score and category are required' });
+    }
+
+    // Convert score to float
+    const rawScore = parseFloat(score);
+
+    // Set mean and standard deviation based on the category
+    let mean;
+    let stdDev;
+    switch (category.toLowerCase()) {
+        case 'verbal':
+            mean = 15;
+            stdDev = 3;
+            break;
+        case 'numerical':
+            mean = 18;
+            stdDev = 4;
+            break;
+        case 'abstract':
+            mean = 15;
+            stdDev = 3;
+            break;
+        case 'logical':
+            mean = 10;
+            stdDev = 2;
+            break;
+        default:
+            return res.status(400).json({ error: 'Invalid category' });
+    }
+
+    // Calculate IQ
+    const iq = calculateIQSpecific(rawScore, mean, stdDev);
+
+
+        return res.status(200).json({ iq });
 });
 
 app.post('/calculate-IQ-Specific-google', (req, res) => {
@@ -1640,9 +1737,9 @@ app.post('/calculate-IQ-Specific-google', (req, res) => {
 
     // Save the scores to the database
     const query = `INSERT INTO iq_scores_google (email, verbal_reasoning, numerical_reasoning, abstract_reasoning, logical, timestamp, iq) VALUES (?, ?, ?, ?, ?, ?, ?)`;
-    const timestamp = new Date().toISOString();
+    const timestamp = new Date().toLocaleString();
 
-    db.run(query, [email, scores.verbal_reasoning, scores.numerical_reasoning, scores.abstract_reasoning, scores.logical, timestamp, iq], function(err) {
+    db.run(query, [email, scores.verbal_reasoning, scores.numerical_reasoning, scores.abstract_reasoning, scores.logical_reasoning, timestamp, iq], function(err) {
         if (err) {
             console.error('Error inserting IQ scores:', err);
             return res.status(500).json({ error: 'Failed to save IQ scores' });
@@ -2100,6 +2197,80 @@ app.get('/attempted-categories-google/:email', (req, res) => {
 });
 
 
+// app.get('/user-iq-scores/:email', (req, res) => {
+//     const { email } = req.params;
+  
+//     const tableName = 'iq_scores';
+  
+//     const query = `SELECT verbal_reasoning, logical, numerical_reasoning, abstract_reasoning, iq, timestamp FROM ${tableName} WHERE email = ? ORDER BY id DESC`;
+  
+//     db.all(query, [email], (err, rows) => {
+//         if (err) {
+//             res.status(500).json({ error: err.message });
+//             return;
+//         }
+  
+//         if (rows.length === 0) {
+//             res.status(404).json({ error: 'User not found' });
+//             return;
+//         }
+  
+//         // Prepare arrays to store scores for averaging
+//         const verbalReasoningScores = [];
+//         const logicalScores = [];
+//         const numericalReasoningScores = [];
+//         const abstractReasoningScores = [];
+//         const iqScores = [];
+
+//         // Extract scores and IQ from rows
+//         rows.forEach(row => {
+//             verbalReasoningScores.push(row.verbal_reasoning || 0); // Default to zero if undefined
+//             logicalScores.push(row.logical || 0);
+//             numericalReasoningScores.push(row.numerical_reasoning || 0);
+//             abstractReasoningScores.push(row.abstract_reasoning || 0);
+//             iqScores.push(row.iq || 0);
+//         });
+
+//         // Calculate total scores
+//         const totalVerbalReasoning = verbalReasoningScores.reduce((acc, score) => acc + score, 0);
+//         const totalLogical = logicalScores.reduce((acc, score) => acc + score, 0);
+//         const totalNumericalReasoning = numericalReasoningScores.reduce((acc, score) => acc + score, 0);
+//         const totalAbstractReasoning = abstractReasoningScores.reduce((acc, score) => acc + score, 0);
+
+//         // Calculate average IQ
+//         const averageIq = iqScores.length > 0 ? iqScores.reduce((acc, iq) => acc + iq, 0) / iqScores.length : 0;
+        
+//         // Get the most recent IQ score
+//         const recentIq = rows[0].iq || 0; // Assuming the most recent score is the first row based on DESC order
+
+//         // Prepare average scores object
+//         const averageScores = {
+//             verbalReasoning: {
+//                 obtained: totalVerbalReasoning,
+//                 average: totalVerbalReasoning / verbalReasoningScores.length,
+//             },
+//             logical: {
+//                 obtained: totalLogical,
+//                 average: totalLogical / logicalScores.length,
+//             },
+//             numericalReasoning: {
+//                 obtained: totalNumericalReasoning,
+//                 average: totalNumericalReasoning / numericalReasoningScores.length,
+//             },
+//             abstractReasoning: {
+//                 obtained: totalAbstractReasoning,
+//                 average: totalAbstractReasoning / abstractReasoningScores.length,
+//             },
+//             count: iqScores.length,
+//         };
+
+//         // Adjust average if below minimum
+
+//         res.json({ iqScores, averageScores, averageIq, recentIq });
+//     });
+// });
+
+
 app.get('/user-iq-scores/:email', (req, res) => {
     const { email } = req.params;
   
@@ -2125,13 +2296,41 @@ app.get('/user-iq-scores/:email', (req, res) => {
         const abstractReasoningScores = [];
         const iqScores = [];
 
-        // Extract scores and IQ from rows
+        // Initialize an object to store specific category IQs
+        const specificCategoryIqList = {
+            verbal_reasoning: [],
+            logical: [],
+            numerical_reasoning: [],
+            abstract_reasoning: []
+        };
+
+        // Extract scores and IQ from rows and identify specific category IQs
         rows.forEach(row => {
             verbalReasoningScores.push(row.verbal_reasoning || 0); // Default to zero if undefined
             logicalScores.push(row.logical || 0);
             numericalReasoningScores.push(row.numerical_reasoning || 0);
             abstractReasoningScores.push(row.abstract_reasoning || 0);
             iqScores.push(row.iq || 0);
+
+            // Check for specific category IQ and add to the respective list if found
+            if (row.verbal_reasoning > 0 && row.logical === 0 && row.numerical_reasoning === 0 && row.abstract_reasoning === 0) {
+                specificCategoryIqList.verbal_reasoning.push({ score: row.verbal_reasoning, iq: row.iq });
+            } else if (row.verbal_reasoning === 0 && row.logical > 0 && row.numerical_reasoning === 0 && row.abstract_reasoning === 0) {
+                specificCategoryIqList.logical.push({ score: row.logical, iq: row.iq });
+            } else if (row.verbal_reasoning === 0 && row.logical === 0 && row.numerical_reasoning > 0 && row.abstract_reasoning === 0) {
+                specificCategoryIqList.numerical_reasoning.push({ score: row.numerical_reasoning, iq: row.iq });
+            } else if (row.verbal_reasoning === 0 && row.logical === 0 && row.numerical_reasoning === 0 && row.abstract_reasoning > 0) {
+                specificCategoryIqList.abstract_reasoning.push({ score: row.abstract_reasoning, iq: row.iq });
+            }
+        });
+
+        // Determine the highest IQ for each category
+        const specificCategoryIq = [];
+        Object.keys(specificCategoryIqList).forEach(category => {
+            if (specificCategoryIqList[category].length > 0) {
+                const maxIq = specificCategoryIqList[category].reduce((max, current) => current.iq > max.iq ? current : max, specificCategoryIqList[category][0]);
+                specificCategoryIq.push({ category, score: maxIq.score, iq: maxIq.iq });
+            }
         });
 
         // Calculate total scores
@@ -2145,33 +2344,37 @@ app.get('/user-iq-scores/:email', (req, res) => {
         
         // Get the most recent IQ score
         const recentIq = rows[0].iq || 0; // Assuming the most recent score is the first row based on DESC order
+        const topIq = Math.max(...iqScores);
+
 
         // Prepare average scores object
         const averageScores = {
             verbalReasoning: {
                 obtained: totalVerbalReasoning,
-                average: totalVerbalReasoning / verbalReasoningScores.length,
+                average: verbalReasoningScores.length > 0 ? totalVerbalReasoning / verbalReasoningScores.length : 0,
             },
             logical: {
                 obtained: totalLogical,
-                average: totalLogical / logicalScores.length,
+                average: logicalScores.length > 0 ? totalLogical / logicalScores.length : 0,
             },
             numericalReasoning: {
                 obtained: totalNumericalReasoning,
-                average: totalNumericalReasoning / numericalReasoningScores.length,
+                average: numericalReasoningScores.length > 0 ? totalNumericalReasoning / numericalReasoningScores.length : 0,
             },
             abstractReasoning: {
                 obtained: totalAbstractReasoning,
-                average: totalAbstractReasoning / abstractReasoningScores.length,
+                average: abstractReasoningScores.length > 0 ? totalAbstractReasoning / abstractReasoningScores.length : 0,
             },
             count: iqScores.length,
         };
 
-        // Adjust average if below minimum
+        const response = { iqScores, averageScores, averageIq, recentIq,topIq, specificCategoryIq };
 
-        res.json({ iqScores, averageScores, averageIq, recentIq });
+        res.json(response);
     });
 });
+
+
 
 
 

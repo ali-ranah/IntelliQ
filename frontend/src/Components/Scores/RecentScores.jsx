@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, FlatList, StyleSheet } from 'react-native';
+import { View, Text, ActivityIndicator, StyleSheet } from 'react-native';
 import { API_URL } from '../../../Api';
 import { styles } from '../../../theme';
+import Loading from '../../../LoadingScreen';
 
 const RecentScores = ({ route }) => {
   const [recentScore, setRecentScore] = useState(null);
+  const [timestamp, setTimeStamp] = useState(null);
+  const [loading, setLoading] = useState(true);
   const email = route.params ? route.params.email : 'No email provided';
   const name = route.params ? route.params.name : 'No name provided';
-  const [userName,setUserName] = useState(null);
+  const [userName, setUserName] = useState(null);
   const isGoogleSignedIn = route.params ? route.params.isGoogleSignedIn : 'Not Signed In';
 
   useEffect(() => {
@@ -17,9 +20,12 @@ const RecentScores = ({ route }) => {
         const response = await API_URL.get(endpoint);
         setRecentScore(response.data.score);
         setUserName(response.data.userName);
+        setTimeStamp(response.data.timestamp);
         console.log(response.data);
       } catch (error) {
         console.log('Error fetching recent score:', error);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -28,23 +34,23 @@ const RecentScores = ({ route }) => {
 
   return (
     <>
-    <View style={style.container}>
-    <View style={styles.content}>
-      <Text style={styles.title}>Recent Score</Text>
-      </View>
-      {recentScore !== null ? (
-            <View style={styles.questions_container}>
+      {loading ? (
+        <Loading/>
+      ) : recentScore !== null ? (
+        <View style={style.container}>
+     <Text style={style.title}>Recent IQ Scores</Text>
+     <View style={styles.content}>
         <View style={style.scoreItem}>
           <Text style={style.userName}>{userName}</Text>
           <Text style={style.score}>{recentScore}</Text>
+          <Text style={style.timestamp}>{timestamp}</Text>
         </View>
-                          </View>
+        </View>
+        </View>
       ) : (
-        <Text style={styles.container}>No Scores Found</Text>
-
+        <Text style={style.message}>No Scores Found</Text>
       )}
-      </View>
-      </>
+    </>
   );
 };
 
@@ -53,20 +59,21 @@ const style = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
-    justifyContent: 'flex-start',
+    justifyContent: 'center',
+    padding: 20,
   },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
+    color: "#fb5b5a",
     marginBottom: 20,
   },
   scoreItem: {
-    flexDirection: 'row',
+    flexDirection: 'column',
     justifyContent: 'space-between',
-    alignItems: 'center',
+    alignItems: 'flex-start',
     width: '100%',
     paddingVertical: 10,
-    paddingHorizontal: 20,
     borderBottomWidth: 1,
     borderBottomColor: '#ccc',
   },
@@ -78,6 +85,14 @@ const style = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     color: '#4CAF50',
+  },
+  timestamp: {
+    fontSize: 14,
+    color: '#888',
+  },
+  message: {
+    fontSize: 18,
+    color: '#888',
   },
 });
 

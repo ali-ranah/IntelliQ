@@ -20,7 +20,7 @@ const Test = ({ route }) => {
     }
 
     const handleGeneralTest = () => {
-        navigation.navigate('General',{ email,isGoogleSignedIn })
+        navigation.navigate('GeneralPractice',{ email,isGoogleSignedIn })
     }
 
 
@@ -54,7 +54,7 @@ const Test = ({ route }) => {
                     <Text style={styles.btn_text}>Start IQ Test</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.btn} onPress={handleGeneralTest}>
-                    <Text style={styles.btn_text}>Start General Test Practice</Text>
+                    <Text style={styles.btn_text}>Start IQ Test Practice</Text>
                 </TouchableOpacity>
             </View>
         </>
